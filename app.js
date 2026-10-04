@@ -120,13 +120,13 @@ function initEducationalTabs() {
 
             // Desactivar todos los botones
             tabButtons.forEach(btn => {
-                btn.classList.remove("bg-[#0F2C59]", "text-white", "shadow-md");
+                btn.classList.remove("bg-[#0B3B2C]", "bg-[#0F2C59]", "text-white", "shadow-md");
                 btn.classList.add("bg-white", "text-slate-700", "hover:bg-slate-100");
                 btn.setAttribute("aria-selected", "false");
             });
 
             // Activar botón seleccionado
-            button.classList.add("bg-[#0F2C59]", "text-white", "shadow-md");
+            button.classList.add("bg-[#0B3B2C]", "text-white", "shadow-md");
             button.classList.remove("bg-white", "text-slate-700", "hover:bg-slate-100");
             button.setAttribute("aria-selected", "true");
 

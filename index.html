@@ -371,47 +371,59 @@
             
             <div class="text-center max-w-3xl mx-auto mb-12 reveal-on-scroll opacity-0 translate-y-8">
                 <span class="text-xs font-bold uppercase tracking-wider text-[#0B3B2C] bg-emerald-100 px-3.5 py-1 rounded-full">
-                    Oferta Académica Integral
+                    Oferta Académica Institucional
                 </span>
                 <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0A192F] mt-3 tracking-tight">
                     Nuestras Modalidades de Estudio
                 </h2>
                 <p class="text-slate-600 text-sm sm:text-base mt-3">
-                    Explora los itinerarios formativos diseñados para potenciar el talento vocacional de cada estudiante sin etiquetas excluyentes:
+                    Acompañamiento continuo desde los primeros pasos hasta el bachillerato en un entorno seguro, justo y con espacios dignos:
                 </p>
             </div>
 
             <!-- Botones de Pestañas (Tabs) con Verde Institucional #0B3B2C -->
-            <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10 max-w-3xl mx-auto p-1.5 bg-slate-200/80 rounded-2xl">
-                <button type="button" class="tab-btn px-5 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 bg-[#0B3B2C] text-white shadow-md flex items-center gap-2" data-tab-target="tab-tecnico" aria-selected="true">
-                    <i data-lucide="cpu" class="w-4 h-4"></i>
-                    <span>Bachillerato Técnico</span>
+            <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-10 max-w-5xl mx-auto p-2 bg-slate-200/80 rounded-2xl">
+                <button type="button" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 bg-[#0B3B2C] text-white shadow-md flex items-center gap-2" data-tab-target="tab-inicial" aria-selected="true">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    <span>Educación Inicial (3-4 años)</span>
                 </button>
-                <button type="button" class="tab-btn px-5 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 bg-white text-slate-700 hover:bg-slate-100 flex items-center gap-2" data-tab-target="tab-ciencias" aria-selected="false">
+                <button type="button" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 bg-white text-slate-700 hover:bg-slate-100 flex items-center gap-2" data-tab-target="tab-preparatoria" aria-selected="false">
+                    <i data-lucide="smile" class="w-4 h-4"></i>
+                    <span>Preparatoria (5 años)</span>
+                </button>
+                <button type="button" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 bg-white text-slate-700 hover:bg-slate-100 flex items-center gap-2" data-tab-target="tab-elemental" aria-selected="false">
+                    <i data-lucide="book-open" class="w-4 h-4"></i>
+                    <span>EGB Elemental (2do a 4to)</span>
+                </button>
+                <button type="button" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 bg-white text-slate-700 hover:bg-slate-100 flex items-center gap-2" data-tab-target="tab-media" aria-selected="false">
+                    <i data-lucide="brain" class="w-4 h-4"></i>
+                    <span>EGB Media (5to a 7mo)</span>
+                </button>
+                <button type="button" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 bg-white text-slate-700 hover:bg-slate-100 flex items-center gap-2" data-tab-target="tab-superior" aria-selected="false">
+                    <i data-lucide="users" class="w-4 h-4"></i>
+                    <span>EGB Superior (8vo a 10mo)</span>
+                </button>
+                <button type="button" class="tab-btn px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 bg-white text-slate-700 hover:bg-slate-100 flex items-center gap-2" data-tab-target="tab-ciencias" aria-selected="false">
                     <i data-lucide="flask-conical" class="w-4 h-4"></i>
                     <span>Bachillerato en Ciencias</span>
-                </button>
-                <button type="button" class="tab-btn px-5 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 bg-white text-slate-700 hover:bg-slate-100 flex items-center gap-2" data-tab-target="tab-basica" aria-selected="false">
-                    <i data-lucide="book-open" class="w-4 h-4"></i>
-                    <span>EGB Superior (8vo - 10mo)</span>
                 </button>
             </div>
 
             <!-- Contenido de las Pestañas -->
             <div class="max-w-4xl mx-auto">
                 
-                <!-- TAB 1: Bachillerato Técnico -->
-                <div id="tab-tecnico" class="tab-panel bg-white p-7 sm:p-10 rounded-3xl border border-slate-200 shadow-xl">
+                <!-- TAB 1: Educación Inicial (3-4 años) -->
+                <div id="tab-inicial" class="tab-panel bg-white p-7 sm:p-10 rounded-3xl border border-slate-200 shadow-xl">
                     <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-100">
                         <div>
                             <span class="text-xs font-extrabold uppercase text-[#0B3B2C] bg-emerald-50 px-3 py-1 rounded-md border border-emerald-200 inline-block mb-2">
-                                Formación Aplicada & Emprendimiento
+                                Estimulación Temprana & Afecto
                             </span>
-                            <h3 class="text-2xl font-extrabold text-[#0A192F]">Bachillerato Técnico en Informática & Sistemas</h3>
-                            <p class="text-slate-500 text-sm mt-1">Especialidad productiva con proyección inmediata al mercado laboral y universitario.</p>
+                            <h3 class="text-2xl font-extrabold text-[#0A192F]">Educación Inicial (3 a 4 años)</h3>
+                            <p class="text-slate-500 text-sm mt-1">Primeros pasos en un entorno cálido, seguro, limpio y con acompañamiento lúdico integral.</p>
                         </div>
                         <span class="px-4 py-2 rounded-xl bg-emerald-50 text-[#0B3B2C] font-extrabold text-xs border border-emerald-200">
-                            Título con Validez Universitaria
+                            Subniveles Inicial 1 e Inicial 2
                         </span>
                     </div>
 
@@ -419,57 +431,57 @@
                         <div class="space-y-3">
                             <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
                                 <i data-lucide="check" class="w-4 h-4 text-emerald-600"></i>
-                                <span>Ventajas Diferenciales:</span>
+                                <span>Pilares de Acompañamiento:</span>
                             </h4>
                             <ul class="text-sm text-slate-600 space-y-2">
                                 <li class="flex items-start gap-2">
                                     <span class="text-emerald-600 font-bold">•</span>
-                                    <span>Talleres equipados con hardware actual y software formativo.</span>
+                                    <span>Desarrollo socioemocional, psicomotriz y del lenguaje mediante el juego guiado.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-emerald-600 font-bold">•</span>
-                                    <span>Proyectos reales de desarrollo web, redes y mantenimiento tecnológico.</span>
+                                    <span>Aulas adaptadas a escala infantil, higiénicas y con monitoreo continuo.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-emerald-600 font-bold">•</span>
-                                    <span>Módulo curricular de Emprendimiento Práctico con asesoría docente.</span>
+                                    <span>Docentes parvularias con profunda vocación y reporte diario de bienestar.</span>
                                 </li>
                             </ul>
                         </div>
 
                         <div class="space-y-3">
                             <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
-                                <i data-lucide="compass" class="w-4 h-4 text-[#0B3B2C]"></i>
-                                <span>Salidas y Oportunidades:</span>
+                                <i data-lucide="heart" class="w-4 h-4 text-[#0B3B2C]"></i>
+                                <span>Enfoque Pedagógico:</span>
                             </h4>
                             <p class="text-sm text-slate-600 leading-relaxed">
-                                El graduado de Agustín Cueva Dávila no solo está 100% facultado para ingresar a cualquier ingeniería universitaria, sino que posee habilidades de monetización temprana e inserción técnica en empresas de Imbabura.
+                                Fomentamos la autonomía, la socialización y la curiosidad natural del niño en un ambiente libre de tensiones, sembrando con ternura las bases del amor por el aprendizaje.
                             </p>
                         </div>
                     </div>
 
                     <div class="bg-slate-50 p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 border border-slate-200">
                         <div class="text-xs text-slate-700">
-                            <strong>¿Quieres ver los talleres de cómputo en persona?</strong> Agenda tu visita presencial antes de iniciar el periodo escolar.
+                            <strong>¿Quieres conocer las aulas lúdicas de Inicial?</strong> Agenda tu recorrido presencial de puertas abiertas.
                         </div>
                         <a href="#formulario-admision" class="px-5 py-2.5 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white text-xs font-bold transition-colors whitespace-nowrap shadow-sm">
-                            Postular a B. Técnico &rarr;
+                            Postular a Inicial &rarr;
                         </a>
                     </div>
                 </div>
 
-                <!-- TAB 2: Bachillerato en Ciencias -->
-                <div id="tab-ciencias" class="tab-panel hidden bg-white p-7 sm:p-10 rounded-3xl border border-slate-200 shadow-xl">
+                <!-- TAB 2: Preparatoria (5 años) -->
+                <div id="tab-preparatoria" class="tab-panel hidden bg-white p-7 sm:p-10 rounded-3xl border border-slate-200 shadow-xl">
                     <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-100">
                         <div>
                             <span class="text-xs font-extrabold uppercase text-[#0B3B2C] bg-emerald-50 px-3 py-1 rounded-md border border-emerald-200 inline-block mb-2">
-                                Rigor Académico & Pensamiento Crítico
+                                Aprestamiento & Transición Escolar
                             </span>
-                            <h3 class="text-2xl font-extrabold text-[#0A192F]">Bachillerato General Unificado en Ciencias</h3>
-                            <p class="text-slate-500 text-sm mt-1">Preparación intensiva para carreras universitarias de alta exigencia.</p>
+                            <h3 class="text-2xl font-extrabold text-[#0A192F]">Preparatoria (1er Grado de EGB • 5 años)</h3>
+                            <p class="text-slate-500 text-sm mt-1">El puente formativo entre el juego y la iniciación formal a la lectoescritura y números.</p>
                         </div>
                         <span class="px-4 py-2 rounded-xl bg-blue-50 text-blue-900 font-extrabold text-xs border border-blue-200">
-                            Enfoque Preuniversitario
+                            Primer Grado de Básica
                         </span>
                     </div>
 
@@ -477,20 +489,20 @@
                         <div class="space-y-3">
                             <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
                                 <i data-lucide="check" class="w-4 h-4 text-emerald-600"></i>
-                                <span>Pilares de la Especialidad:</span>
+                                <span>Pilares del Nivel:</span>
                             </h4>
                             <ul class="text-sm text-slate-600 space-y-2">
                                 <li class="flex items-start gap-2">
                                     <span class="text-emerald-600 font-bold">•</span>
-                                    <span>Laboratorios de Física, Química y Biología con instrumental funcional.</span>
+                                    <span>Iniciación vivencial a la lectoescritura, lateralidad y motricidad fina.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-emerald-600 font-bold">•</span>
-                                    <span>Entrenamiento constante en razonamiento lógico, matemático y verbal.</span>
+                                    <span>Formación en hábitos de orden, respeto mutuo, escucha activa y convivencia.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-emerald-600 font-bold">•</span>
-                                    <span>Metodología de debate e investigación que fomenta el criterio propio.</span>
+                                    <span>Espacios de recreo protegidos para salvaguardar a los más pequeños.</span>
                                 </li>
                             </ul>
                         </div>
@@ -498,33 +510,149 @@
                         <div class="space-y-3">
                             <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
                                 <i data-lucide="compass" class="w-4 h-4 text-[#0B3B2C]"></i>
-                                <span>Orientación Profesional:</span>
+                                <span>Desarrollo Integral:</span>
                             </h4>
                             <p class="text-sm text-slate-600 leading-relaxed">
-                                Diseñado para estudiantes con vocación hacia la medicina, el derecho, la economía, las ciencias exactas y la gestión pública con alta tasa de admisión en universidades públicas y privadas del Ecuador.
+                                Desarrollamos la confianza del estudiante para expresar sus ideas con claridad, asegurando que su paso a la básica elemental sea seguro, motivador y exitoso.
                             </p>
                         </div>
                     </div>
 
                     <div class="bg-slate-50 p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 border border-slate-200">
                         <div class="text-xs text-slate-700">
-                            <strong>Cupos regulados para mantener aulas de 25-30 alumnos.</strong> Asegura tu postulación con tiempo.
+                            <strong>Cupos regulados por aula.</strong> Garantizamos atención individualizada a cada niño.
                         </div>
                         <a href="#formulario-admision" class="px-5 py-2.5 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white text-xs font-bold transition-colors whitespace-nowrap shadow-sm">
-                            Postular a Ciencias &rarr;
+                            Postular a Preparatoria &rarr;
                         </a>
                     </div>
                 </div>
 
-                <!-- TAB 3: EGB Superior -->
-                <div id="tab-basica" class="tab-panel hidden bg-white p-7 sm:p-10 rounded-3xl border border-slate-200 shadow-xl">
+                <!-- TAB 3: EGB Elemental (2do a 4to de Básica) -->
+                <div id="tab-elemental" class="tab-panel hidden bg-white p-7 sm:p-10 rounded-3xl border border-slate-200 shadow-xl">
                     <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-100">
                         <div>
                             <span class="text-xs font-extrabold uppercase text-[#0B3B2C] bg-emerald-50 px-3 py-1 rounded-md border border-emerald-200 inline-block mb-2">
-                                Acompañamiento y Transición Segura
+                                Habilidades Básicas & Disciplina Positiva
                             </span>
-                            <h3 class="text-2xl font-extrabold text-[#0A192F]">Educación General Básica Superior (8vo, 9no y 10mo)</h3>
-                            <p class="text-slate-500 text-sm mt-1">La etapa crítica de crecimiento de los adolescentes en un ambiente de contención y valores.</p>
+                            <h3 class="text-2xl font-extrabold text-[#0A192F]">EGB Elemental (2do, 3ro y 4to de Básica)</h3>
+                            <p class="text-slate-500 text-sm mt-1">Consolidación de la lectura comprensiva, cálculo fundamental y valores cívicos.</p>
+                        </div>
+                        <span class="px-4 py-2 rounded-xl bg-amber-50 text-amber-900 font-extrabold text-xs border border-amber-200">
+                            Fundamentos Académicos
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="space-y-3">
+                            <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-600"></i>
+                                <span>Aspectos Clave:</span>
+                            </h4>
+                            <ul class="text-sm text-slate-600 space-y-2">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald-600 font-bold">•</span>
+                                    <span>Dominio de la lectura fluida, ortografía y resolución de problemas matemáticos.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald-600 font-bold">•</span>
+                                    <span>Inmersión temprana en inglés básico y aprendizaje de ciencias del entorno.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald-600 font-bold">•</span>
+                                    <span>Docentes tutores permanentes que detectan y refuerzan oportunamente cualquier vacío.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="space-y-3">
+                            <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                <i data-lucide="shield" class="w-4 h-4 text-[#0B3B2C]"></i>
+                                <span>Ambiente de Convivencia:</span>
+                            </h4>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                Enfatizamos la empatía, el cuidado de las pertenencias y la honestidad en el aula, creando un entorno protegido donde cada niño se siente valorado y seguro.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 border border-slate-200">
+                        <div class="text-xs text-slate-700">
+                            <strong>Aulas amplias, limpias y con luz natural.</strong> Conoce las instalaciones con tu hijo.
+                        </div>
+                        <a href="#formulario-admision" class="px-5 py-2.5 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white text-xs font-bold transition-colors whitespace-nowrap shadow-sm">
+                            Postular a Elemental &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- TAB 4: EGB Media (5to a 7mo de Básica) -->
+                <div id="tab-media" class="tab-panel hidden bg-white p-7 sm:p-10 rounded-3xl border border-slate-200 shadow-xl">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-100">
+                        <div>
+                            <span class="text-xs font-extrabold uppercase text-[#0B3B2C] bg-emerald-50 px-3 py-1 rounded-md border border-emerald-200 inline-block mb-2">
+                                Pensamiento Lógico & Autonomía
+                            </span>
+                            <h3 class="text-2xl font-extrabold text-[#0A192F]">EGB Media (5to, 6to y 7mo de Básica)</h3>
+                            <p class="text-slate-500 text-sm mt-1">Fortalecimiento del criterio propio, proyectos interdisciplinarios e investigación formativa.</p>
+                        </div>
+                        <span class="px-4 py-2 rounded-xl bg-indigo-50 text-indigo-900 font-extrabold text-xs border border-indigo-200">
+                            Criterio y Razonamiento
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="space-y-3">
+                            <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-600"></i>
+                                <span>Competencias Principales:</span>
+                            </h4>
+                            <ul class="text-sm text-slate-600 space-y-2">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald-600 font-bold">•</span>
+                                    <span>Razonamiento abstracto, operaciones combinadas y comprensión de textos complejos.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald-600 font-bold">•</span>
+                                    <span>Proyectos de investigación guiados en ciencias naturales y estudios sociales.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald-600 font-bold">•</span>
+                                    <span>Talleres de computación y cultura digital responsable.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="space-y-3">
+                            <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                <i data-lucide="award" class="w-4 h-4 text-[#0B3B2C]"></i>
+                                <span>Liderazgo y Deportes:</span>
+                            </h4>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                Canalizamos la energía de los estudiantes a través de competencias deportivas internas, clubes de arte y actividades colaborativas que fortalecen su autoestima y disciplina.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 border border-slate-200">
+                        <div class="text-xs text-slate-700">
+                            <strong>Acompañamiento psicopedagógico permanente.</strong> Seguimiento quincenal con las familias.
+                        </div>
+                        <a href="#formulario-admision" class="px-5 py-2.5 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white text-xs font-bold transition-colors whitespace-nowrap shadow-sm">
+                            Postular a Básica Media &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- TAB 5: EGB Superior (8vo a 10mo de Básica) -->
+                <div id="tab-superior" class="tab-panel hidden bg-white p-7 sm:p-10 rounded-3xl border border-slate-200 shadow-xl">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-100">
+                        <div>
+                            <span class="text-xs font-extrabold uppercase text-[#0B3B2C] bg-emerald-50 px-3 py-1 rounded-md border border-emerald-200 inline-block mb-2">
+                                Transición Crítica & Orientación
+                            </span>
+                            <h3 class="text-2xl font-extrabold text-[#0A192F]">EGB Superior (8vo, 9no y 10mo de Básica)</h3>
+                            <p class="text-slate-500 text-sm mt-1">La etapa crítica de crecimiento de los adolescentes en un ambiente de contención, valores y cero tolerancia al acoso.</p>
                         </div>
                         <span class="px-4 py-2 rounded-xl bg-purple-50 text-purple-800 font-extrabold text-xs border border-purple-200">
                             Cero Tolerancia al Bullying
@@ -535,20 +663,20 @@
                         <div class="space-y-3">
                             <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
                                 <i data-lucide="check" class="w-4 h-4 text-emerald-600"></i>
-                                <span>Protección y Formación:</span>
+                                <span>Protección y Rigor:</span>
                             </h4>
                             <ul class="text-sm text-slate-600 space-y-2">
                                 <li class="flex items-start gap-2">
                                     <span class="text-emerald-600 font-bold">•</span>
-                                    <span>Supervisión activa en patios y áreas comunes para erradicar la intimidación.</span>
+                                    <span>Supervisión activa en patios y pasillos para erradicar cualquier intimidación.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-emerald-600 font-bold">•</span>
-                                    <span>Tutoría psicopedagógica personalizada y seguimiento quincenal con padres.</span>
+                                    <span>Tutoría psicopedagógica cercana para guiar los cambios emocionales del adolescente.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
                                     <span class="text-emerald-600 font-bold">•</span>
-                                    <span>Clubes deportivos, culturales y artísticos que canalizan la energía juvenil.</span>
+                                    <span>Clubes de bastoneras, deportes y oratoria que canalizan el talento juvenil.</span>
                                 </li>
                             </ul>
                         </div>
@@ -556,10 +684,10 @@
                         <div class="space-y-3">
                             <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
                                 <i data-lucide="compass" class="w-4 h-4 text-[#0B3B2C]"></i>
-                                <span>Orientación Vocacional:</span>
+                                <span>Preparación para el Bachillerato:</span>
                             </h4>
                             <p class="text-sm text-slate-600 leading-relaxed">
-                                Guiamos al estudiante en 10mo de básica para que elija con madurez y convicción entre el Bachillerato Técnico o Ciencias, conociendo de cerca sus talentos y habilidades reales.
+                                Formamos alumnos con pensamiento crítico, hábitos de estudio consolidados y madurez para ingresar con éxito y seguridad al Bachillerato en Ciencias.
                             </p>
                         </div>
                     </div>
@@ -570,6 +698,64 @@
                         </div>
                         <a href="#formulario-admision" class="px-5 py-2.5 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white text-xs font-bold transition-colors whitespace-nowrap shadow-sm">
                             Postular a Básica Superior &rarr;
+                        </a>
+                    </div>
+                </div>
+
+                <!-- TAB 6: Bachillerato en Ciencias -->
+                <div id="tab-ciencias" class="tab-panel hidden bg-white p-7 sm:p-10 rounded-3xl border border-slate-200 shadow-xl">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-100">
+                        <div>
+                            <span class="text-xs font-extrabold uppercase text-[#0B3B2C] bg-emerald-50 px-3 py-1 rounded-md border border-emerald-200 inline-block mb-2">
+                                Rigor Preuniversitario & Pensamiento Científico
+                            </span>
+                            <h3 class="text-2xl font-extrabold text-[#0A192F]">Bachillerato General Unificado en Ciencias (1ro a 3ro BGU)</h3>
+                            <p class="text-slate-500 text-sm mt-1">Preparación intensiva para carreras universitarias de alta exigencia en el Ecuador y el extranjero.</p>
+                        </div>
+                        <span class="px-4 py-2 rounded-xl bg-blue-50 text-blue-900 font-extrabold text-xs border border-blue-200">
+                            Enfoque Preuniversitario
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="space-y-3">
+                            <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-emerald-600"></i>
+                                <span>Pilares de Excelencia:</span>
+                            </h4>
+                            <ul class="text-sm text-slate-600 space-y-2">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald-600 font-bold">•</span>
+                                    <span>Laboratorios de Física, Química y Biología con instrumental funcional y prácticas reales.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald-600 font-bold">•</span>
+                                    <span>Entrenamiento constante en razonamiento lógico, matemático, verbal y abstracto.</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald-600 font-bold">•</span>
+                                    <span>Metodología de debate, análisis de datos e investigación que fomenta el criterio propio.</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="space-y-3">
+                            <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+                                <i data-lucide="graduation-cap" class="w-4 h-4 text-[#0B3B2C]"></i>
+                                <span>Orientación Profesional:</span>
+                            </h4>
+                            <p class="text-sm text-slate-600 leading-relaxed">
+                                Diseñado para estudiantes con vocación hacia medicina, ingenierías, leyes, economía y ciencias exactas, con alta tasa de admisión en las mejores universidades del país.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 border border-slate-200">
+                        <div class="text-xs text-slate-700">
+                            <strong>Cupos regulados para mantener aulas de 25-30 alumnos.</strong> Asegura tu postulación con tiempo.
+                        </div>
+                        <a href="#formulario-admision" class="px-5 py-2.5 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white text-xs font-bold transition-colors whitespace-nowrap shadow-sm">
+                            Postular a BGU Ciencias &rarr;
                         </a>
                     </div>
                 </div>
