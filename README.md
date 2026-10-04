@@ -1,99 +1,88 @@
-# 🚀 Fase 2: Filtro MOFU & Captura en la Nube
-## Unidad Educativa Agustín Cueva Dávila (Ibarra, Ecuador)
-### Metodología: Vibe Coding (Modern Full Stack + Growth Hacking + UX)
+# 🚀 Landing Page Oficial de Admisiones
+## Unidad Educativa "Agustín Cueva Dávila" (Ibarra, Ecuador)
+### Identidad Visual Oficial: Verde Oscuro (`#0B3B2C`), Azul Marino (`#0A192F`) y Blanco Puro
 
-Este repositorio contiene la arquitectura completa de la **Landing Page de Conversión (Mobile-First)** para la Unidad Educativa "Agustín Cueva Dávila", construida a partir de los hallazgos de investigación de mercado de la **Fase 1 (Apify / Google Maps Reviews)** e integrada con **Supabase Cloud** y lista para despliegue en **Vercel**.
-
----
-
-## 📌 1. Insumos Estratégicos de la Fase 1
-
-- **Institución:** Unidad Educativa "Agustín Cueva Dávila" (Ibarra, Ecuador).
-- **Propuesta Única de Valor (PUV):**  
-  > *"En la Unidad Educativa 'Agustín Cueva Dávila', cada estudiante importa igual: el entorno es seguro, el trato es justo y el aprendizaje ocurre en espacios dignos."*
-- **Los 3 Core Pains Resueltos (Anti-Pain Web Architecture):**
-  1. **Inseguridad interna, robos y condiciones físicas deficientes:** Resuelto en la web con protocolos de control de acceso, presencia docente activa y cero impunidad.
-  2. **Discriminación hacia bachilleres técnicos:** Resuelto con equiparación de prestigio entre Bachillerato Técnico y Ciencias, talleres funcionales y proyección laboral.
-  3. **Infraestructura deteriorada como barrera educativa:** Resuelto con garantía de espacios limpios, remodelación continua y política de *Puertas Abiertas*.
+Esta Landing Page de conversión (Mobile-First) está diseñada para el proceso de admisiones de la Unidad Educativa "Agustín Cueva Dávila", con soporte completo para la inserción de fotografías reales de la institución y el logotipo oficial, conectada a **Supabase Cloud** y lista para despliegue en **Vercel**.
 
 ---
 
-## 🏗️ 2. Estructura del Proyecto
+## 🎨 1. Paleta de Colores Institucionales Oficial
+
+| Color | Código HEX | Rol en la Interfaz |
+|---|---|---|
+| **Verde Oscuro Institucional** | `#0B3B2C` / `#135D43` | Color primario de acción: Botones principales CTA, encabezados de confianza, bordes de seguridad y botón flotante. |
+| **Azul Marino Oscuro** | `#0A192F` / `#0F2C59` | Color base y estructural: Barra de navegación (Navbar), fondos oscuros del Hero y pie de página institucional. |
+| **Blanco Puro y Grises Suaves** | `#FFFFFF` / `#F8FAFC` | Fondos de alto contraste, tarjetas de contenido, inputs del formulario y contenedores de texto limpios. |
+| **Acento Dorado Académico** | `#F59E0B` / `#FCD34D` | Estrellas de valoración, sellos de calidad y laureles del emblema. |
+
+---
+
+## 🖼️ 2. Cómo Insertar tu Logotipo Oficial
+
+El proyecto ya cuenta con un escudo institucional en formato vectorial (`assets/logo-acd.svg`). Para colocar tu archivo PNG oficial:
+
+1. Guarda tu imagen de logotipo con el nombre:
+   `logo-acd.png`
+2. Cópiala dentro de la carpeta:
+   `assets/logo-acd.png` (o en la raíz del proyecto).
+3. La etiqueta `<img>` en `index.html` ya está programada para cargarlo automáticamente con fallback transparente:
+   ```html
+   <img 
+       src="assets/logo-acd.png" 
+       onerror="this.onerror=null; this.src='assets/logo-acd.svg';" 
+       alt="Unidad Educativa Agustín Cueva Dávila" 
+       class="h-11 sm:h-12 md:h-14 w-auto object-contain"
+   />
+   ```
+
+---
+
+## 📸 3. Dónde Subir las Fotografías Reales de la Institución
+
+La sección **"Nuestras Instalaciones"** cuenta con etiquetas comentadas tanto en el **carrusel interactivo** como en la **galería de tarjetas de alta inspección**.
+
+Simplemente copia tus fotos reales en la carpeta `assets/images/` (o en `images/`) reemplazando los siguientes nombres de archivo:
+
+| Archivo | Espacio del Colegio | Dolor que Resuelve (Fase 1) |
+|---|---|---|
+| `assets/images/fachada-colegio.jpg` | Fachada / Entrada Principal | **Cero Inseguridad Interna:** Muestra el control perimetral y accesos vigilados. |
+| `assets/images/aulas-laboratorios.jpg` | Aulas y Laboratorios Equipados | **Espacios Dignos:** Muestra salones iluminados, mobiliario ergonómico y limpieza. |
+| `assets/images/estadio-deportes.jpg` | Estadio / Áreas Recreativas / Bastoneras | **Vida Estudiantil:** Destaca las canchas múltiples y actividades deportivas reconocidas en Ibarra. |
+| `assets/images/actividades-tecnicas.jpg` | Talleres o Bachillerato Técnico | **Mismo Prestigio Académico:** Muestra las estaciones de cómputo, redes y proyectos productivos reales. |
+| `assets/images/bar-comedor.jpg` | Bar Escolar y Comedor | **Salud y Bienestar:** Demuestra higiene estricta y alimentos frescos, desactivando el dolor del bar descuidado. |
+
+---
+
+## 📁 4. Estructura de Archivos
 
 ```text
 landing-agustin-cueva/
-├── index.html            # Landing page mobile-first (Tailwind CSS, Hero PUV, Matriz de Dolores, RTB)
-├── config.js             # Configuración centralizada de Supabase y reglas MOFU
-├── supabase-client.js    # Cliente REST HTTPS para inserción segura de leads
-├── app.js                # Validación UX, dynamic qualification scoring y flujo WhatsApp
-├── vercel.json           # Configuración de producción para Vercel (Security headers, clean URLs)
-├── .env.example          # Plantilla de variables de entorno
+├── index.html            # Landing page con paleta oficial, logo y carrusel/galería comentada
+├── app.js                # Controlador UI (Tabs, Slider táctil, Reel Lightbox, Supabase MOFU)
+├── config.js             # Configuración centralizada de Supabase
+├── supabase-client.js    # Cliente REST HTTPS de inserción
+├── vercel.json           # Configuración de producción para Vercel
+├── assets/
+│   ├── logo-acd.svg      # Emblema oficial vectorial
+│   └── images/           # Carpeta para tus fotos reales
+│       ├── fachada-colegio.jpg
+│       ├── aulas-laboratorios.jpg
+│       ├── estadio-deportes.jpg
+│       ├── actividades-tecnicas.jpg
+│       └── bar-comedor.jpg
 └── supabase/
-    └── schema.sql        # DDL completo: Tabla 'leads', índices, RLS y vista analítica
+    └── schema.sql        # Script SQL completo de la tabla 'leads' y políticas RLS
 ```
 
 ---
 
-## 🗄️ 3. Configuración del Backend en Supabase
+## 🚀 5. Conexión con Supabase y Despliegue en Vercel
 
-1. Crea o ingresa a tu proyecto en [Supabase](https://supabase.com).
-2. Dirígete a la pestaña **SQL Editor**.
-3. Abre y copia el contenido del archivo `supabase/schema.sql` y ejecútalo (**Run**).
-4. El script creará:
-   - Tabla `public.leads` con los 6 campos requeridos (`full_name`, `email`, `whatsapp`, `company`, `estimated_budget`, `primary_pain`).
-   - Políticas de seguridad **Row Level Security (RLS)** que permiten inserción pública segura (`anon`) y lectura exclusiva para administradores autenticados.
-   - Índices de alto rendimiento y la vista `v_leads_mofu_metrics`.
-5. Ve a **Project Settings -> API** y copia:
-   - **Project URL** (ej: `https://xyzproject.supabase.co`)
-   - **Project API Keys -> `anon` / `public`**
-
----
-
-## ⚙️ 4. Conexión de Credenciales (2 Formas Sencillas)
-
-### Opción A: Desde la propia Landing Page (Sin tocar código)
-1. Abre `index.html` en tu navegador.
-2. Haz clic en el botón superior **"Supabase Config"**.
-3. Pega tu URL y anon key y presiona **"Guardar y Conectar"**.
-4. ¡Listo! Quedará guardado en tu navegador para todas las pruebas.
-
-### Opción B: En `config.js`
-Edita las primeras líneas de `config.js`:
-```javascript
-SUPABASE_URL: "https://tu-proyecto.supabase.co",
-SUPABASE_ANON_KEY: "tu-anon-key-aqui"
-```
-
----
-
-## 🚀 5. Despliegue en Vercel (Paso a Paso)
-
-### Vía GitHub (Recomendado):
-1. Inicializa el repositorio Git en la carpeta del proyecto:
-   ```powershell
-   git init
-   git add .
-   git commit -m "feat: Fase 2 Landing Page MOFU y conexion Supabase"
-   ```
-2. Crea un repositorio en GitHub (con tu cuenta conectada `marcelito-galy`) y sube el código:
+1. **Abrir en navegador:**
+   Doble clic en `index.html` para previsualizar la página de inmediato.
+2. **Conectar Supabase:**
+   Haz clic en el botón superior **"Supabase"**, pega tu Project URL y Anon Key y presiona **Guardar y Conectar**.
+3. **Subir a GitHub y Vercel:**
    ```powershell
    gh repo create landing-agustin-cueva --public --source=. --push
    ```
-3. Ingresa a [Vercel](https://vercel.com) e importa el repositorio `landing-agustin-cueva`.
-4. En la sección **Environment Variables**, añade:
-   - `SUPABASE_URL` = Tu URL de Supabase
-   - `SUPABASE_ANON_KEY` = Tu Anon Key de Supabase
-5. Haz clic en **Deploy**. ¡Tu landing estará en vivo bajo HTTPS en segundos!
-
----
-
-## 🎯 6. Mecanismo de Cualificación MOFU (Growth UX)
-
-El formulario clasifica automáticamente los prospectos en base al campo **Presupuesto Estimado**:
-
-| Rango Presupuestario | Clasificación MOFU | Acción Comercial |
-|---|---|---|
-| `Menor a $120 / mes` | `DISQUALIFIED` | Derivación a Comité de Beca Social (No satura admisiones) |
-| `$120 - $220 / mes` | `TIER_B` | Calificado Regular: Visita guiada estándar |
-| `$220 - $350 / mes` | `TIER_A` | Prioritario: Bachillerato Técnico / Avanzado |
-| `Más de $350 / mes` | `TIER_A+` | VIP: Admisión Inmediata y atención personalizada |
