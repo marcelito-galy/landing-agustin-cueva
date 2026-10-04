@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="320" height="80">
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B3B2C" />
+      <stop offset="50%" stop-color="#135D43" />
+      <stop offset="100%" stop-color="#0A192F" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCD34D" />
+      <stop offset="100%" stop-color="#F59E0B" />
+    </linearGradient>
+  </defs>
+
+  <!-- Escudo / Crest Institucional -->
+  <g transform="translate(10, 8)">
+    <!-- Contorno exterior -->
+    <path d="M 32 0 C 48 0, 64 8, 64 24 C 64 48, 32 62, 32 64 C 32 62, 0 48, 0 24 C 0 8, 16 0, 32 0 Z" fill="url(#shieldGrad)" stroke="url(#goldGrad)" stroke-width="2.5" />
+    
+    <!-- Antorcha / Llama del saber -->
+    <path d="M 32 12 Q 37 20 32 28 Q 27 20 32 12 Z" fill="url(#goldGrad)" />
+    <circle cx="32" cy="19" r="2.5" fill="#FFFFFF" />
+
+    <!-- Libro abierto / Sabiduría -->
+    <path d="M 22 36 Q 32 32 42 36 L 42 45 Q 32 41 22 45 Z" fill="#FFFFFF" opacity="0.9" />
+    <path d="M 32 34 L 32 44" stroke="#0B3B2C" stroke-width="1.2" />
+
+    <!-- Monograma ACD inferior -->
+    <text x="32" y="56" font-family="'Plus Jakarta Sans', sans-serif" font-size="9" font-weight="800" fill="url(#goldGrad)" text-anchor="middle" letter-spacing="1">ACD</text>
+  </g>
+
+  <!-- Tipografía Institucional -->
+  <g transform="translate(86, 26)">
+    <text x="0" y="0" font-family="'Plus Jakarta Sans', sans-serif" font-size="9.5" font-weight="700" fill="#10B981" letter-spacing="1.5">UNIDAD EDUCATIVA</text>
+    <text x="0" y="22" font-family="'Plus Jakarta Sans', sans-serif" font-size="18.5" font-weight="800" fill="#FFFFFF" letter-spacing="-0.5">Agustín Cueva Dávila</text>
+    <text x="0" y="38" font-family="'Plus Jakarta Sans', sans-serif" font-size="9" font-weight="500" fill="#94A3B8" letter-spacing="0.5">IBARRA • ECUADOR</text>
+  </g>
+</svg>

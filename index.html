@@ -15,13 +15,14 @@
                 extend: {
                     colors: {
                         brand: {
-                            navy: '#0F2C59',       // Azul Institucional Oficial
-                            primary: '#0F2C59',    // Dominante
-                            accent: '#1E56A0',     // Azul Brillante Institucional
-                            highlight: '#2563EB',  // Azul Eléctrico para interacción
-                            gold: '#F59E0B',       // Acento Dorado de Prestigio
-                            emerald: '#10B981',    // Seguridad y Certeza
-                            surface: '#F8FAFC',    // Fondo Neutro Limpio
+                            green: '#0B3B2C',       // Verde Oscuro Institucional Oficial (Principal / CTAs)
+                            greenHover: '#135D43',  // Verde Oscuro Interactivo
+                            greenLight: '#1B7A5A',  // Verde Acento Sutil
+                            navy: '#0A192F',        // Azul Marino Oscuro (Base estructural, Navbar, Footer)
+                            navyDeep: '#0F2C59',    // Azul Marino Institucional de fondo
+                            gold: '#F59E0B',        // Acento Dorado Académico
+                            surface: '#FFFFFF',     // Blanco Puro
+                            neutral: '#F8FAFC',     // Gris Suave de Fondo
                         }
                     },
                     fontFamily: {
@@ -52,71 +53,67 @@
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .hero-pattern {
-            background-color: #0F2C59;
-            background-image: radial-gradient(rgba(30, 86, 160, 0.25) 1px, transparent 1px);
-            background-size: 28px 28px;
+            background-color: #0A192F;
+            background-image: radial-gradient(rgba(11, 59, 44, 0.4) 1px, transparent 1px);
+            background-size: 26px 26px;
         }
         .text-glow {
-            text-shadow: 0 0 20px rgba(30, 86, 160, 0.35);
+            text-shadow: 0 0 25px rgba(16, 185, 129, 0.25);
         }
-        /* Ocultar barra de scroll en contenedores fluidos */
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased selection:bg-[#1E56A0] selection:text-white">
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-[#0B3B2C] selection:text-white">
 
     <!-- ========================================================================= -->
     <!-- 1. BARRA SUPERIOR DE ANUNCIO INSTITUCIONAL                                -->
     <!-- ========================================================================= -->
-    <aside aria-label="Aviso de Admisiones" class="bg-gradient-to-r from-[#0F2C59] via-[#1E56A0] to-[#0F2C59] text-white text-xs md:text-sm py-2 px-4 text-center font-medium border-b border-white/10 relative z-50">
+    <aside aria-label="Aviso de Admisiones" class="bg-gradient-to-r from-[#0A192F] via-[#0B3B2C] to-[#0A192F] text-white text-xs md:text-sm py-2 px-4 text-center font-medium border-b border-emerald-900/50 relative z-50">
         <div class="max-w-7xl mx-auto flex items-center justify-center gap-2">
             <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span><strong>Admisiones Abiertas Periodo 2026-2027</strong> | Cupos regulados por aula para garantizar seguridad integral y trato personalizado en Ibarra.</span>
+            <span><strong>Admisiones Abiertas Periodo 2026-2027</strong> | Cupos regulados por aula para garantizar seguridad integral, dignidad y trato personalizado en Ibarra.</span>
             <a href="#formulario-admision" class="underline hover:text-amber-300 font-bold ml-2 hidden sm:inline transition-colors">Postular cupo &rarr;</a>
         </div>
     </aside>
 
     <!-- ========================================================================= -->
-    <!-- 2. NAVEGACIÓN PRINCIPAL (BRANDING INSTITUCIONAL Y STICKY HEADER)           -->
+    <!-- 2. NAVEGACIÓN PRINCIPAL (AZUL MARINO #0A192F + LOGO OFICIAL ACD)          -->
     <!-- ========================================================================= -->
-    <header id="mainNavbar" class="sticky top-0 z-40 bg-[#0F2C59] text-white transition-all duration-300 py-4 border-b border-white/10 shadow-md">
+    <header id="mainNavbar" class="sticky top-0 z-40 bg-[#0A192F] text-white transition-all duration-300 py-3.5 border-b border-white/10 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between">
                 
-                <!-- Identidad Visual / Logotipo Tipográfico ACD -->
-                <a href="#" class="flex items-center gap-3 group">
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#1E56A0] to-blue-700 flex items-center justify-center text-white font-extrabold text-xl shadow-lg border border-blue-400/30 group-hover:scale-105 transition-transform duration-300">
-                        <span class="tracking-tighter">ACD</span>
-                    </div>
-                    <div>
-                        <span class="text-[10px] uppercase font-bold tracking-widest text-amber-400 block leading-tight">Unidad Educativa</span>
-                        <span class="text-base sm:text-lg md:text-xl font-extrabold tracking-tight text-white block leading-none">
-                            Agustín Cueva Dávila
-                        </span>
-                        <span class="text-[11px] text-slate-300 block font-normal">Ibarra • Imbabura • Ecuador</span>
-                    </div>
+                <!-- INTEGRACIÓN DEL LOGOTIPO OFICIAL INSTITUCIONAL -->
+                <a href="#" class="flex items-center gap-3.5 group">
+                    <!-- LOGO OFICIAL <img> CON FALLBACK AUTOMÁTICO A SVG -->
+                    <img 
+                        src="assets/logo-acd.png" 
+                        onerror="this.onerror=null; this.src='assets/logo-acd.svg';" 
+                        alt="Unidad Educativa Agustín Cueva Dávila - Logotipo Oficial" 
+                        class="h-11 sm:h-12 md:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                    />
                 </a>
 
                 <!-- Enlaces de Navegación Desktop -->
                 <nav class="hidden lg:flex items-center gap-7 font-medium text-sm text-slate-200">
-                    <a href="#propuesta" class="hover:text-amber-300 transition-colors flex items-center gap-1.5">
+                    <a href="#propuesta" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5">
                         <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
                         <span>La Propuesta</span>
                     </a>
-                    <a href="#dolores" class="hover:text-amber-300 transition-colors flex items-center gap-1.5">
+                    <a href="#dolores" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5">
                         <i data-lucide="scale" class="w-4 h-4 text-blue-300"></i>
                         <span>Diferencial de Mercado</span>
                     </a>
-                    <a href="#modalidades" class="hover:text-amber-300 transition-colors flex items-center gap-1.5">
-                        <i data-lucide="layers" class="w-4 h-4 text-indigo-300"></i>
+                    <a href="#modalidades" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5">
+                        <i data-lucide="layers" class="w-4 h-4 text-emerald-300"></i>
                         <span>Modalidades</span>
                     </a>
-                    <a href="#instalaciones" class="hover:text-amber-300 transition-colors flex items-center gap-1.5">
-                        <i data-lucide="camera" class="w-4 h-4 text-amber-300"></i>
+                    <a href="#instalaciones" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5">
+                        <i data-lucide="building-2" class="w-4 h-4 text-amber-300"></i>
                         <span>Instalaciones</span>
                     </a>
-                    <a href="#faq" class="hover:text-amber-300 transition-colors">Preguntas</a>
+                    <a href="#faq" class="hover:text-emerald-400 transition-colors">Preguntas</a>
                 </nav>
 
                 <!-- Acciones Rápidas -->
@@ -127,8 +124,8 @@
                         <span>Supabase</span>
                     </button>
 
-                    <!-- CTA Primario de Admisiones -->
-                    <a href="#formulario-admision" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#1E56A0] to-blue-600 hover:from-blue-600 hover:to-[#1E56A0] text-white font-bold text-sm shadow-md hover:shadow-blue-500/25 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 border border-blue-400/30 flex items-center gap-2">
+                    <!-- CTA Primario en Verde Oscuro Institucional (#0B3B2C) -->
+                    <a href="#formulario-admision" class="px-5 py-2.5 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white font-bold text-sm shadow-md hover:shadow-emerald-900/30 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 border border-emerald-500/40 flex items-center gap-2">
                         <span>Iniciar Admisión</span>
                         <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </a>
@@ -144,14 +141,14 @@
         </div>
 
         <!-- Menú Mobile Desplegable -->
-        <div id="mobileMenu" class="hidden lg:hidden bg-[#0F2C59] border-t border-white/10 px-4 pt-3 pb-6 space-y-3">
+        <div id="mobileMenu" class="hidden lg:hidden bg-[#0A192F] border-t border-white/10 px-4 pt-3 pb-6 space-y-3">
             <a href="#propuesta" class="block text-slate-200 font-medium py-2">La Propuesta</a>
             <a href="#dolores" class="block text-slate-200 font-medium py-2">Diferencial de Mercado</a>
             <a href="#modalidades" class="block text-slate-200 font-medium py-2">Modalidades Educativas</a>
-            <a href="#instalaciones" class="block text-slate-200 font-medium py-2">Instalaciones & Videos</a>
+            <a href="#instalaciones" class="block text-slate-200 font-medium py-2">Instalaciones & Fotos Reales</a>
             <a href="#faq" class="block text-slate-200 font-medium py-2">Preguntas Frecuentes</a>
             <div class="pt-3 border-t border-white/10 flex flex-col gap-2">
-                <a href="#formulario-admision" class="w-full text-center px-4 py-3 rounded-xl bg-[#1E56A0] text-white font-bold">
+                <a href="#formulario-admision" class="w-full text-center px-4 py-3 rounded-xl bg-[#0B3B2C] text-white font-bold">
                     Iniciar Admisión &rarr;
                 </a>
             </div>
@@ -159,17 +156,17 @@
     </header>
 
     <!-- ========================================================================= -->
-    <!-- 3. HERO SECTION (PUV CENTRIC, INSTITUTIONAL BLUE & HIGH CONTRAST)         -->
+    <!-- 3. HERO SECTION (AZUL MARINO #0A192F + DETALLES VERDE OSCURO #0B3B2C)      -->
     <!-- ========================================================================= -->
-    <section id="propuesta" class="relative hero-pattern text-white pt-14 pb-20 md:pt-24 md:pb-32 overflow-hidden border-b border-blue-900/40">
-        <!-- Resplandor sutil de fondo -->
-        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[650px] h-[350px] bg-blue-600/15 rounded-full blur-3xl pointer-events-none"></div>
+    <section id="propuesta" class="relative hero-pattern text-white pt-14 pb-20 md:pt-24 md:pb-32 overflow-hidden border-b border-emerald-950/60">
+        <!-- Resplandor sutil de fondo en verde esmeralda institucional -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[650px] h-[350px] bg-emerald-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center max-w-4xl mx-auto reveal-on-scroll opacity-0 translate-y-8 transition-all duration-700">
                 
-                <!-- Badge de Autoridad y Rigor -->
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-slate-200 text-xs md:text-sm font-semibold mb-6 backdrop-blur-md shadow-sm">
+                <!-- Badge de Autoridad -->
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0B3B2C]/80 border border-emerald-500/40 text-emerald-200 text-xs md:text-sm font-semibold mb-6 backdrop-blur-md shadow-sm">
                     <span class="flex h-2 w-2 relative">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
@@ -179,23 +176,23 @@
 
                 <!-- Título Principal de la PUV (Fase 1) -->
                 <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.12] mb-6 text-white text-glow">
-                    En la Unidad Educativa Agustín Cueva Dávila, <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-white to-blue-200">cada estudiante importa igual:</span> el entorno es seguro, el trato es justo y el aprendizaje ocurre en espacios dignos.
+                    En la Unidad Educativa Agustín Cueva Dávila, <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-amber-200 to-white">cada estudiante importa igual:</span> el entorno es seguro, el trato es justo y el aprendizaje ocurre en espacios dignos.
                 </h1>
 
                 <!-- Subtítulo de Conversión -->
                 <p class="text-base sm:text-lg md:text-xl text-slate-200 max-w-3xl mx-auto mb-10 leading-relaxed font-light">
-                    Rompemos con las quejas históricas del mercado educativo en Ibarra: blindamos a tu familia con protocolos estrictos contra robos, valoramos el <strong>Bachillerato Técnico</strong> con el mismo prestigio que Ciencias, y garantizamos instalaciones higiénicas y renovadas.
+                    Rompemos con las quejas históricas del mercado escolar en Ibarra: blindamos a tu familia con protocolos estrictos contra robos, valoramos el <strong>Bachillerato Técnico</strong> con el mismo prestigio que Ciencias, y garantizamos instalaciones higiénicas y renovadas.
                 </p>
 
-                <!-- CTAs Principales -->
+                <!-- CTAs Principales con Verde Oscuro #0B3B2C -->
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-                    <a href="#formulario-admision" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-[#1E56A0] via-blue-600 to-indigo-600 hover:from-blue-600 hover:to-[#1E56A0] text-white font-extrabold text-base shadow-xl hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5 border border-blue-400/40 flex items-center justify-center gap-2.5">
+                    <a href="#formulario-admision" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white font-extrabold text-base shadow-xl hover:shadow-emerald-950/40 transition-all duration-300 transform hover:-translate-y-0.5 border border-emerald-500/50 flex items-center justify-center gap-2.5">
                         <i data-lucide="file-check-2" class="w-5 h-5 text-amber-300"></i>
                         <span>Agenda tu Visita / Inicia tu Admisión</span>
                     </a>
 
                     <button type="button" class="open-video-btn w-full sm:w-auto px-7 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-base border border-white/25 backdrop-blur-md transition-all flex items-center justify-center gap-2.5 group" data-video-type="reel_30s">
-                        <div class="w-7 h-7 rounded-full bg-white text-[#0F2C59] flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <div class="w-7 h-7 rounded-full bg-white text-[#0B3B2C] flex items-center justify-center group-hover:scale-110 transition-transform">
                             <i data-lucide="play" class="w-3.5 h-3.5 fill-current ml-0.5"></i>
                         </div>
                         <span>Ver Spot Institucional (30s)</span>
@@ -228,8 +225,8 @@
                         <p class="text-xs text-slate-300 mt-1">Aulas limpias, talleres activos y mantenimiento regular.</p>
                     </div>
 
-                    <div class="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:border-indigo-400/50 transition-all group">
-                        <div class="w-10 h-10 rounded-xl bg-indigo-500/20 text-indigo-300 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                    <div class="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15 hover:border-emerald-400/50 transition-all group">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                             <i data-lucide="users" class="w-5 h-5"></i>
                         </div>
                         <h4 class="font-bold text-white text-sm">Docentes Cercanos</h4>
@@ -248,11 +245,11 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <div class="max-w-3xl mx-auto text-center mb-16 reveal-on-scroll opacity-0 translate-y-8 transition-all duration-700">
-                <span class="text-xs font-bold uppercase tracking-wider text-rose-700 bg-rose-50 px-3.5 py-1 rounded-full border border-rose-200 inline-flex items-center gap-1.5">
-                    <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-rose-600"></i>
+                <span class="text-xs font-bold uppercase tracking-wider text-[#0B3B2C] bg-emerald-50 px-3.5 py-1 rounded-full border border-emerald-200 inline-flex items-center gap-1.5">
+                    <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-amber-600"></i>
                     <span>Investigación de Mercado (Fase 1) • Solución a Dolores Reales</span>
                 </span>
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0F2C59] mt-4 tracking-tight">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0A192F] mt-4 tracking-tight">
                     Lo que las familias padecen en el mercado escolar vs. Nuestra respuesta garantizada
                 </h2>
                 <p class="text-slate-600 text-sm sm:text-base mt-4 leading-relaxed">
@@ -264,7 +261,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 
                 <!-- PAIN 1: Inseguridad y Desaseo -->
-                <div class="rounded-3xl border border-slate-200 bg-slate-50/70 p-7 flex flex-col justify-between hover:shadow-xl hover:border-blue-400 transition-all duration-300 group reveal-on-scroll opacity-0 translate-y-8">
+                <div class="rounded-3xl border border-slate-200 bg-slate-50/70 p-7 flex flex-col justify-between hover:shadow-xl hover:border-emerald-500 transition-all duration-300 group reveal-on-scroll opacity-0 translate-y-8">
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <span class="bg-rose-100 text-rose-800 text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-lg border border-rose-200">
@@ -281,7 +278,7 @@
                             <span class="text-[10px] text-rose-600 font-semibold mt-1 block">— Queja pública en competidor tradicional de Ibarra</span>
                         </div>
 
-                        <h3 class="text-lg font-bold text-[#0F2C59] mb-3 flex items-center gap-2">
+                        <h3 class="text-lg font-bold text-[#0A192F] mb-3 flex items-center gap-2">
                             <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-600 flex-shrink-0"></i>
                             <span>Respuesta Agustín Cueva Dávila:</span>
                         </h3>
@@ -290,14 +287,14 @@
                         </p>
                     </div>
 
-                    <div class="mt-6 pt-4 border-t border-slate-200 flex items-center gap-2 text-xs font-bold text-emerald-700">
-                        <i data-lucide="shield-alert" class="w-4 h-4"></i>
+                    <div class="mt-6 pt-4 border-t border-slate-200 flex items-center gap-2 text-xs font-bold text-[#0B3B2C]">
+                        <i data-lucide="shield-alert" class="w-4 h-4 text-emerald-600"></i>
                         <span>Ambiente protegido, digno y supervisado</span>
                     </div>
                 </div>
 
                 <!-- PAIN 2: Discriminación a Bachilleres Técnicos -->
-                <div class="rounded-3xl border border-slate-200 bg-slate-50/70 p-7 flex flex-col justify-between hover:shadow-xl hover:border-blue-400 transition-all duration-300 group reveal-on-scroll opacity-0 translate-y-8">
+                <div class="rounded-3xl border border-slate-200 bg-slate-50/70 p-7 flex flex-col justify-between hover:shadow-xl hover:border-emerald-500 transition-all duration-300 group reveal-on-scroll opacity-0 translate-y-8">
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <span class="bg-rose-100 text-rose-800 text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-lg border border-rose-200">
@@ -314,7 +311,7 @@
                             <span class="text-[10px] text-rose-600 font-semibold mt-1 block">— Queja pública de exalumno técnico</span>
                         </div>
 
-                        <h3 class="text-lg font-bold text-[#0F2C59] mb-3 flex items-center gap-2">
+                        <h3 class="text-lg font-bold text-[#0A192F] mb-3 flex items-center gap-2">
                             <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-600 flex-shrink-0"></i>
                             <span>Respuesta Agustín Cueva Dávila:</span>
                         </h3>
@@ -323,14 +320,14 @@
                         </p>
                     </div>
 
-                    <div class="mt-6 pt-4 border-t border-slate-200 flex items-center gap-2 text-xs font-bold text-emerald-700">
-                        <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+                    <div class="mt-6 pt-4 border-t border-slate-200 flex items-center gap-2 text-xs font-bold text-[#0B3B2C]">
+                        <i data-lucide="graduation-cap" class="w-4 h-4 text-emerald-600"></i>
                         <span>Equidad educativa sin excepciones</span>
                     </div>
                 </div>
 
                 <!-- PAIN 3: Deterioro y Riesgos de Alimentación -->
-                <div class="rounded-3xl border border-slate-200 bg-slate-50/70 p-7 flex flex-col justify-between hover:shadow-xl hover:border-blue-400 transition-all duration-300 group reveal-on-scroll opacity-0 translate-y-8">
+                <div class="rounded-3xl border border-slate-200 bg-slate-50/70 p-7 flex flex-col justify-between hover:shadow-xl hover:border-emerald-500 transition-all duration-300 group reveal-on-scroll opacity-0 translate-y-8">
                     <div>
                         <div class="flex items-center justify-between mb-4">
                             <span class="bg-amber-100 text-amber-900 text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-lg border border-amber-200">
@@ -347,17 +344,17 @@
                             <span class="text-[10px] text-amber-700 font-semibold mt-1 block">— Quejas públicas sobre infraestructura y bar</span>
                         </div>
 
-                        <h3 class="text-lg font-bold text-[#0F2C59] mb-3 flex items-center gap-2">
+                        <h3 class="text-lg font-bold text-[#0A192F] mb-3 flex items-center gap-2">
                             <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-600 flex-shrink-0"></i>
                             <span>Respuesta Agustín Cueva Dávila:</span>
                         </h3>
                         <p class="text-slate-600 text-sm leading-relaxed">
-                            Mantenimiento continuo y preventivo de aulas, canchas e instalaciones sanitarias. Nuestro servicio de bar escolar está estrictamente supervisado bajo normas bromatológicas y de higiene para proteger la salud de tus hijos día a día.
+                            Mantenimiento continuo y preventivo de aulas, canchas e instalaciones sanitarias. Nuestro servicio de bar escolar está estrictamente supervisado bajo normas de higiene para proteger la salud de tus hijos día a día.
                         </p>
                     </div>
 
-                    <div class="mt-6 pt-4 border-t border-slate-200 flex items-center gap-2 text-xs font-bold text-emerald-700">
-                        <i data-lucide="sparkles" class="w-4 h-4"></i>
+                    <div class="mt-6 pt-4 border-t border-slate-200 flex items-center gap-2 text-xs font-bold text-[#0B3B2C]">
+                        <i data-lucide="sparkles" class="w-4 h-4 text-emerald-600"></i>
                         <span>Espacios higiénicos, limpios e inspiradores</span>
                     </div>
                 </div>
@@ -373,10 +370,10 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <div class="text-center max-w-3xl mx-auto mb-12 reveal-on-scroll opacity-0 translate-y-8">
-                <span class="text-xs font-bold uppercase tracking-wider text-[#1E56A0] bg-blue-100 px-3.5 py-1 rounded-full">
+                <span class="text-xs font-bold uppercase tracking-wider text-[#0B3B2C] bg-emerald-100 px-3.5 py-1 rounded-full">
                     Oferta Académica Integral
                 </span>
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0F2C59] mt-3 tracking-tight">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0A192F] mt-3 tracking-tight">
                     Nuestras Modalidades de Estudio
                 </h2>
                 <p class="text-slate-600 text-sm sm:text-base mt-3">
@@ -384,9 +381,9 @@
                 </p>
             </div>
 
-            <!-- Botones de Pestañas (Tabs) -->
-            <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10 max-w-3xl mx-auto p-1.5 bg-slate-200/70 rounded-2xl">
-                <button type="button" class="tab-btn px-5 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 bg-[#0F2C59] text-white shadow-md flex items-center gap-2" data-tab-target="tab-tecnico" aria-selected="true">
+            <!-- Botones de Pestañas (Tabs) con Verde Institucional #0B3B2C -->
+            <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10 max-w-3xl mx-auto p-1.5 bg-slate-200/80 rounded-2xl">
+                <button type="button" class="tab-btn px-5 py-3 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 bg-[#0B3B2C] text-white shadow-md flex items-center gap-2" data-tab-target="tab-tecnico" aria-selected="true">
                     <i data-lucide="cpu" class="w-4 h-4"></i>
                     <span>Bachillerato Técnico</span>
                 </button>
@@ -407,13 +404,13 @@
                 <div id="tab-tecnico" class="tab-panel bg-white p-7 sm:p-10 rounded-3xl border border-slate-200 shadow-xl">
                     <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-100">
                         <div>
-                            <span class="text-xs font-extrabold uppercase text-amber-600 bg-amber-50 px-3 py-1 rounded-md border border-amber-200 inline-block mb-2">
+                            <span class="text-xs font-extrabold uppercase text-[#0B3B2C] bg-emerald-50 px-3 py-1 rounded-md border border-emerald-200 inline-block mb-2">
                                 Formación Aplicada & Emprendimiento
                             </span>
-                            <h3 class="text-2xl font-extrabold text-[#0F2C59]">Bachillerato Técnico en Informática & Sistemas</h3>
+                            <h3 class="text-2xl font-extrabold text-[#0A192F]">Bachillerato Técnico en Informática & Sistemas</h3>
                             <p class="text-slate-500 text-sm mt-1">Especialidad productiva con proyección inmediata al mercado laboral y universitario.</p>
                         </div>
-                        <span class="px-4 py-2 rounded-xl bg-blue-50 text-[#1E56A0] font-extrabold text-xs border border-blue-200">
+                        <span class="px-4 py-2 rounded-xl bg-emerald-50 text-[#0B3B2C] font-extrabold text-xs border border-emerald-200">
                             Título con Validez Universitaria
                         </span>
                     </div>
@@ -426,15 +423,15 @@
                             </h4>
                             <ul class="text-sm text-slate-600 space-y-2">
                                 <li class="flex items-start gap-2">
-                                    <span class="text-emerald-500 font-bold">•</span>
-                                    <span>Talleres equipados con hardware actual y licencias de software formativo.</span>
+                                    <span class="text-emerald-600 font-bold">•</span>
+                                    <span>Talleres equipados con hardware actual y software formativo.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
-                                    <span class="text-emerald-500 font-bold">•</span>
+                                    <span class="text-emerald-600 font-bold">•</span>
                                     <span>Proyectos reales de desarrollo web, redes y mantenimiento tecnológico.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
-                                    <span class="text-emerald-500 font-bold">•</span>
+                                    <span class="text-emerald-600 font-bold">•</span>
                                     <span>Módulo curricular de Emprendimiento Práctico con asesoría docente.</span>
                                 </li>
                             </ul>
@@ -442,7 +439,7 @@
 
                         <div class="space-y-3">
                             <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
-                                <i data-lucide="compass" class="w-4 h-4 text-[#1E56A0]"></i>
+                                <i data-lucide="compass" class="w-4 h-4 text-[#0B3B2C]"></i>
                                 <span>Salidas y Oportunidades:</span>
                             </h4>
                             <p class="text-sm text-slate-600 leading-relaxed">
@@ -451,11 +448,11 @@
                         </div>
                     </div>
 
-                    <div class="bg-blue-50/70 p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="bg-slate-50 p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 border border-slate-200">
                         <div class="text-xs text-slate-700">
                             <strong>¿Quieres ver los talleres de cómputo en persona?</strong> Agenda tu visita presencial antes de iniciar el periodo escolar.
                         </div>
-                        <a href="#formulario-admision" class="px-5 py-2.5 rounded-xl bg-[#0F2C59] hover:bg-[#1E56A0] text-white text-xs font-bold transition-colors whitespace-nowrap">
+                        <a href="#formulario-admision" class="px-5 py-2.5 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white text-xs font-bold transition-colors whitespace-nowrap shadow-sm">
                             Postular a B. Técnico &rarr;
                         </a>
                     </div>
@@ -465,13 +462,13 @@
                 <div id="tab-ciencias" class="tab-panel hidden bg-white p-7 sm:p-10 rounded-3xl border border-slate-200 shadow-xl">
                     <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-100">
                         <div>
-                            <span class="text-xs font-extrabold uppercase text-blue-600 bg-blue-50 px-3 py-1 rounded-md border border-blue-200 inline-block mb-2">
+                            <span class="text-xs font-extrabold uppercase text-[#0B3B2C] bg-emerald-50 px-3 py-1 rounded-md border border-emerald-200 inline-block mb-2">
                                 Rigor Académico & Pensamiento Crítico
                             </span>
-                            <h3 class="text-2xl font-extrabold text-[#0F2C59]">Bachillerato General Unificado en Ciencias</h3>
+                            <h3 class="text-2xl font-extrabold text-[#0A192F]">Bachillerato General Unificado en Ciencias</h3>
                             <p class="text-slate-500 text-sm mt-1">Preparación intensiva para carreras universitarias de alta exigencia.</p>
                         </div>
-                        <span class="px-4 py-2 rounded-xl bg-emerald-50 text-emerald-800 font-extrabold text-xs border border-emerald-200">
+                        <span class="px-4 py-2 rounded-xl bg-blue-50 text-blue-900 font-extrabold text-xs border border-blue-200">
                             Enfoque Preuniversitario
                         </span>
                     </div>
@@ -484,15 +481,15 @@
                             </h4>
                             <ul class="text-sm text-slate-600 space-y-2">
                                 <li class="flex items-start gap-2">
-                                    <span class="text-emerald-500 font-bold">•</span>
+                                    <span class="text-emerald-600 font-bold">•</span>
                                     <span>Laboratorios de Física, Química y Biología con instrumental funcional.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
-                                    <span class="text-emerald-500 font-bold">•</span>
+                                    <span class="text-emerald-600 font-bold">•</span>
                                     <span>Entrenamiento constante en razonamiento lógico, matemático y verbal.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
-                                    <span class="text-emerald-500 font-bold">•</span>
+                                    <span class="text-emerald-600 font-bold">•</span>
                                     <span>Metodología de debate e investigación que fomenta el criterio propio.</span>
                                 </li>
                             </ul>
@@ -500,7 +497,7 @@
 
                         <div class="space-y-3">
                             <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
-                                <i data-lucide="compass" class="w-4 h-4 text-[#1E56A0]"></i>
+                                <i data-lucide="compass" class="w-4 h-4 text-[#0B3B2C]"></i>
                                 <span>Orientación Profesional:</span>
                             </h4>
                             <p class="text-sm text-slate-600 leading-relaxed">
@@ -509,11 +506,11 @@
                         </div>
                     </div>
 
-                    <div class="bg-blue-50/70 p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="bg-slate-50 p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 border border-slate-200">
                         <div class="text-xs text-slate-700">
                             <strong>Cupos regulados para mantener aulas de 25-30 alumnos.</strong> Asegura tu postulación con tiempo.
                         </div>
-                        <a href="#formulario-admision" class="px-5 py-2.5 rounded-xl bg-[#0F2C59] hover:bg-[#1E56A0] text-white text-xs font-bold transition-colors whitespace-nowrap">
+                        <a href="#formulario-admision" class="px-5 py-2.5 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white text-xs font-bold transition-colors whitespace-nowrap shadow-sm">
                             Postular a Ciencias &rarr;
                         </a>
                     </div>
@@ -523,10 +520,10 @@
                 <div id="tab-basica" class="tab-panel hidden bg-white p-7 sm:p-10 rounded-3xl border border-slate-200 shadow-xl">
                     <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-100">
                         <div>
-                            <span class="text-xs font-extrabold uppercase text-emerald-600 bg-emerald-50 px-3 py-1 rounded-md border border-emerald-200 inline-block mb-2">
+                            <span class="text-xs font-extrabold uppercase text-[#0B3B2C] bg-emerald-50 px-3 py-1 rounded-md border border-emerald-200 inline-block mb-2">
                                 Acompañamiento y Transición Segura
                             </span>
-                            <h3 class="text-2xl font-extrabold text-[#0F2C59]">Educación General Básica Superior (8vo, 9no y 10mo)</h3>
+                            <h3 class="text-2xl font-extrabold text-[#0A192F]">Educación General Básica Superior (8vo, 9no y 10mo)</h3>
                             <p class="text-slate-500 text-sm mt-1">La etapa crítica de crecimiento de los adolescentes en un ambiente de contención y valores.</p>
                         </div>
                         <span class="px-4 py-2 rounded-xl bg-purple-50 text-purple-800 font-extrabold text-xs border border-purple-200">
@@ -542,15 +539,15 @@
                             </h4>
                             <ul class="text-sm text-slate-600 space-y-2">
                                 <li class="flex items-start gap-2">
-                                    <span class="text-emerald-500 font-bold">•</span>
+                                    <span class="text-emerald-600 font-bold">•</span>
                                     <span>Supervisión activa en patios y áreas comunes para erradicar la intimidación.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
-                                    <span class="text-emerald-500 font-bold">•</span>
+                                    <span class="text-emerald-600 font-bold">•</span>
                                     <span>Tutoría psicopedagógica personalizada y seguimiento quincenal con padres.</span>
                                 </li>
                                 <li class="flex items-start gap-2">
-                                    <span class="text-emerald-500 font-bold">•</span>
+                                    <span class="text-emerald-600 font-bold">•</span>
                                     <span>Clubes deportivos, culturales y artísticos que canalizan la energía juvenil.</span>
                                 </li>
                             </ul>
@@ -558,7 +555,7 @@
 
                         <div class="space-y-3">
                             <h4 class="font-bold text-slate-900 text-sm flex items-center gap-2">
-                                <i data-lucide="compass" class="w-4 h-4 text-[#1E56A0]"></i>
+                                <i data-lucide="compass" class="w-4 h-4 text-[#0B3B2C]"></i>
                                 <span>Orientación Vocacional:</span>
                             </h4>
                             <p class="text-sm text-slate-600 leading-relaxed">
@@ -567,11 +564,11 @@
                         </div>
                     </div>
 
-                    <div class="bg-blue-50/70 p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="bg-slate-50 p-5 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-4 border border-slate-200">
                         <div class="text-xs text-slate-700">
                             <strong>Proceso de adaptación guiado para nuevos estudiantes.</strong> Agenda tu entrevista con orientación vocacional.
                         </div>
-                        <a href="#formulario-admision" class="px-5 py-2.5 rounded-xl bg-[#0F2C59] hover:bg-[#1E56A0] text-white text-xs font-bold transition-colors whitespace-nowrap">
+                        <a href="#formulario-admision" class="px-5 py-2.5 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white text-xs font-bold transition-colors whitespace-nowrap shadow-sm">
                             Postular a Básica Superior &rarr;
                         </a>
                     </div>
@@ -582,86 +579,99 @@
     </section>
 
     <!-- ========================================================================= -->
-    <!-- 6. CARRUSEL MULTIMEDIA INTERACTIVO (SLIDER DE INSTALACIONES Y REELS)      -->
+    <!-- 6. NUESTRAS INSTALACIONES: CARRUSEL Y GALERÍA CON FOTOS REALES            -->
     <!-- ========================================================================= -->
     <section id="instalaciones" class="py-16 md:py-24 bg-white border-b border-slate-200 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 reveal-on-scroll opacity-0 translate-y-8">
                 <div class="max-w-2xl">
-                    <span class="text-xs font-bold uppercase tracking-wider text-[#1E56A0] bg-blue-100 px-3.5 py-1 rounded-full inline-block mb-3">
+                    <span class="text-xs font-bold uppercase tracking-wider text-[#0B3B2C] bg-emerald-100 px-3.5 py-1 rounded-full inline-block mb-3">
                         Transparencia Visual • Espacios Dignos
                     </span>
-                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0F2C59] tracking-tight">
-                        Nuestras Instalaciones por Dentro
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0A192F] tracking-tight">
+                        Nuestras Instalaciones en Ibarra
                     </h2>
                     <p class="text-slate-600 text-sm sm:text-base mt-2">
-                        Desliza para conocer los ambientes reales donde estudian nuestros alumnos. Sin retoques engañosos, listos para tu visita presencial:
+                        Fotografías de nuestros espacios físicos reales. Cada área está diseñada para garantizar seguridad, pulcritud y el desarrollo pleno de los estudiantes:
                     </p>
                 </div>
 
                 <!-- Botón para ver video reel -->
                 <div>
-                    <button type="button" class="open-video-btn px-5 py-3 rounded-xl bg-[#0F2C59] hover:bg-[#1E56A0] text-white font-bold text-xs sm:text-sm flex items-center gap-2 transition-colors shadow-md group" data-video-type="tour_reels">
+                    <button type="button" class="open-video-btn px-5 py-3 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white font-bold text-xs sm:text-sm flex items-center gap-2 transition-colors shadow-md group border border-emerald-500/30" data-video-type="tour_reels">
                         <i data-lucide="film" class="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform"></i>
                         <span>Reproducir Reel Institucional (30s)</span>
                     </button>
                 </div>
             </div>
 
-            <!-- CONTENEDOR DEL SLIDER INTERACTIVO -->
-            <div id="sliderContainer" class="relative max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-900 group">
+            <!-- PARTE A: CARRUSEL MULTIMEDIA DINÁMICO (SLIDER) -->
+            <div id="sliderContainer" class="relative max-w-5xl mx-auto rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-900 group mb-14">
                 
-                <!-- Track de Diapositivas -->
                 <div id="sliderTrack" class="flex transition-transform duration-500 ease-out will-change-transform">
                     
-                    <!-- SLIDE 1: Aulas Renovadas -->
+                    <!-- SLIDE 1: Fachada / Entrada Principal -->
                     <div class="slider-slide min-w-full relative aspect-[16/9] sm:aspect-[21/9] bg-slate-800">
-                        <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1600&q=80" alt="Aulas limpias e iluminadas en Agustín Cueva Dávila" class="w-full h-full object-cover opacity-85">
+                        <!-- REEMPLAZA ESTA RUTA CON TU FOTO REAL: assets/images/fachada-colegio.jpg -->
+                        <img 
+                            src="assets/images/fachada-colegio.jpg" 
+                            onerror="this.onerror=null; this.src='images/fachada-colegio.jpg';" 
+                            alt="Fachada y Entrada Principal de la Unidad Educativa Agustín Cueva Dávila" 
+                            class="w-full h-full object-cover opacity-85"
+                        />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent flex flex-col justify-end p-6 sm:p-10 text-white">
+                            <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-1">Entrada Principal</span>
+                            <h3 class="text-xl sm:text-2xl md:text-3xl font-extrabold">Fachada y Control de Accesos Verificado</h3>
+                            <p class="text-xs sm:text-sm text-slate-300 mt-2 max-w-xl">Entrada segura con registro continuo de estudiantes y visitantes para garantizar un entorno blindado.</p>
+                        </div>
+                    </div>
+
+                    <!-- SLIDE 2: Aulas y Laboratorios Equipados -->
+                    <div class="slider-slide min-w-full relative aspect-[16/9] sm:aspect-[21/9] bg-slate-800">
+                        <!-- REEMPLAZA ESTA RUTA CON TU FOTO REAL: assets/images/aulas-laboratorios.jpg -->
+                        <img 
+                            src="assets/images/aulas-laboratorios.jpg" 
+                            onerror="this.onerror=null; this.src='images/aulas-laboratorios.jpg';" 
+                            alt="Aulas y Laboratorios Equipados" 
+                            class="w-full h-full object-cover opacity-85"
+                        />
                         <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent flex flex-col justify-end p-6 sm:p-10 text-white">
                             <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-1">Espacios Dignos</span>
-                            <h3 class="text-xl sm:text-2xl md:text-3xl font-extrabold">Aulas Iluminadas, Ventiladas y con Mobiliario Ergonómico</h3>
-                            <p class="text-xs sm:text-sm text-slate-300 mt-2 max-w-xl">Entornos limpios que previenen el desorden y crean un ambiente óptimo para la concentración académica.</p>
+                            <h3 class="text-xl sm:text-2xl md:text-3xl font-extrabold">Aulas Iluminadas y Laboratorios de Ciencias</h3>
+                            <p class="text-xs sm:text-sm text-slate-300 mt-2 max-w-xl">Mobiliario ergonómico y ambientes libres de deterioro para asegurar el foco en el aprendizaje.</p>
                         </div>
                     </div>
 
-                    <!-- SLIDE 2: Laboratorios de Informática -->
+                    <!-- SLIDE 3: Estadio y Áreas Recreativas / Bastoneras -->
                     <div class="slider-slide min-w-full relative aspect-[16/9] sm:aspect-[21/9] bg-slate-800">
-                        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1600&q=80" alt="Laboratorios de Cómputo e Informática" class="w-full h-full object-cover opacity-85">
+                        <!-- REEMPLAZA ESTA RUTA CON TU FOTO REAL: assets/images/estadio-deportes.jpg -->
+                        <img 
+                            src="assets/images/estadio-deportes.jpg" 
+                            onerror="this.onerror=null; this.src='images/estadio-deportes.jpg';" 
+                            alt="Estadio y Áreas Recreativas / Bastoneras" 
+                            class="w-full h-full object-cover opacity-85"
+                        />
                         <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent flex flex-col justify-end p-6 sm:p-10 text-white">
-                            <span class="text-xs font-bold text-blue-400 uppercase tracking-widest mb-1">Tecnología de Vanguardia</span>
-                            <h3 class="text-xl sm:text-2xl md:text-3xl font-extrabold">Laboratorios de Sistemas para el Bachillerato Técnico</h3>
-                            <p class="text-xs sm:text-sm text-slate-300 mt-2 max-w-xl">Estaciones de trabajo actualizadas y conectividad de alta velocidad para prácticas reales de programación y soporte.</p>
+                            <span class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-1">Deportes & Cultura</span>
+                            <h3 class="text-xl sm:text-2xl md:text-3xl font-extrabold">Canchas Múltiples y Preparación de Bastoneras</h3>
+                            <p class="text-xs sm:text-sm text-slate-300 mt-2 max-w-xl">Espacios deportivos amplios que fomentan el compañerismo y las mejores tradiciones culturales de Ibarra.</p>
                         </div>
                     </div>
 
-                    <!-- SLIDE 3: Laboratorio de Ciencias -->
+                    <!-- SLIDE 4: Talleres de Bachillerato Técnico -->
                     <div class="slider-slide min-w-full relative aspect-[16/9] sm:aspect-[21/9] bg-slate-800">
-                        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1600&q=80" alt="Laboratorio de Ciencias Experimentales" class="w-full h-full object-cover opacity-85">
+                        <!-- REEMPLAZA ESTA RUTA CON TU FOTO REAL: assets/images/actividades-tecnicas.jpg -->
+                        <img 
+                            src="assets/images/actividades-tecnicas.jpg" 
+                            onerror="this.onerror=null; this.src='images/actividades-tecnicas.jpg';" 
+                            alt="Talleres y Bachillerato Técnico" 
+                            class="w-full h-full object-cover opacity-85"
+                        />
                         <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent flex flex-col justify-end p-6 sm:p-10 text-white">
-                            <span class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-1">Ciencias Experimentales</span>
-                            <h3 class="text-xl sm:text-2xl md:text-3xl font-extrabold">Prácticas de Química, Física y Biología</h3>
-                            <p class="text-xs sm:text-sm text-slate-300 mt-2 max-w-xl">El rigor de la teoría complementado con experimentación científica segura bajo la supervisión de docentes calificados.</p>
-                        </div>
-                    </div>
-
-                    <!-- SLIDE 4: Canchas Deportivas -->
-                    <div class="slider-slide min-w-full relative aspect-[16/9] sm:aspect-[21/9] bg-slate-800">
-                        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1600&q=80" alt="Canchas deportivas y áreas recreativas" class="w-full h-full object-cover opacity-85">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent flex flex-col justify-end p-6 sm:p-10 text-white">
-                            <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest mb-1">Deporte & Salud</span>
-                            <h3 class="text-xl sm:text-2xl md:text-3xl font-extrabold">Canchas Múltiples de Fútbol y Baloncesto</h3>
-                            <p class="text-xs sm:text-sm text-slate-300 mt-2 max-w-xl">Espacios deportivos amplios y seguros donde se fomentan el trabajo en equipo y las olimpiadas internas de la institución.</p>
-                        </div>
-                    </div>
-
-                    <!-- SLIDE 5: Bar y Alimentación Supervisada -->
-                    <div class="slider-slide min-w-full relative aspect-[16/9] sm:aspect-[21/9] bg-slate-800">
-                        <img src="https://images.unsplash.com/photo-1576867757603-05b134ebc379?auto=format&fit=crop&w=1600&q=80" alt="Comedor y servicio de alimentación higiénico" class="w-full h-full object-cover opacity-85">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent flex flex-col justify-end p-6 sm:p-10 text-white">
-                            <span class="text-xs font-bold text-amber-400 uppercase tracking-widest mb-1">Salud Alimentaria</span>
-                            <h3 class="text-xl sm:text-2xl md:text-3xl font-extrabold">Bar Escolar con Estándares Rigurosos de Higiene</h3>
-                            <p class="text-xs sm:text-sm text-slate-300 mt-2 max-w-xl">Supervisión diaria de frescura y control de preparación de alimentos para erradicar cualquier riesgo de intoxicación.</p>
+                            <span class="text-xs font-bold text-blue-400 uppercase tracking-widest mb-1">Bachillerato Técnico</span>
+                            <h3 class="text-xl sm:text-2xl md:text-3xl font-extrabold">Talleres Activos de Sistemas y Emprendimiento</h3>
+                            <p class="text-xs sm:text-sm text-slate-300 mt-2 max-w-xl">Prácticas formativas reales donde cada especialidad es valorada con el máximo prestigio institucional.</p>
                         </div>
                     </div>
 
@@ -675,14 +685,146 @@
                     <i data-lucide="chevron-right" class="w-6 h-6"></i>
                 </button>
 
-                <!-- Indicadores de Puntos (Dots) -->
+                <!-- Dots de Navegación -->
                 <div id="sliderDots" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20"></div>
             </div>
 
+            <!-- PARTE B: GRID RESPONSIVO CON ETIQUETAS COMENTADAS PARA REEMPLAZO DE FOTOS REALES -->
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-8">
+                    <h3 class="text-xl sm:text-2xl font-bold text-[#0A192F]">
+                        Galería de Espacios Dignos (Inspección Visual)
+                    </h3>
+                    <p class="text-xs sm:text-sm text-slate-500 mt-1">
+                        Pasa el cursor sobre cada espacio para ver la descripción de cómo resolvemos las fallas de infraestructura:
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    
+                    <!-- TARJETA FOTO 1: Fachada / Entrada Principal -->
+                    <div class="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl border border-slate-200 bg-white transition-all duration-300 flex flex-col">
+                        <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                            <!-- FOTO REAL 1: Reemplaza 'assets/images/fachada-colegio.jpg' -->
+                            <img 
+                                src="assets/images/fachada-colegio.jpg" 
+                                onerror="this.onerror=null; this.src='images/fachada-colegio.jpg';" 
+                                alt="Fachada / Entrada principal de Agustín Cueva Dávila" 
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                            <div class="absolute top-3 left-3 bg-[#0B3B2C]/90 text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md backdrop-blur-sm border border-emerald-400/30">
+                                Acceso Seguro
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col justify-between">
+                            <div>
+                                <h4 class="font-bold text-[#0A192F] text-sm group-hover:text-[#0B3B2C] transition-colors">
+                                    Fachada & Entrada Principal
+                                </h4>
+                                <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                                    Control perimetral permanente para salvaguardar la seguridad de cada alumno desde la llegada.
+                                </p>
+                            </div>
+                            <span class="text-[11px] font-semibold text-emerald-700 mt-3 block flex items-center gap-1">
+                                <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Cero Inseguridad Interna
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- TARJETA FOTO 2: Aulas y Laboratorios Equipados -->
+                    <div class="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl border border-slate-200 bg-white transition-all duration-300 flex flex-col">
+                        <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                            <!-- FOTO REAL 2: Reemplaza 'assets/images/aulas-laboratorios.jpg' -->
+                            <img 
+                                src="assets/images/aulas-laboratorios.jpg" 
+                                onerror="this.onerror=null; this.src='images/aulas-laboratorios.jpg';" 
+                                alt="Aulas y laboratorios equipados" 
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                            <div class="absolute top-3 left-3 bg-[#0B3B2C]/90 text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md backdrop-blur-sm border border-emerald-400/30">
+                                Espacios Dignos
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col justify-between">
+                            <div>
+                                <h4 class="font-bold text-[#0A192F] text-sm group-hover:text-[#0B3B2C] transition-colors">
+                                    Aulas & Laboratorios
+                                </h4>
+                                <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                                    Salones limpios, iluminados y con mantenimiento continuo, sin el abandono que padecen otros colegios.
+                                </p>
+                            </div>
+                            <span class="text-[11px] font-semibold text-emerald-700 mt-3 block flex items-center gap-1">
+                                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Ambientes Higiénicos
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- TARJETA FOTO 3: Estadio y Áreas Recreativas / Bastoneras -->
+                    <div class="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl border border-slate-200 bg-white transition-all duration-300 flex flex-col">
+                        <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                            <!-- FOTO REAL 3: Reemplaza 'assets/images/estadio-deportes.jpg' -->
+                            <img 
+                                src="assets/images/estadio-deportes.jpg" 
+                                onerror="this.onerror=null; this.src='images/estadio-deportes.jpg';" 
+                                alt="Estadio y áreas recreativas / bastoneras" 
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                            <div class="absolute top-3 left-3 bg-[#0B3B2C]/90 text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md backdrop-blur-sm border border-emerald-400/30">
+                                Deporte & Vida
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col justify-between">
+                            <div>
+                                <h4 class="font-bold text-[#0A192F] text-sm group-hover:text-[#0B3B2C] transition-colors">
+                                    Canchas & Bastoneras
+                                </h4>
+                                <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                                    Áreas deportivas y recreativas seguras para la convivencia sana y el desarrollo físico extracurricular.
+                                </p>
+                            </div>
+                            <span class="text-[11px] font-semibold text-emerald-700 mt-3 block flex items-center gap-1">
+                                <i data-lucide="trophy" class="w-3.5 h-3.5"></i> Actividades Destacadas
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- TARJETA FOTO 4: Talleres de Bachillerato Técnico -->
+                    <div class="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl border border-slate-200 bg-white transition-all duration-300 flex flex-col">
+                        <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+                            <!-- FOTO REAL 4: Reemplaza 'assets/images/actividades-tecnicas.jpg' -->
+                            <img 
+                                src="assets/images/actividades-tecnicas.jpg" 
+                                onerror="this.onerror=null; this.src='images/actividades-tecnicas.jpg';" 
+                                alt="Talleres o bachillerato técnico" 
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                            <div class="absolute top-3 left-3 bg-[#0B3B2C]/90 text-white text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-md backdrop-blur-sm border border-emerald-400/30">
+                                Prestigio Técnico
+                            </div>
+                        </div>
+                        <div class="p-4 flex-1 flex flex-col justify-between">
+                            <div>
+                                <h4 class="font-bold text-[#0A192F] text-sm group-hover:text-[#0B3B2C] transition-colors">
+                                    Talleres & Prácticas
+                                </h4>
+                                <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                                    Educación técnica productiva sin discriminación: herramientas prácticas y docentes especializados.
+                                </p>
+                            </div>
+                            <span class="text-[11px] font-semibold text-emerald-700 mt-3 block flex items-center gap-1">
+                                <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Igualdad de Condiciones
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
             <!-- Botón de Invitación a Visita -->
-            <div class="mt-10 text-center">
-                <a href="#formulario-admision" class="inline-flex items-center gap-2 text-sm font-bold text-[#1E56A0] hover:text-[#0F2C59] underline transition-colors">
-                    <span>¿Quieres comprobar estas instalaciones en vivo? Agenda tu recorrido aquí</span>
+            <div class="mt-12 text-center">
+                <a href="#formulario-admision" class="inline-flex items-center gap-2 text-sm font-bold text-[#0B3B2C] hover:text-[#135D43] underline transition-colors">
+                    <span>¿Quieres comprobar estas instalaciones en vivo? Agenda tu recorrido de Puertas Abiertas</span>
                     <i data-lucide="arrow-right" class="w-4 h-4"></i>
                 </a>
             </div>
@@ -697,10 +839,10 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <div class="text-center max-w-3xl mx-auto mb-16 reveal-on-scroll opacity-0 translate-y-8">
-                <span class="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-100 px-3.5 py-1 rounded-full">
+                <span class="text-xs font-bold uppercase tracking-wider text-[#0B3B2C] bg-emerald-100 px-3.5 py-1 rounded-full">
                     Razones para Creer (RTB)
                 </span>
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0F2C59] mt-3 tracking-tight">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0A192F] mt-3 tracking-tight">
                     Familias de Ibarra que Hoy Tienen Paz Mental
                 </h2>
                 <p class="text-slate-600 text-sm sm:text-base mt-3">
@@ -710,7 +852,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Testimonio 1 -->
-                <div class="bg-white p-7 rounded-3xl border border-slate-200 shadow-md flex flex-col justify-between hover:border-blue-400 transition-all duration-300 reveal-on-scroll opacity-0 translate-y-8">
+                <div class="bg-white p-7 rounded-3xl border border-slate-200 shadow-md flex flex-col justify-between hover:border-emerald-500 transition-all duration-300 reveal-on-scroll opacity-0 translate-y-8">
                     <div>
                         <div class="flex items-center text-amber-400 mb-3 gap-1">
                             ★★★★★
@@ -720,7 +862,7 @@
                         </p>
                     </div>
                     <div class="mt-6 pt-4 border-t border-slate-100 flex items-center gap-3">
-                        <div class="w-11 h-11 rounded-full bg-[#0F2C59] text-white font-bold flex items-center justify-center text-sm border border-blue-400/40">
+                        <div class="w-11 h-11 rounded-full bg-[#0A192F] text-white font-bold flex items-center justify-center text-sm border border-emerald-400/40">
                             MG
                         </div>
                         <div>
@@ -731,7 +873,7 @@
                 </div>
 
                 <!-- Testimonio 2 -->
-                <div class="bg-white p-7 rounded-3xl border border-slate-200 shadow-md flex flex-col justify-between hover:border-blue-400 transition-all duration-300 reveal-on-scroll opacity-0 translate-y-8">
+                <div class="bg-white p-7 rounded-3xl border border-slate-200 shadow-md flex flex-col justify-between hover:border-emerald-500 transition-all duration-300 reveal-on-scroll opacity-0 translate-y-8">
                     <div>
                         <div class="flex items-center text-amber-400 mb-3 gap-1">
                             ★★★★★
@@ -741,7 +883,7 @@
                         </p>
                     </div>
                     <div class="mt-6 pt-4 border-t border-slate-100 flex items-center gap-3">
-                        <div class="w-11 h-11 rounded-full bg-[#1E56A0] text-white font-bold flex items-center justify-center text-sm border border-blue-400/40">
+                        <div class="w-11 h-11 rounded-full bg-[#0B3B2C] text-white font-bold flex items-center justify-center text-sm border border-emerald-400/40">
                             RP
                         </div>
                         <div>
@@ -752,7 +894,7 @@
                 </div>
 
                 <!-- Testimonio 3 -->
-                <div class="bg-white p-7 rounded-3xl border border-slate-200 shadow-md flex flex-col justify-between hover:border-blue-400 transition-all duration-300 reveal-on-scroll opacity-0 translate-y-8">
+                <div class="bg-white p-7 rounded-3xl border border-slate-200 shadow-md flex flex-col justify-between hover:border-emerald-500 transition-all duration-300 reveal-on-scroll opacity-0 translate-y-8">
                     <div>
                         <div class="flex items-center text-amber-400 mb-3 gap-1">
                             ★★★★★
@@ -762,7 +904,7 @@
                         </p>
                     </div>
                     <div class="mt-6 pt-4 border-t border-slate-100 flex items-center gap-3">
-                        <div class="w-11 h-11 rounded-full bg-emerald-800 text-white font-bold flex items-center justify-center text-sm border border-emerald-400/40">
+                        <div class="w-11 h-11 rounded-full bg-emerald-900 text-white font-bold flex items-center justify-center text-sm border border-emerald-400/40">
                             CA
                         </div>
                         <div>
@@ -774,7 +916,7 @@
             </div>
 
             <!-- Banner Institucional de Garantía de Puertas Abiertas -->
-            <div class="mt-14 bg-gradient-to-r from-[#0F2C59] via-[#1E56A0] to-[#0F2C59] rounded-3xl p-8 md:p-12 text-white shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 border border-white/10">
+            <div class="mt-14 bg-gradient-to-r from-[#0A192F] via-[#0B3B2C] to-[#0A192F] rounded-3xl p-8 md:p-12 text-white shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 border border-emerald-500/20">
                 <div class="max-w-2xl">
                     <span class="text-xs font-bold uppercase tracking-widest text-amber-300 flex items-center gap-1.5">
                         <i data-lucide="door-open" class="w-4 h-4 text-amber-300"></i>
@@ -798,15 +940,15 @@
     <!-- ========================================================================= -->
     <!-- 8. FORMULARIO DE CUALIFICACIÓN MOFU (INTEGRACIÓN CON SUPABASE CLOUD)      -->
     <!-- ========================================================================= -->
-    <section id="formulario-admision" class="py-16 md:py-24 bg-gradient-to-b from-slate-50 via-blue-50/40 to-slate-100">
+    <section id="formulario-admision" class="py-16 md:py-24 bg-gradient-to-b from-slate-50 via-emerald-50/20 to-slate-100">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <div class="text-center mb-10 reveal-on-scroll opacity-0 translate-y-8">
-                <span class="text-xs font-bold uppercase tracking-wider text-[#1E56A0] bg-blue-100 px-3.5 py-1.5 rounded-full border border-blue-200 inline-flex items-center gap-1.5">
-                    <i data-lucide="cloud-check" class="w-4 h-4 text-emerald-600"></i>
+                <span class="text-xs font-bold uppercase tracking-wider text-[#0B3B2C] bg-emerald-100 px-3.5 py-1.5 rounded-full border border-emerald-200 inline-flex items-center gap-1.5">
+                    <i data-lucide="cloud-check" class="w-4 h-4 text-emerald-700"></i>
                     <span>Filtro MOFU & Captura Segura en la Nube</span>
                 </span>
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0F2C59] mt-3 tracking-tight">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0A192F] mt-3 tracking-tight">
                     Solicitud de Cualificación y Admisión 2026-2027
                 </h2>
                 <p class="text-slate-600 text-sm sm:text-base mt-2 max-w-2xl mx-auto">
@@ -814,7 +956,7 @@
                 </p>
             </div>
 
-            <!-- Tarjeta del Formulario MOFU -->
+            <!-- Tarjeta del Formulario MOFU (Blanco Puro y Alto Contraste) -->
             <div class="bg-white rounded-3xl border border-slate-200 shadow-2xl p-6 sm:p-10 relative overflow-hidden">
                 
                 <!-- Encabezado de Seguridad de Datos -->
@@ -823,7 +965,7 @@
                         <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
                         <span>Conexión directa bajo protocolo HTTPS & Supabase Cloud</span>
                     </div>
-                    <span class="font-bold text-[#1E56A0] hidden sm:inline">Paso 1 de 1 • Evaluación MOFU</span>
+                    <span class="font-bold text-[#0B3B2C] hidden sm:inline">Paso 1 de 1 • Evaluación MOFU</span>
                 </div>
 
                 <!-- Alerta dinámica de error / éxito -->
@@ -839,7 +981,7 @@
                                 Nombre completo del representante o tutor <span class="text-rose-500">*</span>
                             </label>
                             <div class="relative">
-                                <input type="text" id="full_name" name="full_name" required placeholder="Ej. Carlos Fernando Mendoza" class="w-full px-4 py-3.5 pl-11 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#1E56A0] focus:border-[#1E56A0] outline-none transition-all text-sm placeholder:text-slate-400 bg-slate-50/50 focus:bg-white text-slate-900">
+                                <input type="text" id="full_name" name="full_name" required placeholder="Ej. Carlos Fernando Mendoza" class="w-full px-4 py-3.5 pl-11 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#0B3B2C] focus:border-[#0B3B2C] outline-none transition-all text-sm placeholder:text-slate-400 bg-slate-50/50 focus:bg-white text-slate-900">
                                 <i data-lucide="user" class="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2"></i>
                             </div>
                         </div>
@@ -850,7 +992,7 @@
                                 Correo electrónico de contacto <span class="text-rose-500">*</span>
                             </label>
                             <div class="relative">
-                                <input type="email" id="email" name="email" required placeholder="carlos.mendoza@email.com" class="w-full px-4 py-3.5 pl-11 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#1E56A0] focus:border-[#1E56A0] outline-none transition-all text-sm placeholder:text-slate-400 bg-slate-50/50 focus:bg-white text-slate-900">
+                                <input type="email" id="email" name="email" required placeholder="carlos.mendoza@email.com" class="w-full px-4 py-3.5 pl-11 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#0B3B2C] focus:border-[#0B3B2C] outline-none transition-all text-sm placeholder:text-slate-400 bg-slate-50/50 focus:bg-white text-slate-900">
                                 <i data-lucide="mail" class="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2"></i>
                             </div>
                         </div>
@@ -861,7 +1003,7 @@
                                 WhatsApp de contacto (con código país) <span class="text-rose-500">*</span>
                             </label>
                             <div class="relative">
-                                <input type="tel" id="whatsapp" name="whatsapp" required placeholder="Ej. +593 99 123 4567" class="w-full px-4 py-3.5 pl-11 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#1E56A0] focus:border-[#1E56A0] outline-none transition-all text-sm placeholder:text-slate-400 bg-slate-50/50 focus:bg-white text-slate-900">
+                                <input type="tel" id="whatsapp" name="whatsapp" required placeholder="Ej. +593 99 123 4567" class="w-full px-4 py-3.5 pl-11 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#0B3B2C] focus:border-[#0B3B2C] outline-none transition-all text-sm placeholder:text-slate-400 bg-slate-50/50 focus:bg-white text-slate-900">
                                 <i data-lucide="phone" class="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2"></i>
                             </div>
                         </div>
@@ -872,7 +1014,7 @@
                                 Empresa / Negocio o Actividad del tutor <span class="text-rose-500">*</span>
                             </label>
                             <div class="relative">
-                                <input type="text" id="company" name="company" required placeholder="Ej. Comercial Norte / Emprendimiento / Independiente" class="w-full px-4 py-3.5 pl-11 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#1E56A0] focus:border-[#1E56A0] outline-none transition-all text-sm placeholder:text-slate-400 bg-slate-50/50 focus:bg-white text-slate-900">
+                                <input type="text" id="company" name="company" required placeholder="Ej. Comercial Norte / Emprendimiento / Independiente" class="w-full px-4 py-3.5 pl-11 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#0B3B2C] focus:border-[#0B3B2C] outline-none transition-all text-sm placeholder:text-slate-400 bg-slate-50/50 focus:bg-white text-slate-900">
                                 <i data-lucide="briefcase" class="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2"></i>
                             </div>
                         </div>
@@ -888,7 +1030,7 @@
                             <span id="qualifierBadge" class="hidden"></span>
                         </div>
                         <div class="relative">
-                            <select id="estimated_budget" name="estimated_budget" required class="w-full px-4 py-3.5 pl-11 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#1E56A0] focus:border-[#1E56A0] outline-none transition-all text-sm bg-slate-50/50 focus:bg-white text-slate-900 appearance-none">
+                            <select id="estimated_budget" name="estimated_budget" required class="w-full px-4 py-3.5 pl-11 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#0B3B2C] focus:border-[#0B3B2C] outline-none transition-all text-sm bg-slate-50/50 focus:bg-white text-slate-900 appearance-none">
                                 <option value="" disabled selected>Seleccione el rango presupuestario mensual estimado...</option>
                                 <option value="Menor a $120 / mes (Requiere análisis de Beca Social)">Menor a $120 / mes (Requiere análisis de Beca Social - Cupo Especial)</option>
                                 <option value="$120 - $220 / mes (Plan Estándar - Educación Integral)">$120 - $220 / mes (Plan Estándar - Educación Integral)</option>
@@ -909,7 +1051,7 @@
                             Dolor principal / Mayor obstáculo en su elección escolar <span class="text-rose-500">*</span>
                         </label>
                         <div class="relative">
-                            <select id="primary_pain" name="primary_pain" required class="w-full px-4 py-3.5 pl-11 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#1E56A0] focus:border-[#1E56A0] outline-none transition-all text-sm bg-slate-50/50 focus:bg-white text-slate-900 appearance-none">
+                            <select id="primary_pain" name="primary_pain" required class="w-full px-4 py-3.5 pl-11 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#0B3B2C] focus:border-[#0B3B2C] outline-none transition-all text-sm bg-slate-50/50 focus:bg-white text-slate-900 appearance-none">
                                 <option value="" disabled selected>¿Cuál ha sido la mayor preocupación con los colegios actuales?</option>
                                 <option value="Inseguridad interna, robos y falta de control en el colegio actual">Inseguridad interna, robos y falta de control en el colegio actual</option>
                                 <option value="Miedo a discriminación o desvalorización del Bachillerato Técnico">Miedo a discriminación o desvalorización del Bachillerato Técnico</option>
@@ -922,9 +1064,9 @@
                         </div>
                     </div>
 
-                    <!-- BOTÓN DE ENVÍO Y ALMACENAMIENTO EN SUPABASE -->
+                    <!-- BOTÓN DE ENVÍO EN VERDE OSCURO INSTITUCIONAL (#0B3B2C) -->
                     <div class="pt-2">
-                        <button id="submitLeadBtn" type="submit" class="w-full py-4 px-8 rounded-xl bg-gradient-to-r from-[#0F2C59] via-[#1E56A0] to-blue-700 hover:from-[#1E56A0] hover:to-[#0F2C59] text-white font-extrabold text-base shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-3 relative group border border-blue-400/30">
+                        <button id="submitLeadBtn" type="submit" class="w-full py-4 px-8 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white font-extrabold text-base shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-3 relative group border border-emerald-500/40">
                             <span id="btnText" class="flex items-center gap-2">
                                 <span>Enviar Solicitud y Verificar Cupo en Supabase</span>
                                 <i data-lucide="send" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
@@ -953,10 +1095,10 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <div class="text-center mb-14 reveal-on-scroll opacity-0 translate-y-8">
-                <span class="text-xs font-bold uppercase tracking-wider text-[#1E56A0] bg-blue-100 px-3 py-1 rounded-full">
+                <span class="text-xs font-bold uppercase tracking-wider text-[#0B3B2C] bg-emerald-100 px-3.5 py-1 rounded-full">
                     Resolución de Inquietudes
                 </span>
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0F2C59] mt-3 tracking-tight">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0A192F] mt-3 tracking-tight">
                     Preguntas Frecuentes
                 </h2>
             </div>
@@ -964,7 +1106,7 @@
             <div class="space-y-4">
                 <!-- FAQ 1 -->
                 <div class="border border-slate-200 rounded-2xl p-5 bg-slate-50/60 transition-colors">
-                    <button type="button" class="faq-toggle-btn w-full flex items-center justify-between text-left font-bold text-[#0F2C59] text-base">
+                    <button type="button" class="faq-toggle-btn w-full flex items-center justify-between text-left font-bold text-[#0A192F] text-base">
                         <span>¿Cómo garantizan que no ocurran robos dentro del plantel?</span>
                         <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-slate-400 transition-transform"></i>
                     </button>
@@ -975,7 +1117,7 @@
 
                 <!-- FAQ 2 -->
                 <div class="border border-slate-200 rounded-2xl p-5 bg-slate-50/60 transition-colors">
-                    <button type="button" class="faq-toggle-btn w-full flex items-center justify-between text-left font-bold text-[#0F2C59] text-base">
+                    <button type="button" class="faq-toggle-btn w-full flex items-center justify-between text-left font-bold text-[#0A192F] text-base">
                         <span>¿El Bachillerato Técnico tiene la misma validez para la universidad que el de Ciencias?</span>
                         <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-slate-400 transition-transform"></i>
                     </button>
@@ -986,7 +1128,7 @@
 
                 <!-- FAQ 3 -->
                 <div class="border border-slate-200 rounded-2xl p-5 bg-slate-50/60 transition-colors">
-                    <button type="button" class="faq-toggle-btn w-full flex items-center justify-between text-left font-bold text-[#0F2C59] text-base">
+                    <button type="button" class="faq-toggle-btn w-full flex items-center justify-between text-left font-bold text-[#0A192F] text-base">
                         <span>¿Podemos conocer las instalaciones antes de realizar cualquier pago?</span>
                         <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-slate-400 transition-transform"></i>
                     </button>
@@ -997,7 +1139,7 @@
 
                 <!-- FAQ 4 -->
                 <div class="border border-slate-200 rounded-2xl p-5 bg-slate-50/60 transition-colors">
-                    <button type="button" class="faq-toggle-btn w-full flex items-center justify-between text-left font-bold text-[#0F2C59] text-base">
+                    <button type="button" class="faq-toggle-btn w-full flex items-center justify-between text-left font-bold text-[#0A192F] text-base">
                         <span>¿Cómo funciona el filtro de presupuesto en el formulario?</span>
                         <i data-lucide="chevron-down" class="faq-icon w-5 h-5 text-slate-400 transition-transform"></i>
                     </button>
@@ -1011,22 +1153,21 @@
     </section>
 
     <!-- ========================================================================= -->
-    <!-- 10. FOOTER INSTITUCIONAL                                                  -->
+    <!-- 10. FOOTER INSTITUCIONAL (AZUL MARINO #0A192F + LOGO ACD)                 -->
     <!-- ========================================================================= -->
-    <footer class="bg-[#0F2C59] text-slate-300 py-14 border-t border-blue-900/40">
+    <footer class="bg-[#0A192F] text-slate-300 py-14 border-t border-white/10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
                 
-                <!-- Info Colegio -->
+                <!-- Info Colegio con Logotipo -->
                 <div class="md:col-span-2 space-y-4">
                     <div class="flex items-center gap-3">
-                        <div class="w-11 h-11 rounded-xl bg-[#1E56A0] flex items-center justify-center text-white font-extrabold text-lg border border-blue-400/30">
-                            ACD
-                        </div>
-                        <div>
-                            <h3 class="font-extrabold text-white text-base">Unidad Educativa Agustín Cueva Dávila</h3>
-                            <p class="text-xs text-slate-400">Ibarra • Imbabura • Ecuador</p>
-                        </div>
+                        <img 
+                            src="assets/logo-acd.png" 
+                            onerror="this.onerror=null; this.src='assets/logo-acd.svg';" 
+                            alt="Unidad Educativa Agustín Cueva Dávila" 
+                            class="h-11 w-auto object-contain"
+                        />
                     </div>
                     <p class="text-sm text-slate-300 max-w-md leading-relaxed font-light">
                         Donde cada estudiante importa igual: entorno seguro, equidad para todas las modalidades y aprendizaje en espacios dignos. Educación de calidad respaldada por hechos.
@@ -1037,11 +1178,11 @@
                 <div>
                     <h4 class="font-bold text-white text-sm uppercase tracking-wider mb-4">Navegación</h4>
                     <ul class="space-y-2 text-sm text-slate-300">
-                        <li><a href="#propuesta" class="hover:text-amber-300 transition-colors">La Propuesta</a></li>
-                        <li><a href="#dolores" class="hover:text-amber-300 transition-colors">Diferencial de Mercado</a></li>
-                        <li><a href="#modalidades" class="hover:text-amber-300 transition-colors">Modalidades Educativas</a></li>
-                        <li><a href="#instalaciones" class="hover:text-amber-300 transition-colors">Instalaciones & Videos</a></li>
-                        <li><a href="#formulario-admision" class="hover:text-amber-300 transition-colors">Formulario MOFU</a></li>
+                        <li><a href="#propuesta" class="hover:text-emerald-400 transition-colors">La Propuesta</a></li>
+                        <li><a href="#dolores" class="hover:text-emerald-400 transition-colors">Diferencial de Mercado</a></li>
+                        <li><a href="#modalidades" class="hover:text-emerald-400 transition-colors">Modalidades Educativas</a></li>
+                        <li><a href="#instalaciones" class="hover:text-emerald-400 transition-colors">Instalaciones & Fotos</a></li>
+                        <li><a href="#formulario-admision" class="hover:text-emerald-400 transition-colors">Formulario MOFU</a></li>
                     </ul>
                 </div>
 
@@ -1050,7 +1191,7 @@
                     <h4 class="font-bold text-white text-sm uppercase tracking-wider mb-4">Admisiones Ibarra</h4>
                     <ul class="space-y-2.5 text-sm text-slate-300">
                         <li class="flex items-center gap-2">
-                            <i data-lucide="map-pin" class="w-4 h-4 text-amber-400"></i>
+                            <i data-lucide="map-pin" class="w-4 h-4 text-emerald-400"></i>
                             <span>Ibarra, Imbabura, Ecuador</span>
                         </li>
                         <li class="flex items-center gap-2">
@@ -1058,7 +1199,7 @@
                             <span>WhatsApp: +593 99 876 5432</span>
                         </li>
                         <li class="flex items-center gap-2">
-                            <i data-lucide="mail" class="w-4 h-4 text-blue-300"></i>
+                            <i data-lucide="mail" class="w-4 h-4 text-emerald-400"></i>
                             <span>admisiones@agustincueva.edu.ec</span>
                         </li>
                     </ul>
@@ -1075,11 +1216,11 @@
     </footer>
 
     <!-- ========================================================================= -->
-    <!-- 11. BOTÓN FLOTANTE PERMANENTE (FLOATING CTA)                              -->
+    <!-- 11. BOTÓN FLOTANTE PERMANENTE (FLOATING CTA EN VERDE OSCURO #0B3B2C)      -->
     <!-- ========================================================================= -->
     <aside aria-label="Acciones flotantes" id="floatingCtaBtn" class="fixed bottom-6 right-6 z-40 transition-all duration-300 translate-y-24 opacity-0 pointer-events-none">
-        <a href="#formulario-admision" class="px-5 py-3.5 rounded-2xl bg-gradient-to-r from-[#0F2C59] to-[#1E56A0] hover:from-[#1E56A0] hover:to-[#0F2C59] text-white font-extrabold text-xs sm:text-sm shadow-2xl flex items-center gap-2.5 border border-blue-400/40 hover:scale-105 transition-transform duration-200">
-            <i data-lucide="calendar" class="w-4 h-4 text-amber-400"></i>
+        <a href="#formulario-admision" class="px-5 py-3.5 rounded-2xl bg-[#0B3B2C] hover:bg-[#135D43] text-white font-extrabold text-xs sm:text-sm shadow-2xl flex items-center gap-2.5 border border-emerald-400/50 hover:scale-105 transition-transform duration-200">
+            <i data-lucide="calendar" class="w-4 h-4 text-amber-300"></i>
             <span>Agendar Visita Guiada</span>
         </a>
     </aside>
@@ -1090,11 +1231,11 @@
     <div id="successModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fadeIn">
         <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 text-center relative">
             
-            <div class="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mx-auto mb-4 border border-emerald-200">
+            <div class="w-16 h-16 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-2xl mx-auto mb-4 border border-emerald-200">
                 <i data-lucide="check" class="w-8 h-8"></i>
             </div>
 
-            <h3 class="text-2xl font-extrabold text-[#0F2C59] mb-2">
+            <h3 class="text-2xl font-extrabold text-[#0A192F] mb-2">
                 ¡Solicitud Registrada con Éxito!
             </h3>
 
@@ -1106,15 +1247,15 @@
                 ℹ️ <strong>Modo Demostración Activo:</strong> El registro se almacenó localmente. Para sincronizarlo con tu proyecto real de Supabase, utiliza el botón <em>"Supabase"</em> en la barra de navegación.
             </div>
 
-            <div class="bg-blue-50/70 rounded-2xl p-4 border border-blue-200 mb-6 text-left">
-                <span class="text-xs font-bold text-[#0F2C59] uppercase tracking-wider block mb-1">Paso Siguiente Recomendado:</span>
+            <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 mb-6 text-left">
+                <span class="text-xs font-bold text-[#0B3B2C] uppercase tracking-wider block mb-1">Paso Siguiente Recomendado:</span>
                 <p class="text-xs text-slate-600">
                     Para confirmar tu turno de visita guiada hoy mismo, comunícate directamente con nuestro equipo de admisiones por WhatsApp:
                 </p>
             </div>
 
             <div class="space-y-3">
-                <a id="modalWhatsappLink" href="#" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-6 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
+                <a id="modalWhatsappLink" href="#" target="_blank" rel="noopener noreferrer" class="w-full py-3.5 px-6 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2">
                     <i data-lucide="message-circle" class="w-5 h-5"></i>
                     <span>Confirmar Turno por WhatsApp &rarr;</span>
                 </a>
@@ -1146,7 +1287,7 @@
     <!-- ========================================================================= -->
     <div id="settingsModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fadeIn">
         <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 text-left relative">
-            <h3 class="text-xl font-bold text-[#0F2C59] mb-2 flex items-center gap-2">
+            <h3 class="text-xl font-bold text-[#0A192F] mb-2 flex items-center gap-2">
                 <i data-lucide="database" class="w-5 h-5 text-emerald-600"></i>
                 <span>Credenciales de Supabase</span>
             </h3>
@@ -1159,13 +1300,13 @@
                     <label for="cfg_supabase_url" class="block text-xs font-bold text-slate-700 mb-1">
                         Project URL (Supabase)
                     </label>
-                    <input type="url" id="cfg_supabase_url" placeholder="https://xyzproject.supabase.co" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-[#1E56A0] outline-none">
+                    <input type="url" id="cfg_supabase_url" placeholder="https://xyzproject.supabase.co" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-[#0B3B2C] outline-none">
                 </div>
                 <div>
                     <label for="cfg_supabase_key" class="block text-xs font-bold text-slate-700 mb-1">
                         Anon Public Key
                     </label>
-                    <input type="password" id="cfg_supabase_key" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-[#1E56A0] outline-none">
+                    <input type="password" id="cfg_supabase_key" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-[#0B3B2C] outline-none">
                 </div>
             </div>
 
@@ -1173,7 +1314,7 @@
                 <button type="button" id="closeSettingsBtn" class="px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-100 text-xs font-semibold">
                     Cancelar
                 </button>
-                <button type="button" id="saveSettingsBtn" class="px-5 py-2.5 rounded-xl bg-[#0F2C59] hover:bg-[#1E56A0] text-white text-xs font-bold shadow-md transition-colors">
+                <button type="button" id="saveSettingsBtn" class="px-5 py-2.5 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white text-xs font-bold shadow-md transition-colors">
                     Guardar y Conectar
                 </button>
             </div>
