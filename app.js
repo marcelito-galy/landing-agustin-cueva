@@ -1,48 +1,355 @@
 /**
  * CONTROLADOR PRINCIPAL DE LA LANDING PAGE
- * UNIDAD EDUCATIVA AGUSTÍN CUEVA DÁVILA
- * Metodología: Vibe Coding (Fast, Interactive, Growth Focused)
+ * UNIDAD EDUCATIVA AGUSTÍN CUEVA DÁVILA (IBARRA, ECUADOR)
+ * 
+ * Vibe Coding: Modern UI/UX, Interactive Tabs, Multimedia Slider,
+ * Video Lightbox, Scroll Reveal Animations & Supabase MOFU Integration.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
+    // 1. Inicializar iconos Lucide
+    if (window.lucide) {
+        window.lucide.createIcons();
+    }
+
+    // 2. Módulos de interfaz y animaciones
     initNavigation();
-    initQualificationForm();
+    initScrollAnimations();
+    initFloatingCTA();
+    initEducationalTabs();
+    initMultimediaSlider();
+    initVideoLightbox();
+    initFAQ();
+
+    // 3. Módulos de captura y cualificación MOFU
     initBudgetBadgeFeedback();
+    initQualificationForm();
     initSettingsModal();
     initSmoothScroll();
-    initFAQ();
 });
 
-// 1. Navegación móvil y efectos de scroll
+// ==============================================================================
+// 1. NAVEGACIÓN Y STICKY HEADER
+// ==============================================================================
 function initNavigation() {
     const mobileMenuBtn = document.getElementById("mobileMenuBtn");
     const mobileMenu = document.getElementById("mobileMenu");
+    const navbar = document.getElementById("mainNavbar");
 
     if (mobileMenuBtn && mobileMenu) {
         mobileMenuBtn.addEventListener("click", () => {
             mobileMenu.classList.toggle("hidden");
+            if (window.lucide) window.lucide.createIcons();
         });
 
-        // Cerrar menú al hacer clic en enlaces móviles
         mobileMenu.querySelectorAll("a").forEach(link => {
             link.addEventListener("click", () => mobileMenu.classList.add("hidden"));
         });
     }
 
-    // Sombra del navbar al hacer scroll
-    const navbar = document.getElementById("mainNavbar");
     window.addEventListener("scroll", () => {
-        if (window.scrollY > 20) {
-            navbar?.classList.add("shadow-md", "bg-white/95", "backdrop-blur-md");
-            navbar?.classList.remove("bg-white");
+        if (window.scrollY > 25) {
+            navbar?.classList.add("shadow-lg", "bg-[#0F2C59]/95", "backdrop-blur-md", "py-3");
+            navbar?.classList.remove("bg-[#0F2C59]", "py-4");
         } else {
-            navbar?.classList.remove("shadow-md", "backdrop-blur-md");
-            navbar?.classList.add("bg-white");
+            navbar?.classList.remove("shadow-lg", "backdrop-blur-md", "py-3");
+            navbar?.classList.add("bg-[#0F2C59]", "py-4");
         }
     });
 }
 
-// 2. Feedback dinámico de cualificación MOFU (Growth UX)
+// ==============================================================================
+// 2. ANIMACIONES FLUIDAS EN SCROLL (SCROLL REVEAL CON INTERSECTION OBSERVER)
+// ==============================================================================
+function initScrollAnimations() {
+    const revealElements = document.querySelectorAll(".reveal-on-scroll");
+
+    if (!("IntersectionObserver" in window)) {
+        // Fallback si el navegador es antiguo
+        revealElements.forEach(el => el.classList.remove("opacity-0", "translate-y-8"));
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.remove("opacity-0", "translate-y-8");
+                entry.target.classList.add("opacity-100", "translate-y-0");
+                obs.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.12,
+        rootMargin: "0px 0px -40px 0px"
+    });
+
+    revealElements.forEach(el => observer.observe(el));
+}
+
+// ==============================================================================
+// 3. BOTÓN FLOTANTE DE ACCIÓN (FLOATING CTA)
+// ==============================================================================
+function initFloatingCTA() {
+    const floatingBtn = document.getElementById("floatingCtaBtn");
+    if (!floatingBtn) return;
+
+    window.addEventListener("scroll", () => {
+        // Mostrar botón flotante tras pasar 350px de scroll
+        if (window.scrollY > 350) {
+            floatingBtn.classList.remove("translate-y-24", "opacity-0", "pointer-events-none");
+            floatingBtn.classList.add("translate-y-0", "opacity-100", "pointer-events-auto");
+        } else {
+            floatingBtn.classList.add("translate-y-24", "opacity-0", "pointer-events-none");
+            floatingBtn.classList.remove("translate-y-0", "opacity-100", "pointer-events-auto");
+        }
+    });
+}
+
+// ==============================================================================
+// 4. SISTEMA DE PESTAÑAS (TABS) INTERACTIVAS DE MODALIDADES EDUCATIVAS
+// ==============================================================================
+function initEducationalTabs() {
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabPanels = document.querySelectorAll(".tab-panel");
+
+    if (!tabButtons.length || !tabPanels.length) return;
+
+    tabButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const targetId = button.getAttribute("data-tab-target");
+
+            // Desactivar todos los botones
+            tabButtons.forEach(btn => {
+                btn.classList.remove("bg-[#0F2C59]", "text-white", "shadow-md");
+                btn.classList.add("bg-white", "text-slate-700", "hover:bg-slate-100");
+                btn.setAttribute("aria-selected", "false");
+            });
+
+            // Activar botón seleccionado
+            button.classList.add("bg-[#0F2C59]", "text-white", "shadow-md");
+            button.classList.remove("bg-white", "text-slate-700", "hover:bg-slate-100");
+            button.setAttribute("aria-selected", "true");
+
+            // Ocultar y mostrar paneles correspondientes con micro-fade
+            tabPanels.forEach(panel => {
+                if (panel.id === targetId) {
+                    panel.classList.remove("hidden");
+                    panel.classList.add("animate-fadeIn");
+                } else {
+                    panel.classList.add("hidden");
+                    panel.classList.remove("animate-fadeIn");
+                }
+            });
+
+            if (window.lucide) window.lucide.createIcons();
+        });
+    });
+}
+
+// ==============================================================================
+// 5. CARRUSEL MULTIMEDIA INTERACTIVO (SLIDER DE INSTALACIONES Y ESPACIOS DIGNOS)
+// ==============================================================================
+function initMultimediaSlider() {
+    const track = document.getElementById("sliderTrack");
+    const prevBtn = document.getElementById("sliderPrevBtn");
+    const nextBtn = document.getElementById("sliderNextBtn");
+    const dotsContainer = document.getElementById("sliderDots");
+
+    if (!track) return;
+
+    const slides = track.querySelectorAll(".slider-slide");
+    if (!slides.length) return;
+
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+    let autoSlideInterval = null;
+
+    // Crear dots de navegación
+    if (dotsContainer) {
+        dotsContainer.innerHTML = "";
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement("button");
+            dot.type = "button";
+            dot.setAttribute("aria-label", `Ir a imagen ${i + 1}`);
+            dot.className = `w-3 h-3 rounded-full transition-all duration-300 ${i === 0 ? "bg-[#1E56A0] w-8" : "bg-slate-300 hover:bg-slate-400"}`;
+            dot.addEventListener("click", () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+    }
+
+    function updateSlider() {
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+        // Actualizar dots
+        if (dotsContainer) {
+            const dots = dotsContainer.querySelectorAll("button");
+            dots.forEach((dot, idx) => {
+                if (idx === currentIndex) {
+                    dot.className = "w-8 h-3 rounded-full bg-[#1E56A0] transition-all duration-300";
+                } else {
+                    dot.className = "w-3 h-3 rounded-full bg-slate-300 hover:bg-slate-400 transition-all duration-300";
+                }
+            });
+        }
+    }
+
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateSlider();
+    }
+
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        updateSlider();
+    }
+
+    function goToSlide(index) {
+        currentIndex = index;
+        updateSlider();
+    }
+
+    if (nextBtn) nextBtn.addEventListener("click", () => { nextSlide(); resetAutoplay(); });
+    if (prevBtn) prevBtn.addEventListener("click", () => { prevSlide(); resetAutoplay(); });
+
+    // Autoplay cada 5 segundos
+    function startAutoplay() {
+        autoSlideInterval = setInterval(nextSlide, 5000);
+    }
+
+    function stopAutoplay() {
+        if (autoSlideInterval) clearInterval(autoSlideInterval);
+    }
+
+    function resetAutoplay() {
+        stopAutoplay();
+        startAutoplay();
+    }
+
+    const sliderContainer = document.getElementById("sliderContainer");
+    if (sliderContainer) {
+        sliderContainer.addEventListener("mouseenter", stopAutoplay);
+        sliderContainer.addEventListener("mouseleave", startAutoplay);
+    }
+
+    // Soporte para gestos táctiles (Swipe en móvil)
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    track.addEventListener("touchstart", (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    track.addEventListener("touchend", (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+        const threshold = 45;
+        if (touchEndX < touchStartX - threshold) {
+            nextSlide();
+            resetAutoplay();
+        } else if (touchEndX > touchStartX + threshold) {
+            prevSlide();
+            resetAutoplay();
+        }
+    }
+
+    startAutoplay();
+}
+
+// ==============================================================================
+// 6. VIDEO LIGHTBOX MODAL (REELS Y VIDEOS INSTITUCIONALES 30s)
+// ==============================================================================
+function initVideoLightbox() {
+    const videoModal = document.getElementById("videoModal");
+    const openVideoBtns = document.querySelectorAll(".open-video-btn");
+    const closeVideoBtn = document.getElementById("closeVideoBtn");
+    const videoFrame = document.getElementById("videoPlayerContainer");
+
+    if (!videoModal) return;
+
+    openVideoBtns.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const videoType = btn.getAttribute("data-video-type") || "reel_30s";
+            loadVideoContent(videoType);
+            videoModal.classList.remove("hidden");
+            document.body.classList.add("overflow-hidden");
+            if (window.lucide) window.lucide.createIcons();
+        });
+    });
+
+    if (closeVideoBtn) {
+        closeVideoBtn.addEventListener("click", closeVideo);
+    }
+
+    videoModal.addEventListener("click", (e) => {
+        if (e.target === videoModal) closeVideo();
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !videoModal.classList.contains("hidden")) {
+            closeVideo();
+        }
+    });
+
+    function closeVideo() {
+        videoModal.classList.add("hidden");
+        document.body.classList.remove("overflow-hidden");
+        if (videoFrame) videoFrame.innerHTML = "";
+    }
+
+    function loadVideoContent(type) {
+        if (!videoFrame) return;
+
+        // Renderizado interactivo de Video Reel Institucional simulado (Guion Fase 1)
+        videoFrame.innerHTML = `
+            <div class="relative w-full aspect-[9/16] max-h-[80vh] mx-auto bg-slate-900 rounded-3xl overflow-hidden shadow-2xl flex flex-col justify-between p-6 text-white border-2 border-blue-500/30">
+                <!-- Header del Reel -->
+                <div class="flex items-center justify-between z-10">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center font-bold text-xs border border-white/20">
+                            ACD
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold leading-none">Agustín Cueva Dávila</p>
+                            <p class="text-[10px] text-emerald-400 font-semibold">Ibarra, Ecuador • 30s Spot</p>
+                        </div>
+                    </div>
+                    <span class="text-[10px] bg-red-600 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider animate-pulse">En Vivo</span>
+                </div>
+
+                <!-- Contenido Dinámico del Reel (Simulación interactiva de video) -->
+                <div class="my-auto text-center space-y-4 px-2">
+                    <div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md mx-auto flex items-center justify-center text-3xl animate-bounce">
+                        🏛️
+                    </div>
+                    <p class="text-xs font-bold uppercase tracking-wider text-emerald-300">
+                        "¿Sabías que un entorno seguro transforma el aprendizaje?"
+                    </p>
+                    <h4 class="text-lg font-extrabold leading-snug">
+                        Aulas Dignas • Cero Tolerancia a Robos • Mismo Respeto al Bachillerato Técnico
+                    </h4>
+                    <p class="text-[11px] text-slate-300 leading-relaxed max-w-xs mx-auto">
+                        En Ibarra rompemos con las fallas del pasado: puertas abiertas para comprobarlo en persona antes de matricular.
+                    </p>
+                </div>
+
+                <!-- Footer del Reel con CTA -->
+                <div class="z-10 space-y-3 pt-4 border-t border-white/10">
+                    <a href="#formulario-admision" onclick="document.getElementById('videoModal').classList.add('hidden'); document.body.classList.remove('overflow-hidden');" class="block w-full py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs text-center transition-all shadow-lg">
+                        Agendar Visita a las Instalaciones &rarr;
+                    </a>
+                </div>
+            </div>
+        `;
+    }
+}
+
+// ==============================================================================
+// 7. FEEDBACK DINÁMICO DE CUALIFICACIÓN MOFU
+// ==============================================================================
 function initBudgetBadgeFeedback() {
     const budgetSelect = document.getElementById("estimated_budget");
     const qualifierBadge = document.getElementById("qualifierBadge");
@@ -56,22 +363,24 @@ function initBudgetBadgeFeedback() {
             return;
         }
 
-        qualifierBadge.classList.remove("hidden", "bg-amber-100", "text-amber-800", "bg-emerald-100", "text-emerald-800", "bg-purple-100", "text-purple-800");
+        qualifierBadge.classList.remove("hidden", "bg-amber-100", "text-amber-800", "bg-emerald-100", "text-emerald-800", "bg-blue-100", "text-blue-900");
 
         if (val.includes("Menor a $120")) {
-            qualifierBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-300";
-            qualifierBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500"></span> Cupo de Beca Social (Sujeto a Evaluación de Asistencia)`;
+            qualifierBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300 animate-pulse";
+            qualifierBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500"></span> Postulación a Comité de Beca Social`;
         } else if (val.includes("Más de $350") || val.includes("$220 - $350")) {
-            qualifierBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-purple-100 text-purple-800 border border-purple-300";
-            qualifierBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span> Prioridad de Admisión Inmediata (Plan Técnico/Avanzado)`;
+            qualifierBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-900 border border-blue-300";
+            qualifierBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-blue-600 animate-ping"></span> Prioridad Alta: Apto para Matrícula Directa`;
         } else {
-            qualifierBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 border border-emerald-300";
-            qualifierBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Perfil Calificado: Apto para Matrícula Regular`;
+            qualifierBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300";
+            qualifierBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Perfil Calificado: Plan Estándar Regular`;
         }
     });
 }
 
-// 3. Manejo y validación del formulario MOFU
+// ==============================================================================
+// 8. FORMULARIO MOFU & INTEGRACIÓN DIRECTA CON SUPABASE
+// ==============================================================================
 function initQualificationForm() {
     const form = document.getElementById("mofuLeadForm");
     const submitBtn = document.getElementById("submitLeadBtn");
@@ -84,13 +393,11 @@ function initQualificationForm() {
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        // Ocultar alertas previas
         if (formAlert) {
             formAlert.classList.add("hidden");
             formAlert.innerHTML = "";
         }
 
-        // Extracción de datos estrictos
         const formData = {
             full_name: document.getElementById("full_name")?.value,
             email: document.getElementById("email")?.value,
@@ -100,29 +407,26 @@ function initQualificationForm() {
             primary_pain: document.getElementById("primary_pain")?.value
         };
 
-        // Validaciones UX básicas
+        // Validación en tiempo real de campos obligatorios
         if (!formData.full_name || !formData.email || !formData.whatsapp || !formData.company || !formData.estimated_budget || !formData.primary_pain) {
-            showFormAlert("Por favor, completa todos los campos requeridos para evaluar tu solicitud.", "error");
+            showFormAlert("Por favor completa todos los campos para evaluar la disponibilidad de cupo.", "error");
             return;
         }
 
-        // Estado de carga
         toggleButtonLoading(true);
 
         try {
             const result = await window.supabaseService.insertLead(formData);
 
-            // Éxito: Mostrar modal de felicitaciones
             openSuccessModal(formData, result.isDemo);
-
-            // Resetear formulario
             form.reset();
+
             const qualifierBadge = document.getElementById("qualifierBadge");
             if (qualifierBadge) qualifierBadge.classList.add("hidden");
 
         } catch (error) {
-            console.error("Fallo en captura de lead:", error);
-            showFormAlert(`Hubo un error al registrar tus datos: ${error.message || "Verifica tu conexión a Supabase"}. Por favor intenta de nuevo.`, "error");
+            console.error("Fallo al insertar lead en Supabase:", error);
+            showFormAlert(`Error al registrar en Supabase: ${error.message || "Verifica tu conexión a la nube"}.`, "error");
         } finally {
             toggleButtonLoading(false);
         }
@@ -152,7 +456,9 @@ function initQualificationForm() {
     }
 }
 
-// 4. Modal de confirmación con redirección rápida a WhatsApp
+// ==============================================================================
+// 9. MODAL DE ÉXITO Y REDIRECCIÓN RÁPIDA A WHATSAPP
+// ==============================================================================
 function openSuccessModal(leadData, isDemo) {
     const modal = document.getElementById("successModal");
     const leadNameSpan = document.getElementById("modalLeadName");
@@ -173,17 +479,19 @@ function openSuccessModal(leadData, isDemo) {
 
     if (whatsappLink) {
         const text = encodeURIComponent(
-            `¡Hola! Acabo de registrar mi postulación en la web para la Unidad Educativa Agustín Cueva Dávila.\n\n` +
+            `¡Hola! Acabo de registrar mi postulación en la web de la Unidad Educativa Agustín Cueva Dávila.\n\n` +
             `*Nombre:* ${leadData.full_name}\n` +
             `*Actividad/Empresa:* ${leadData.company}\n` +
-            `*Interés Principal:* ${leadData.primary_pain}\n\n` +
-            `Quisiera confirmar mi visita a las instalaciones y conocer el proceso de matrícula.`
+            `*Preocupación Principal:* ${leadData.primary_pain}\n` +
+            `*Presupuesto Estimado:* ${leadData.estimated_budget}\n\n` +
+            `Quisiera confirmar la visita guiada para conocer las aulas e iniciar mi proceso de matrícula.`
         );
         whatsappLink.href = `https://wa.me/${window.APP_CONFIG.WHATSAPP_NUMBER}?text=${text}`;
     }
 
     modal.classList.remove("hidden");
     document.body.classList.add("overflow-hidden");
+    if (window.lucide) window.lucide.createIcons();
 }
 
 function closeSuccessModal() {
@@ -195,7 +503,9 @@ function closeSuccessModal() {
 }
 window.closeSuccessModal = closeSuccessModal;
 
-// 5. Configuración rápida de credenciales Supabase en el navegador
+// ==============================================================================
+// 10. MODAL DE CONFIGURACIÓN RÁPIDA DE CREDENCIALES SUPABASE
+// ==============================================================================
 function initSettingsModal() {
     const settingsBtn = document.getElementById("openSettingsBtn");
     const settingsModal = document.getElementById("settingsModal");
@@ -210,6 +520,7 @@ function initSettingsModal() {
             if (inputUrl) inputUrl.value = window.APP_CONFIG.SUPABASE_URL || "";
             if (inputKey) inputKey.value = window.APP_CONFIG.SUPABASE_ANON_KEY || "";
             settingsModal.classList.remove("hidden");
+            if (window.lucide) window.lucide.createIcons();
         });
     }
 
@@ -233,14 +544,16 @@ function initSettingsModal() {
                 window.APP_CONFIG.SUPABASE_ANON_KEY = key;
             }
 
-            alert("Credenciales de Supabase actualizadas exitosamente en tu navegador.");
+            alert("Credenciales de Supabase actualizadas con éxito.");
             settingsModal.classList.add("hidden");
             window.location.reload();
         });
     }
 }
 
-// 6. Smooth Scroll para todos los botones CTA
+// ==============================================================================
+// 11. SMOOTH SCROLL PARA ANCLAS Y BOTONES
+// ==============================================================================
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener("click", function (e) {
@@ -258,7 +571,9 @@ function initSmoothScroll() {
     });
 }
 
-// 7. Preguntas Frecuentes (FAQ Accordion)
+// ==============================================================================
+// 12. PREGUNTAS FRECUENTES (FAQ ACCORDION)
+// ==============================================================================
 function initFAQ() {
     const faqButtons = document.querySelectorAll(".faq-toggle-btn");
     faqButtons.forEach(btn => {
