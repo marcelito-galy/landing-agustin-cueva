@@ -56,3 +56,6 @@ WITH CHECK (true);
 -- 7. Otorgar permisos de uso e inserción al rol anónimo (anon)
 GRANT USAGE ON SCHEMA public TO anon;
 GRANT INSERT ON TABLE public.leads TO anon;
+
+-- 8. Recargar la caché de PostgREST en Supabase inmediatamente
+NOTIFY pgrst, 'reload schema';
