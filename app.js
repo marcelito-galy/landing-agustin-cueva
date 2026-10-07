@@ -455,8 +455,21 @@ function initQualificationForm() {
             if (qualifierBadge) qualifierBadge.classList.add("hidden");
 
         } catch (error) {
-            console.error("Fallo al insertar lead en Supabase:", error);
-            showFormAlert(`Error al registrar en Supabase: ${error.message || "Verifica tu conexión a la nube"}.`, "error");
+            console.error("❌ [Form Submission Error] Error al enviar lead a Supabase:", error);
+            console.log("🔍 [Debug Info Supabase Error]:", {
+                name: error.name,
+                message: error.message,
+                stack: error.stack,
+                formDataEnviada: formData,
+                timestamp: new Date().toISOString()
+            });
+
+            let displayMessage = error.message || "Error de conexión con Supabase";
+            if (displayMessage.includes("Could not find the table") || displayMessage.includes("PGRST205")) {
+                displayMessage = "La tabla 'public.leads' no existe en Supabase. Por favor ejecuta el script schema.sql en el SQL Editor de tu proyecto.";
+            }
+
+            showFormAlert(`Error al registrar en Supabase: ${displayMessage}`, "error");
         } finally {
             toggleButtonLoading(false);
         }

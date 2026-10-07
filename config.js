@@ -6,13 +6,21 @@
  */
 
 const APP_CONFIG = {
-    // URL de tu proyecto Supabase (ej: "https://xyzcompany.supabase.co")
-    SUPABASE_URL: window.ENV?.SUPABASE_URL || "https://tu-proyecto.supabase.co",
+    // URL de tu proyecto Supabase (compatible con Next.js Gravity, Vite y Vercel)
+    SUPABASE_URL: window.ENV?.NEXT_PUBLIC_SUPABASE_URL ||
+                  window.ENV?.SUPABASE_URL ||
+                  window.ENV?.VITE_SUPABASE_URL ||
+                  (typeof process !== 'undefined' ? (process.env?.NEXT_PUBLIC_SUPABASE_URL || process.env?.SUPABASE_URL) : '') ||
+                  "https://tu-proyecto.supabase.co",
 
     // Clave anónima pública (anon key) de Supabase
-    SUPABASE_ANON_KEY: window.ENV?.SUPABASE_ANON_KEY || "tu-anon-key-aqui",
+    SUPABASE_ANON_KEY: window.ENV?.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+                      window.ENV?.SUPABASE_ANON_KEY ||
+                      window.ENV?.VITE_SUPABASE_ANON_KEY ||
+                      (typeof process !== 'undefined' ? (process.env?.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env?.SUPABASE_ANON_KEY) : '') ||
+                      "tu-anon-key-aqui",
 
-    // Nombre de la tabla en Supabase
+    // Nombre exacto de la tabla en Supabase (public.leads)
     TABLE_NAME: "leads",
 
     // WhatsApp institucional de admisiones para cierre rápido

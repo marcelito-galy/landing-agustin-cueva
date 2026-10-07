@@ -84,6 +84,9 @@ class SupabaseService {
         // Petición real a la API REST de Supabase (PostgREST)
         const endpoint = `${this.config.SUPABASE_URL.replace(/\/$/, '')}/rest/v1/${this.config.TABLE_NAME}`;
 
+        console.log("📡 [Supabase Request] Enviando lead a:", endpoint);
+        console.log("📦 [Supabase Payload]:", payload);
+
         try {
             const response = await fetch(endpoint, {
                 method: "POST",
@@ -98,10 +101,32 @@ class SupabaseService {
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.message || `Error en Supabase HTTP ${response.status}: ${response.statusText}`);
+                
+                // Logging exhaustivo en consola para depuración
+                console.error("❌ [Supabase Error Detallado]:", {
+                    httpStatus: response.status,
+                    statusText: response.statusText,
+                    code: errorData.code,
+                    message: errorData.message,
+                    details: errorData.details,
+                    hint: errorData.hint,
+                    endpoint: endpoint,
+                    table: this.config.TABLE_NAME
+                });
+
+                if (errorData.message?.includes("Could not find the table") || errorData.code === "PGRST205") {
+                    console.warn(
+                        "⚠️ DIAGNÓSTICO: La tabla 'public.leads' no fue encontrada en la base de datos de Supabase.\n" +
+                        "Solución: Ve a Supabase -> SQL Editor, ejecuta el archivo schema.sql y recarga el esquema ejecutando: NOTIFY pgrst, 'reload schema';"
+                    );
+                }
+
+                const customMsg = errorData.message ? `${errorData.message} (Código: ${errorData.code || response.status})` : `HTTP ${response.status}: ${response.statusText}`;
+                throw new Error(customMsg);
             }
 
-            // Con return=minimal y sin políticas de SELECT para anon, el registro se almacena exitosamente
+            console.log("✅ [Supabase Success] Lead insertado exitosamente con HTTP", response.status);
+
             let data = payload;
             const textResponse = await response.text().catch(() => "");
             if (textResponse) {
@@ -115,7 +140,7 @@ class SupabaseService {
                 message: "Lead sincronizado y almacenado en Supabase con éxito."
             };
         } catch (error) {
-            console.error("❌ Error al insertar lead en Supabase:", error);
+            console.error("❌ [Supabase Error Catch]:", error);
             throw error;
         }
     }
