@@ -58,6 +58,22 @@ class SupabaseService {
             origin = rawUrl.replace(/\/rest\/v1.*$/i, '').replace(/\/+$/, '');
         }
 
+        // Auto-alineación contra la clave API si hay desajuste de proyectos
+        const cleanKey = (this.activeConfig.SUPABASE_ANON_KEY || "").trim();
+        if (cleanKey && cleanKey.includes(".")) {
+            try {
+                const parts = cleanKey.split(".");
+                if (parts.length === 3) {
+                    const b64 = parts[1].replace(/-/g, "+").replace(/_/g, "/");
+                    const payload = JSON.parse(atob(b64));
+                    if (payload.ref && !origin.includes(payload.ref)) {
+                        console.warn(`⚡ [Auto-Healing Endpoint] Corrigiendo endpoint a https://${payload.ref}.supabase.co para coincidir con el proyecto de la clave.`);
+                        origin = `https://${payload.ref}.supabase.co`;
+                    }
+                }
+            } catch (e) {}
+        }
+
         // Limpiar nombre de la tabla (elimina prefijo 'public.' o barras)
         let tableName = (this.config.TABLE_NAME || "leads").trim().replace(/^public\./i, '').replace(/^\/+|\/+$/g, '');
         if (!tableName) tableName = "leads";

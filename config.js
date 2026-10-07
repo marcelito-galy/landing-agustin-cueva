@@ -66,6 +66,21 @@ function normalizeSupabaseBaseUrl(rawUrl) {
     }
 }
 
+// Función para extraer el Reference ID de Supabase desde el token JWT de la anon key
+function extractProjectRefFromKey(jwt) {
+    try {
+        if (!jwt || typeof jwt !== 'string' || !jwt.includes('.')) return null;
+        const parts = jwt.split('.');
+        if (parts.length !== 3) return null;
+        const b64 = parts[1].replace(/-/g, '+').replace(/_/g, '/');
+        const json = atob(b64);
+        const parsed = JSON.parse(json);
+        return parsed.ref || null;
+    } catch (e) {
+        return null;
+    }
+}
+
 // 1. Detectar variables de entorno de producción (Vercel / Next.js Gravity / Vite)
 const envUrl = (window.ENV?.NEXT_PUBLIC_SUPABASE_URL ||
                window.ENV?.SUPABASE_URL ||
@@ -78,17 +93,15 @@ const envKey = (window.ENV?.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
                (typeof process !== 'undefined' ? (process.env?.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env?.SUPABASE_ANON_KEY) : '') || '').trim();
 
 // 2. Aplicar prioridad de configuración:
-// Si existen variables de Vercel/Producción válidas, tienen PRIORIDAD ABSOLUTA
 if (envUrl && !envUrl.includes("tu-proyecto")) {
     APP_CONFIG.SUPABASE_URL = normalizeSupabaseBaseUrl(envUrl);
     if (envKey && !envKey.includes("tu-anon-key")) {
         APP_CONFIG.SUPABASE_ANON_KEY = envKey.replace(/^["']|["']$/g, '');
     }
 } else if (typeof localStorage !== "undefined") {
-    // Si no hay variables de entorno en producción, permitir pruebas con localStorage
     let savedUrl = localStorage.getItem("acd_supabase_url");
     const savedKey = localStorage.getItem("acd_supabase_key");
-    if (savedUrl && !savedUrl.includes("tu-proyecto")) {
+    if (savedUrl && !savedUrl.includes("tu-proyecto") && !savedUrl.includes("bxxxtsxucohjyclcfmoj")) {
         savedUrl = normalizeSupabaseBaseUrl(savedUrl);
         localStorage.setItem("acd_supabase_url", savedUrl);
         APP_CONFIG.SUPABASE_URL = savedUrl;
@@ -98,7 +111,23 @@ if (envUrl && !envUrl.includes("tu-proyecto")) {
     }
 }
 
-// 3. Normalizar la URL activa final
+// 3. Fallback Institucional Definitivo (Proyecto agustin-cueva en Supabase)
+if (!APP_CONFIG.SUPABASE_ANON_KEY || APP_CONFIG.SUPABASE_ANON_KEY.includes("tu-anon-key")) {
+    APP_CONFIG.SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5rcmJjbXpnZ2hqd2ltdWxwZ3BkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzMzM1MDEsImV4cCI6MjEwNjkwOTUwMX0.jIZmFPNm5Pn0d26rXR-qvglFU_nGpRO83FG-1u9dyQo";
+}
+
+// 4. Auto-alineación inteligente de Entornos Cruzados:
+// Si la Anon Key pertenece a un ref (ej: nkrbcmzgghjwimulpgpd) y la URL apunta a otro (ej: bxxxtsxucohjyclcfmoj)
+const targetRef = extractProjectRefFromKey(APP_CONFIG.SUPABASE_ANON_KEY);
+if (targetRef && (!APP_CONFIG.SUPABASE_URL || !APP_CONFIG.SUPABASE_URL.includes(targetRef))) {
+    console.warn(`⚡ [Auto-Healing] Alineando URL al proyecto real de la clave API: https://${targetRef}.supabase.co`);
+    APP_CONFIG.SUPABASE_URL = `https://${targetRef}.supabase.co`;
+    if (typeof localStorage !== "undefined") {
+        localStorage.setItem("acd_supabase_url", APP_CONFIG.SUPABASE_URL);
+    }
+}
+
+// 5. Normalizar la URL activa final
 APP_CONFIG.SUPABASE_URL = normalizeSupabaseBaseUrl(APP_CONFIG.SUPABASE_URL);
 
 console.log("⚡ [Config ACD] Supabase Target URL:", APP_CONFIG.SUPABASE_URL);
