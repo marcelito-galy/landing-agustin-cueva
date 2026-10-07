@@ -303,47 +303,77 @@ function initVideoLightbox() {
     function loadVideoContent(type) {
         if (!videoFrame) return;
 
-        // Renderizado interactivo de Video Reel Institucional simulado (Guion Fase 1)
+        const videoSrc = window.APP_CONFIG?.INSTITUTIONAL_VIDEO_URL || "assets/videos/video-institucional.mp4";
+
+        // Caso 1: Enlace de YouTube o Vimeo
+        if (videoSrc.includes("youtube.com") || videoSrc.includes("youtu.be")) {
+            let embedUrl = videoSrc;
+            if (videoSrc.includes("watch?v=")) {
+                const videoId = videoSrc.split("watch?v=")[1].split("&")[0];
+                embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+            } else if (videoSrc.includes("youtu.be/")) {
+                const videoId = videoSrc.split("youtu.be/")[1].split("?")[0];
+                embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+            }
+
+            videoFrame.innerHTML = `
+                <div class="relative w-full aspect-video max-w-2xl mx-auto bg-black rounded-3xl overflow-hidden shadow-2xl border-2 border-emerald-500/30">
+                    <iframe src="${embedUrl}" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            `;
+            return;
+        }
+
+        // Caso 2: Archivo de Video MP4 local (con fallback interactivo si el archivo aún no existe)
         videoFrame.innerHTML = `
-            <div class="relative w-full aspect-[9/16] max-h-[80vh] mx-auto bg-slate-900 rounded-3xl overflow-hidden shadow-2xl flex flex-col justify-between p-6 text-white border-2 border-blue-500/30">
-                <!-- Header del Reel -->
-                <div class="flex items-center justify-between z-10">
-                    <div class="flex items-center gap-2">
-                        <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center font-bold text-xs border border-white/20">
-                            ACD
+            <div class="relative w-full aspect-[9/16] sm:aspect-video max-h-[80vh] max-w-2xl mx-auto bg-slate-950 rounded-3xl overflow-hidden shadow-2xl flex flex-col justify-between p-4 sm:p-6 text-white border-2 border-emerald-500/40">
+                
+                <!-- Video Element HTML5 -->
+                <video id="acdInstitutionalVideo" controls autoplay playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+                    <source src="${videoSrc}" type="video/mp4">
+                    <source src="videos/video-institucional.mp4" type="video/mp4">
+                    Tu navegador no soporta reproducción de video HTML5.
+                </video>
+
+                <!-- Overlay de Contingencia si el archivo local aún no se ha copiado -->
+                <div id="videoFallbackOverlay" class="hidden absolute inset-0 bg-[#0A192F]/95 z-10 flex flex-col justify-between p-6 text-center">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] bg-emerald-800 text-emerald-200 px-2.5 py-1 rounded-full font-bold uppercase tracking-wider">Video Institucional (30s)</span>
+                        <span class="text-xs text-slate-400">Agustín Cueva Dávila</span>
+                    </div>
+
+                    <div class="my-auto space-y-3 px-2">
+                        <div class="w-14 h-14 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl mx-auto border border-emerald-400/30">
+                            🎬
                         </div>
-                        <div>
-                            <p class="text-xs font-bold leading-none">Agustín Cueva Dávila</p>
-                            <p class="text-[10px] text-emerald-400 font-semibold">Ibarra, Ecuador • 30s Spot</p>
+                        <h4 class="text-base sm:text-lg font-extrabold text-white">
+                            "En Agustín Cueva Dávila, cada estudiante importa igual"
+                        </h4>
+                        <p class="text-xs text-slate-300 max-w-sm mx-auto leading-relaxed">
+                            Para reproducir tu propio video en este espacio, solo debes guardar tu archivo <strong>.mp4</strong> en:
+                        </p>
+                        <div class="p-2.5 bg-black/60 rounded-xl text-[11px] font-mono text-emerald-400 border border-emerald-500/30 max-w-sm mx-auto">
+                            assets/videos/video-institucional.mp4
                         </div>
                     </div>
-                    <span class="text-[10px] bg-red-600 px-2 py-0.5 rounded-full font-bold uppercase tracking-wider animate-pulse">En Vivo</span>
-                </div>
 
-                <!-- Contenido Dinámico del Reel (Simulación interactiva de video) -->
-                <div class="my-auto text-center space-y-4 px-2">
-                    <div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-md mx-auto flex items-center justify-center text-3xl animate-bounce">
-                        🏛️
+                    <div class="pt-3 border-t border-white/10">
+                        <a href="#formulario-admision" onclick="document.getElementById('videoModal').classList.add('hidden'); document.body.classList.remove('overflow-hidden');" class="block w-full py-3 px-4 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white font-extrabold text-xs transition-colors">
+                            Agendar Visita a las Instalaciones &rarr;
+                        </a>
                     </div>
-                    <p class="text-xs font-bold uppercase tracking-wider text-emerald-300">
-                        "¿Sabías que un entorno seguro transforma el aprendizaje?"
-                    </p>
-                    <h4 class="text-lg font-extrabold leading-snug">
-                        Aulas Dignas • Cero Tolerancia a Robos • Mismo Respeto al Bachillerato Técnico
-                    </h4>
-                    <p class="text-[11px] text-slate-300 leading-relaxed max-w-xs mx-auto">
-                        En Ibarra rompemos con las fallas del pasado: puertas abiertas para comprobarlo en persona antes de matricular.
-                    </p>
-                </div>
-
-                <!-- Footer del Reel con CTA -->
-                <div class="z-10 space-y-3 pt-4 border-t border-white/10">
-                    <a href="#formulario-admision" onclick="document.getElementById('videoModal').classList.add('hidden'); document.body.classList.remove('overflow-hidden');" class="block w-full py-3 px-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs text-center transition-all shadow-lg">
-                        Agendar Visita a las Instalaciones &rarr;
-                    </a>
                 </div>
             </div>
         `;
+
+        // Si el video falla al cargar (por ejemplo, porque el usuario aún no coloca el archivo en assets/videos/), mostrar el overlay instructivo
+        const vidElem = document.getElementById("acdInstitutionalVideo");
+        const fallbackOverlay = document.getElementById("videoFallbackOverlay");
+        if (vidElem && fallbackOverlay) {
+            vidElem.addEventListener("error", () => {
+                fallbackOverlay.classList.remove("hidden");
+            });
+        }
     }
 }
 
