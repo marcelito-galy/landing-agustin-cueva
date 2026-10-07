@@ -66,22 +66,42 @@ function normalizeSupabaseBaseUrl(rawUrl) {
     }
 }
 
-// Permitir sobreescribir desde localStorage para pruebas interactivas en vivo
-if (typeof localStorage !== "undefined") {
+// 1. Detectar variables de entorno de producción (Vercel / Next.js Gravity / Vite)
+const envUrl = (window.ENV?.NEXT_PUBLIC_SUPABASE_URL ||
+               window.ENV?.SUPABASE_URL ||
+               window.ENV?.VITE_SUPABASE_URL ||
+               (typeof process !== 'undefined' ? (process.env?.NEXT_PUBLIC_SUPABASE_URL || process.env?.SUPABASE_URL) : '') || '').trim();
+
+const envKey = (window.ENV?.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+               window.ENV?.SUPABASE_ANON_KEY ||
+               window.ENV?.VITE_SUPABASE_ANON_KEY ||
+               (typeof process !== 'undefined' ? (process.env?.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env?.SUPABASE_ANON_KEY) : '') || '').trim();
+
+// 2. Aplicar prioridad de configuración:
+// Si existen variables de Vercel/Producción válidas, tienen PRIORIDAD ABSOLUTA
+if (envUrl && !envUrl.includes("tu-proyecto")) {
+    APP_CONFIG.SUPABASE_URL = normalizeSupabaseBaseUrl(envUrl);
+    if (envKey && !envKey.includes("tu-anon-key")) {
+        APP_CONFIG.SUPABASE_ANON_KEY = envKey.replace(/^["']|["']$/g, '');
+    }
+} else if (typeof localStorage !== "undefined") {
+    // Si no hay variables de entorno en producción, permitir pruebas con localStorage
     let savedUrl = localStorage.getItem("acd_supabase_url");
     const savedKey = localStorage.getItem("acd_supabase_key");
-    if (savedUrl) {
-        // Auto-corregir URL guardada si contenía /rest/v1 o /leads
+    if (savedUrl && !savedUrl.includes("tu-proyecto")) {
         savedUrl = normalizeSupabaseBaseUrl(savedUrl);
         localStorage.setItem("acd_supabase_url", savedUrl);
         APP_CONFIG.SUPABASE_URL = savedUrl;
     }
-    if (savedKey) {
+    if (savedKey && !savedKey.includes("tu-anon-key")) {
         APP_CONFIG.SUPABASE_ANON_KEY = savedKey.trim().replace(/^["']|["']$/g, '');
     }
 }
 
-// Normalizar la URL activa final
+// 3. Normalizar la URL activa final
 APP_CONFIG.SUPABASE_URL = normalizeSupabaseBaseUrl(APP_CONFIG.SUPABASE_URL);
+
+console.log("⚡ [Config ACD] Supabase Target URL:", APP_CONFIG.SUPABASE_URL);
+console.log("⚡ [Config ACD] Anon Key Configurada:", Boolean(APP_CONFIG.SUPABASE_ANON_KEY && !APP_CONFIG.SUPABASE_ANON_KEY.includes("tu-anon-key")));
 
 window.APP_CONFIG = APP_CONFIG;

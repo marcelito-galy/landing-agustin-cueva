@@ -27,6 +27,10 @@ class SupabaseService {
         }
     }
 
+    get activeConfig() {
+        return this.config || window.APP_CONFIG || {};
+    }
+
     /**
      * Construye y normaliza la URL exacta del endpoint REST de Supabase.
      * Es inmune a que el usuario pegue la URL con /rest/v1, /leads, barras finales,
@@ -34,7 +38,7 @@ class SupabaseService {
      * @returns {string} Endpoint normalizado (ej: https://xyz.supabase.co/rest/v1/leads)
      */
     getCleanEndpoint() {
-        let rawUrl = (this.config.SUPABASE_URL || "").trim().replace(/^["']|["']$/g, '');
+        let rawUrl = (this.activeConfig.SUPABASE_URL || "").trim().replace(/^["']|["']$/g, '');
         if (!rawUrl) return "";
 
         // Si se pegó solo el ID del proyecto
@@ -84,8 +88,8 @@ class SupabaseService {
             user_agent: navigator.userAgent
         };
 
-        const rawUrl = (this.config.SUPABASE_URL || "").trim();
-        const rawKey = (this.config.SUPABASE_ANON_KEY || "").trim().replace(/^["']|["']$/g, '');
+        const rawUrl = (this.activeConfig.SUPABASE_URL || "").trim();
+        const rawKey = (this.activeConfig.SUPABASE_ANON_KEY || "").trim().replace(/^["']|["']$/g, '');
 
         const isConfigured = 
             rawUrl && 
