@@ -11,14 +11,14 @@ const APP_CONFIG = {
                   window.ENV?.SUPABASE_URL ||
                   window.ENV?.VITE_SUPABASE_URL ||
                   (typeof process !== 'undefined' ? (process.env?.NEXT_PUBLIC_SUPABASE_URL || process.env?.SUPABASE_URL) : '') ||
-                  "https://tu-proyecto.supabase.co",
+                  "https://nkrbcmzgghjwimulpgpd.supabase.co",
 
     // Clave anónima pública (anon key) de Supabase
     SUPABASE_ANON_KEY: window.ENV?.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
                       window.ENV?.SUPABASE_ANON_KEY ||
                       window.ENV?.VITE_SUPABASE_ANON_KEY ||
                       (typeof process !== 'undefined' ? (process.env?.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env?.SUPABASE_ANON_KEY) : '') ||
-                      "tu-anon-key-aqui",
+                      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5rcmJjbXpnZ2hqd2ltdWxwZ3BkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEzMzM1MDEsImV4cCI6MjEwNjkwOTUwMX0.jIZmFPNm5Pn0d26rXR-qvglFU_nGpRO83FG-1u9dyQo",
 
     // Nombre exacto de la tabla en Supabase (public.leads)
     TABLE_NAME: "leads",

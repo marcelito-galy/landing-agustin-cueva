@@ -471,7 +471,8 @@ function initQualificationForm() {
                 displayMessage = "La tabla 'public.leads' no existe en Supabase. Por favor ejecuta el script schema.sql en el SQL Editor de tu proyecto.";
             }
 
-            showFormAlert(`Error al registrar en Supabase: ${displayMessage}`, "error");
+            const targetUrl = window.APP_CONFIG?.SUPABASE_URL || "Supabase";
+            showFormAlert(`Error al registrar en Supabase [${targetUrl}]: ${displayMessage}`, "error");
         } finally {
             toggleButtonLoading(false);
         }

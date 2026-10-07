@@ -1507,10 +1507,19 @@
         </div>
     </div>
 
-    <!-- SCRIPTS DE ARQUITECTURA -->
-    <script src="/api/env.js"></script>
-    <script src="config.js"></script>
-    <script src="supabase-client.js"></script>
-    <script src="app.js"></script>
+    <!-- LIMPIEZA AUTOMÁTICA DE CACHÉ LOCAL OBSOLETO -->
+    <script>
+        try {
+            // Eliminar residuos antiguos de pruebas previas en el navegador
+            localStorage.removeItem('acd_supabase_url');
+            localStorage.removeItem('acd_supabase_key');
+        } catch(e) {}
+    </script>
+
+    <!-- SCRIPTS DE ARQUITECTURA CON CACHE BUSTING -->
+    <script src="/api/env.js?v=20261007_v3"></script>
+    <script src="config.js?v=20261007_v3"></script>
+    <script src="supabase-client.js?v=20261007_v3"></script>
+    <script src="app.js?v=20261007_v3"></script>
 </body>
 </html>
