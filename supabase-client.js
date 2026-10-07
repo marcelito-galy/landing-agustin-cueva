@@ -91,7 +91,7 @@ class SupabaseService {
                     "Content-Type": "application/json",
                     "apikey": this.config.SUPABASE_ANON_KEY,
                     "Authorization": `Bearer ${this.config.SUPABASE_ANON_KEY}`,
-                    "Prefer": "return=representation"
+                    "Prefer": "return=minimal"
                 },
                 body: JSON.stringify(payload)
             });
@@ -101,7 +101,13 @@ class SupabaseService {
                 throw new Error(errorData.message || `Error en Supabase HTTP ${response.status}: ${response.statusText}`);
             }
 
-            const data = await response.json();
+            // Con return=minimal y sin políticas de SELECT para anon, el registro se almacena exitosamente
+            let data = payload;
+            const textResponse = await response.text().catch(() => "");
+            if (textResponse) {
+                try { data = JSON.parse(textResponse); } catch(e) {}
+            }
+
             return {
                 success: true,
                 isDemo: false,
