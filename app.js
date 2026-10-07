@@ -465,7 +465,9 @@ function initQualificationForm() {
             });
 
             let displayMessage = error.message || "Error de conexión con Supabase";
-            if (displayMessage.includes("Could not find the table") || displayMessage.includes("PGRST205")) {
+            if (displayMessage.includes("Invalid path specified") || displayMessage.includes("PGRST125")) {
+                displayMessage = "URL de Supabase incorrecta. Debe ser únicamente 'https://tu-proyecto.supabase.co' (sin '/rest/v1' ni '/leads' al final). La hemos auto-corregido para tu próximo envío.";
+            } else if (displayMessage.includes("Could not find the table") || displayMessage.includes("PGRST205")) {
                 displayMessage = "La tabla 'public.leads' no existe en Supabase. Por favor ejecuta el script schema.sql en el SQL Editor de tu proyecto.";
             }
 
@@ -575,19 +577,34 @@ function initSettingsModal() {
 
     if (saveSettingsBtn && settingsModal) {
         saveSettingsBtn.addEventListener("click", () => {
-            const url = inputUrl?.value?.trim();
-            const key = inputKey?.value?.trim();
+            const rawUrl = inputUrl?.value?.trim();
+            const rawKey = inputKey?.value?.trim();
 
-            if (url) {
-                localStorage.setItem("acd_supabase_url", url);
-                window.APP_CONFIG.SUPABASE_URL = url;
+            if (rawUrl) {
+                let cleanUrl = rawUrl.replace(/^["']|["']$/g, '');
+                if (!cleanUrl.startsWith("http://") && !cleanUrl.startsWith("https://")) {
+                    if (/^[a-z0-9-]+$/i.test(cleanUrl)) {
+                        cleanUrl = `https://${cleanUrl}.supabase.co`;
+                    } else {
+                        cleanUrl = `https://${cleanUrl}`;
+                    }
+                }
+                try {
+                    cleanUrl = new URL(cleanUrl).origin;
+                } catch(e) {
+                    cleanUrl = cleanUrl.replace(/\/rest\/v1.*$/i, '').replace(/\/+$/, '');
+                }
+                localStorage.setItem("acd_supabase_url", cleanUrl);
+                window.APP_CONFIG.SUPABASE_URL = cleanUrl;
+                if (inputUrl) inputUrl.value = cleanUrl;
             }
-            if (key) {
-                localStorage.setItem("acd_supabase_key", key);
-                window.APP_CONFIG.SUPABASE_ANON_KEY = key;
+            if (rawKey) {
+                const cleanKey = rawKey.replace(/^["']|["']$/g, '');
+                localStorage.setItem("acd_supabase_key", cleanKey);
+                window.APP_CONFIG.SUPABASE_ANON_KEY = cleanKey;
             }
 
-            alert("Credenciales de Supabase actualizadas con éxito.");
+            alert("Credenciales de Supabase actualizadas y normalizadas con éxito.");
             settingsModal.classList.add("hidden");
             window.location.reload();
         });

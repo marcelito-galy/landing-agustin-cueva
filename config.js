@@ -44,12 +44,44 @@ const APP_CONFIG = {
     }
 };
 
+// Función de normalización de URL base de Supabase
+function normalizeSupabaseBaseUrl(rawUrl) {
+    if (!rawUrl) return "";
+    let cleaned = rawUrl.trim().replace(/^["']|["']$/g, '');
+    if (!cleaned || cleaned.includes("tu-proyecto")) return "https://tu-proyecto.supabase.co";
+
+    if (!cleaned.startsWith("http://") && !cleaned.startsWith("https://")) {
+        if (/^[a-z0-9-]+$/i.test(cleaned)) {
+            cleaned = `https://${cleaned}.supabase.co`;
+        } else {
+            cleaned = `https://${cleaned}`;
+        }
+    }
+
+    try {
+        const parsed = new URL(cleaned);
+        return parsed.origin; // Retorna exclusivamente https://id-proyecto.supabase.co sin paths adicionales
+    } catch (e) {
+        return cleaned.replace(/\/rest\/v1.*$/i, '').replace(/\/+$/, '');
+    }
+}
+
 // Permitir sobreescribir desde localStorage para pruebas interactivas en vivo
 if (typeof localStorage !== "undefined") {
-    const savedUrl = localStorage.getItem("acd_supabase_url");
+    let savedUrl = localStorage.getItem("acd_supabase_url");
     const savedKey = localStorage.getItem("acd_supabase_key");
-    if (savedUrl) APP_CONFIG.SUPABASE_URL = savedUrl;
-    if (savedKey) APP_CONFIG.SUPABASE_ANON_KEY = savedKey;
+    if (savedUrl) {
+        // Auto-corregir URL guardada si contenía /rest/v1 o /leads
+        savedUrl = normalizeSupabaseBaseUrl(savedUrl);
+        localStorage.setItem("acd_supabase_url", savedUrl);
+        APP_CONFIG.SUPABASE_URL = savedUrl;
+    }
+    if (savedKey) {
+        APP_CONFIG.SUPABASE_ANON_KEY = savedKey.trim().replace(/^["']|["']$/g, '');
+    }
 }
+
+// Normalizar la URL activa final
+APP_CONFIG.SUPABASE_URL = normalizeSupabaseBaseUrl(APP_CONFIG.SUPABASE_URL);
 
 window.APP_CONFIG = APP_CONFIG;

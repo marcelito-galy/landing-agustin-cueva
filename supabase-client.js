@@ -28,6 +28,40 @@ class SupabaseService {
     }
 
     /**
+     * Construye y normaliza la URL exacta del endpoint REST de Supabase.
+     * Es inmune a que el usuario pegue la URL con /rest/v1, /leads, barras finales,
+     * comillas o espacios accidentales.
+     * @returns {string} Endpoint normalizado (ej: https://xyz.supabase.co/rest/v1/leads)
+     */
+    getCleanEndpoint() {
+        let rawUrl = (this.config.SUPABASE_URL || "").trim().replace(/^["']|["']$/g, '');
+        if (!rawUrl) return "";
+
+        // Si se pegó solo el ID del proyecto
+        if (!rawUrl.startsWith("http://") && !rawUrl.startsWith("https://")) {
+            if (/^[a-z0-9-]+$/i.test(rawUrl)) {
+                rawUrl = `https://${rawUrl}.supabase.co`;
+            } else {
+                rawUrl = `https://${rawUrl}`;
+            }
+        }
+
+        let origin = "";
+        try {
+            const parsed = new URL(rawUrl);
+            origin = parsed.origin; // Extrae únicamente "https://[id-proyecto].supabase.co"
+        } catch (e) {
+            origin = rawUrl.replace(/\/rest\/v1.*$/i, '').replace(/\/+$/, '');
+        }
+
+        // Limpiar nombre de la tabla (elimina prefijo 'public.' o barras)
+        let tableName = (this.config.TABLE_NAME || "leads").trim().replace(/^public\./i, '').replace(/^\/+|\/+$/g, '');
+        if (!tableName) tableName = "leads";
+
+        return `${origin}/rest/v1/${tableName}`;
+    }
+
+    /**
      * Envía un nuevo lead a la base de datos de Supabase
      * @param {Object} formData 
      * @returns {Promise<Object>}
@@ -50,11 +84,14 @@ class SupabaseService {
             user_agent: navigator.userAgent
         };
 
+        const rawUrl = (this.config.SUPABASE_URL || "").trim();
+        const rawKey = (this.config.SUPABASE_ANON_KEY || "").trim().replace(/^["']|["']$/g, '');
+
         const isConfigured = 
-            this.config.SUPABASE_URL && 
-            !this.config.SUPABASE_URL.includes("tu-proyecto") &&
-            this.config.SUPABASE_ANON_KEY && 
-            !this.config.SUPABASE_ANON_KEY.includes("tu-anon-key");
+            rawUrl && 
+            !rawUrl.includes("tu-proyecto") &&
+            rawKey && 
+            !rawKey.includes("tu-anon-key");
 
         // Modo Demostración Local (cuando aún no se han pegado las llaves reales)
         if (!isConfigured) {
@@ -81,10 +118,10 @@ class SupabaseService {
             };
         }
 
-        // Petición real a la API REST de Supabase (PostgREST)
-        const endpoint = `${this.config.SUPABASE_URL.replace(/\/$/, '')}/rest/v1/${this.config.TABLE_NAME}`;
+        // Endpoint REST sanitizado y garantizado (PostgREST)
+        const endpoint = this.getCleanEndpoint();
 
-        console.log("📡 [Supabase Request] Enviando lead a:", endpoint);
+        console.log("📡 [Supabase Request] Endpoint limpio y normalizado:", endpoint);
         console.log("📦 [Supabase Payload]:", payload);
 
         try {
@@ -92,8 +129,8 @@ class SupabaseService {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "apikey": this.config.SUPABASE_ANON_KEY,
-                    "Authorization": `Bearer ${this.config.SUPABASE_ANON_KEY}`,
+                    "apikey": rawKey,
+                    "Authorization": `Bearer ${rawKey}`,
                     "Prefer": "return=minimal"
                 },
                 body: JSON.stringify(payload)
@@ -114,9 +151,16 @@ class SupabaseService {
                     table: this.config.TABLE_NAME
                 });
 
+                if (errorData.message?.includes("Invalid path specified") || errorData.code === "PGRST125") {
+                    console.warn(
+                        "⚠️ DIAGNÓSTICO PGRST125: La URL solicitada no es válida para PostgREST.\n" +
+                        "Asegúrate de que la URL de Supabase sea únicamente https://[id-proyecto].supabase.co (sin /rest/v1 ni /leads al final)."
+                    );
+                }
+
                 if (errorData.message?.includes("Could not find the table") || errorData.code === "PGRST205") {
                     console.warn(
-                        "⚠️ DIAGNÓSTICO: La tabla 'public.leads' no fue encontrada en la base de datos de Supabase.\n" +
+                        "⚠️ DIAGNÓSTICO PGRST205: La tabla 'public.leads' no fue encontrada en la base de datos de Supabase.\n" +
                         "Solución: Ve a Supabase -> SQL Editor, ejecuta el archivo schema.sql y recarga el esquema ejecutando: NOTIFY pgrst, 'reload schema';"
                     );
                 }
