@@ -23,6 +23,10 @@ USING (created_at AT TIME ZONE 'America/Guayaquil');
 ALTER TABLE public.leads 
 ALTER COLUMN created_at SET DEFAULT (now() AT TIME ZONE 'America/Guayaquil');
 
+-- Remover restricción NOT NULL estricta para garantizar que nunca vuelva a fallar por error 23502
+ALTER TABLE public.leads 
+ALTER COLUMN created_at DROP NOT NULL;
+
 -- 3. Asegurar que TODAS las columnas del formulario y del sistema existan
 -- (Si la tabla ya existía, ADD COLUMN IF NOT EXISTS agrega las columnas faltantes sin borrar datos)
 

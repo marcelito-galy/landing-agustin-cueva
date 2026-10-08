@@ -82,6 +82,28 @@ class SupabaseService {
     }
 
     /**
+     * Retorna la fecha y hora local exacta de Ecuador (UTC-5 / America/Guayaquil)
+     * en formato estándar compatible con PostgreSQL: YYYY-MM-DD HH:mm:ss
+     * @returns {string} Fecha y hora formateada (ej: "2026-10-07 20:25:05")
+     */
+    getEcuadorTimestamp() {
+        const d = new Date();
+        // Ecuador se mantiene fijo todo el año en UTC-5
+        const utcTime = d.getTime() + (d.getTimezoneOffset() * 60000);
+        const ecuadorDate = new Date(utcTime - (5 * 3600000));
+
+        const pad = (n) => String(n).padStart(2, '0');
+        const yyyy = ecuadorDate.getFullYear();
+        const mm = pad(ecuadorDate.getMonth() + 1);
+        const dd = pad(ecuadorDate.getDate());
+        const hh = pad(ecuadorDate.getHours());
+        const mi = pad(ecuadorDate.getMinutes());
+        const ss = pad(ecuadorDate.getSeconds());
+
+        return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;
+    }
+
+    /**
      * Envía un nuevo lead a la base de datos de Supabase
      * @param {Object} formData 
      * @returns {Promise<Object>}
@@ -90,6 +112,7 @@ class SupabaseService {
         const { isQualified, tier } = this.evaluateLeadQualification(formData.estimated_budget);
 
         const payload = {
+            created_at: this.getEcuadorTimestamp(),
             full_name: formData.full_name?.trim(),
             email: formData.email?.trim().toLowerCase(),
             whatsapp: formData.whatsapp?.trim(),
