@@ -21,9 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
     initVideoLightbox();
     initFAQ();
 
-    // 3. Módulos de captura y cualificación MOFU
-    initBudgetBadgeFeedback();
-    initQualificationForm();
+    // 3. Módulo de Wizard Interactivo de Cualificación (Typeform style)
+    initQualificationWizard();
     initSettingsModal();
     initSmoothScroll();
 });
@@ -359,7 +358,7 @@ function initVideoLightbox() {
 
                     <div class="pt-3 border-t border-white/10">
                         <a href="#formulario-admision" onclick="document.getElementById('videoModal').classList.add('hidden'); document.body.classList.remove('overflow-hidden');" class="block w-full py-3 px-4 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white font-extrabold text-xs transition-colors">
-                            Agendar Visita a las Instalaciones &rarr;
+                            Consulta disponibilidad de cupos &rarr;
                         </a>
                     </div>
                 </div>
@@ -378,127 +377,242 @@ function initVideoLightbox() {
 }
 
 // ==============================================================================
-// 7. FEEDBACK DINÁMICO DE CUALIFICACIÓN MOFU
+// 7. WIZARD INTERACTIVO DE CUALIFICACIÓN (TYPEFORM STYLE & SCORING)
 // ==============================================================================
-function initBudgetBadgeFeedback() {
-    const budgetSelect = document.getElementById("estimated_budget");
-    const qualifierBadge = document.getElementById("qualifierBadge");
+function initQualificationWizard() {
+    const wizardCard = document.getElementById("cuposWizardCard");
+    if (!wizardCard) return;
 
-    if (!budgetSelect || !qualifierBadge) return;
-
-    budgetSelect.addEventListener("change", (e) => {
-        const val = e.target.value;
-        if (!val) {
-            qualifierBadge.classList.add("hidden");
-            return;
+    // Estado interno del Wizard
+    const wizardState = {
+        currentStep: 1,
+        totalSteps: 3,
+        answers: {
+            q1: null, // Nivel educativo
+            q2: null, // Prioridad
+            q3: null  // Urgencia
+        },
+        points: {
+            q1: 0,
+            q2: 0,
+            q3: 0
         }
+    };
 
-        qualifierBadge.classList.remove("hidden", "bg-amber-100", "text-amber-800", "bg-emerald-100", "text-emerald-800", "bg-blue-100", "text-blue-900");
+    // Referencias a los pasos del DOM
+    const step1El = document.getElementById("wizardStep1");
+    const step2El = document.getElementById("wizardStep2");
+    const step3El = document.getElementById("wizardStep3");
+    const stepResultEl = document.getElementById("wizardStepResult");
 
-        if (val.includes("Menor a $120")) {
-            qualifierBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300 animate-pulse";
-            qualifierBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500"></span> Postulación a Comité de Beca Social`;
-        } else if (val.includes("Más de $350") || val.includes("$220 - $350")) {
-            qualifierBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-900 border border-blue-300";
-            qualifierBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-blue-600 animate-ping"></span> Prioridad Alta: Apto para Matrícula Directa`;
-        } else {
-            qualifierBadge.className = "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300";
-            qualifierBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500"></span> Perfil Calificado: Plan Estándar Regular`;
-        }
+    const steps = [null, step1El, step2El, step3El, stepResultEl];
+
+    // Barra de progreso y badges
+    const progressBar = document.getElementById("wizardProgressBar");
+    const stepLabel = document.getElementById("wizardStepLabel");
+    const progressPercentage = document.getElementById("wizardProgressPercentage");
+
+    // Elementos de la pantalla de resultado
+    const scoreBadgeContainer = document.getElementById("wizardScoreBadgeContainer");
+    const calculatedScoreText = document.getElementById("wizardCalculatedScoreText");
+    const summaryLevelText = document.getElementById("summaryLevelText");
+    const summaryPriorityText = document.getElementById("summaryPriorityText");
+    const summaryUrgencyText = document.getElementById("summaryUrgencyText");
+    const whatsappBtn = document.getElementById("wizardWhatsappBtn");
+    const restartBtn = document.getElementById("wizardRestartBtn");
+
+    // Click en opciones
+    const optionButtons = wizardCard.querySelectorAll(".wizard-option-btn");
+    optionButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            const stepNum = parseInt(btn.getAttribute("data-step"), 10);
+            const value = btn.getAttribute("data-value");
+            const points = parseInt(btn.getAttribute("data-points") || "0", 10);
+
+            handleOptionSelect(stepNum, value, points, btn);
+        });
     });
-}
 
-// ==============================================================================
-// 8. FORMULARIO MOFU & INTEGRACIÓN DIRECTA CON SUPABASE
-// ==============================================================================
-function initQualificationForm() {
-    const form = document.getElementById("mofuLeadForm");
-    const submitBtn = document.getElementById("submitLeadBtn");
-    const btnText = document.getElementById("btnText");
-    const btnSpinner = document.getElementById("btnSpinner");
-    const formAlert = document.getElementById("formAlert");
-
-    if (!form) return;
-
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        if (formAlert) {
-            formAlert.classList.add("hidden");
-            formAlert.innerHTML = "";
-        }
-
-        const formData = {
-            full_name: document.getElementById("full_name")?.value,
-            email: document.getElementById("email")?.value,
-            whatsapp: document.getElementById("whatsapp")?.value,
-            company: document.getElementById("company")?.value,
-            estimated_budget: document.getElementById("estimated_budget")?.value,
-            primary_pain: document.getElementById("primary_pain")?.value
-        };
-
-        // Validación en tiempo real de campos obligatorios
-        if (!formData.full_name || !formData.email || !formData.whatsapp || !formData.company || !formData.estimated_budget || !formData.primary_pain) {
-            showFormAlert("Por favor completa todos los campos para evaluar la disponibilidad de cupo.", "error");
-            return;
-        }
-
-        toggleButtonLoading(true);
-
-        try {
-            const result = await window.supabaseService.insertLead(formData);
-
-            openSuccessModal(formData, result.isDemo);
-            form.reset();
-
-            const qualifierBadge = document.getElementById("qualifierBadge");
-            if (qualifierBadge) qualifierBadge.classList.add("hidden");
-
-        } catch (error) {
-            console.error("❌ [Form Submission Error] Error al enviar lead a Supabase:", error);
-            console.log("🔍 [Debug Info Supabase Error]:", {
-                name: error.name,
-                message: error.message,
-                stack: error.stack,
-                formDataEnviada: formData,
-                timestamp: new Date().toISOString()
-            });
-
-            let displayMessage = error.message || "Error de conexión con Supabase";
-            if (displayMessage.includes("Invalid path specified") || displayMessage.includes("PGRST125")) {
-                displayMessage = "URL de Supabase incorrecta. Debe ser únicamente 'https://tu-proyecto.supabase.co' (sin '/rest/v1' ni '/leads' al final). La hemos auto-corregido para tu próximo envío.";
-            } else if (displayMessage.includes("Could not find the table") || displayMessage.includes("PGRST205")) {
-                displayMessage = "La tabla 'public.leads' no existe en Supabase. Por favor ejecuta el script schema.sql en el SQL Editor de tu proyecto.";
+    // Click en botón volver
+    const backButtons = wizardCard.querySelectorAll(".wizard-back-btn");
+    backButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+            if (wizardState.currentStep > 1) {
+                goToStep(wizardState.currentStep - 1);
             }
-
-            const targetUrl = window.APP_CONFIG?.SUPABASE_URL || "Supabase";
-            showFormAlert(`Error al registrar en Supabase [${targetUrl}]: ${displayMessage}`, "error");
-        } finally {
-            toggleButtonLoading(false);
-        }
+        });
     });
 
-    function toggleButtonLoading(isLoading) {
-        if (!submitBtn) return;
-        submitBtn.disabled = isLoading;
-        if (isLoading) {
-            btnText?.classList.add("opacity-0");
-            btnSpinner?.classList.remove("hidden");
+    // Click en reiniciar
+    if (restartBtn) {
+        restartBtn.addEventListener("click", () => {
+            resetWizard();
+        });
+    }
+
+    function handleOptionSelect(stepNum, value, points, clickedBtn) {
+        // Feedback visual inmediato en la opción seleccionada
+        const parentStep = clickedBtn.closest(".wizard-step");
+        if (parentStep) {
+            parentStep.querySelectorAll(".wizard-option-btn").forEach(b => {
+                b.classList.remove("border-[#0B3B2C]", "bg-emerald-50", "ring-2", "ring-[#0B3B2C]");
+            });
+            clickedBtn.classList.add("border-[#0B3B2C]", "bg-emerald-50", "ring-2", "ring-[#0B3B2C]");
+        }
+
+        // Guardar valores en el estado interno
+        if (stepNum === 1) {
+            wizardState.answers.q1 = value;
+            wizardState.points.q1 = points;
+        } else if (stepNum === 2) {
+            wizardState.answers.q2 = value;
+            wizardState.points.q2 = points;
+        } else if (stepNum === 3) {
+            wizardState.answers.q3 = value;
+            wizardState.points.q3 = points;
+        }
+
+        // Pequeño retardo de 220ms para percibir la animación de selección y pasar al siguiente paso
+        setTimeout(() => {
+            if (stepNum < 3) {
+                goToStep(stepNum + 1);
+            } else {
+                finishWizard();
+            }
+        }, 220);
+    }
+
+    function goToStep(targetStep) {
+        const currentEl = steps[wizardState.currentStep];
+        const nextEl = steps[targetStep];
+
+        if (!currentEl || !nextEl) return;
+
+        // Desvanecer el paso actual
+        currentEl.classList.remove("opacity-100");
+        currentEl.classList.add("opacity-0");
+
+        setTimeout(() => {
+            currentEl.classList.add("hidden");
+            wizardState.currentStep = targetStep;
+
+            updateProgressUI(targetStep);
+
+            nextEl.classList.remove("hidden");
+            // Forzar reflow para que la transición CSS opere fluidamente
+            void nextEl.offsetWidth;
+            nextEl.classList.remove("opacity-0");
+            nextEl.classList.add("opacity-100");
+
+            if (window.lucide) window.lucide.createIcons();
+        }, 180);
+    }
+
+    function updateProgressUI(step) {
+        if (!progressBar || !stepLabel || !progressPercentage) return;
+
+        if (step <= 3) {
+            const pct = Math.round((step / 3) * 100);
+            progressBar.style.width = `${pct}%`;
+            stepLabel.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span><span>Paso ${step} de 3</span>`;
+            progressPercentage.textContent = `${pct}% completado`;
         } else {
-            btnText?.classList.remove("opacity-0");
-            btnSpinner?.classList.add("hidden");
+            progressBar.style.width = "100%";
+            stepLabel.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500"></span><span>¡Test Completado!</span>`;
+            progressPercentage.textContent = "100% completado";
         }
     }
 
-    function showFormAlert(message, type) {
-        if (!formAlert) return;
-        formAlert.classList.remove("hidden", "bg-red-50", "text-red-700", "border-red-200", "bg-emerald-50", "text-emerald-700", "border-emerald-200");
-        if (type === "error") {
-            formAlert.classList.add("bg-red-50", "text-red-700", "border-red-200", "border");
-        } else {
-            formAlert.classList.add("bg-emerald-50", "text-emerald-700", "border-emerald-200", "border");
+    function finishWizard() {
+        // Cálculo del Score de Urgencia
+        const totalScore = (wizardState.points.q1 || 10) + (wizardState.points.q2 || 10) + (wizardState.points.q3 || 10);
+        const scoreString = `${totalScore}/100`;
+
+        // Mostrar pantalla de resultado
+        goToStep(4);
+
+        // Actualizar resumen en la tarjeta
+        if (calculatedScoreText) calculatedScoreText.textContent = scoreString;
+        if (summaryLevelText) summaryLevelText.textContent = wizardState.answers.q1 || "Educación Básica";
+        if (summaryPriorityText) summaryPriorityText.textContent = wizardState.answers.q2 || "Nivel académico y malla curricular";
+        if (summaryUrgencyText) summaryUrgencyText.textContent = wizardState.answers.q3 || "Lo antes posible / Este mes";
+
+        // Estilos dinámicos del badge de urgencia
+        if (scoreBadgeContainer) {
+            scoreBadgeContainer.className = "my-5 inline-flex items-center gap-2 px-4 py-2 rounded-2xl text-xs sm:text-sm font-extrabold border shadow-sm";
+            if (totalScore >= 90) {
+                // Score 100/100
+                scoreBadgeContainer.classList.add("bg-emerald-50", "text-emerald-900", "border-emerald-300");
+                scoreBadgeContainer.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span><span>Nivel de Urgencia Calculado: </span><span class="text-base font-black text-emerald-950">${scoreString} (Prioridad Alta)</span>`;
+            } else if (totalScore >= 50) {
+                // Score 60/100
+                scoreBadgeContainer.classList.add("bg-blue-50", "text-blue-900", "border-blue-300");
+                scoreBadgeContainer.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span><span>Nivel de Urgencia Calculado: </span><span class="text-base font-black text-blue-950">${scoreString} (Próximo Periodo)</span>`;
+            } else {
+                // Score 30/100
+                scoreBadgeContainer.classList.add("bg-slate-100", "text-slate-800", "border-slate-300");
+                scoreBadgeContainer.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span><span>Nivel de Urgencia Calculado: </span><span class="text-base font-black text-slate-900">${scoreString} (Informativo)</span>`;
+            }
         }
-        formAlert.innerHTML = `<span>${message}</span>`;
+
+        // Formato exacto del mensaje de WhatsApp solicitado:
+        // "Hola Unidad Educativa Agustín Cueva. Completé el test en su web. Busco información de cupos para [Respuesta_Pregunta1]. Necesito esto [Respuesta_Pregunta3] y me interesa especialmente su [Respuesta_Pregunta2]. Mi nivel de urgencia es: [Score_Calculado/100]. ¿Me ayudan con los requisitos?"
+        const whatsappMsg = `Hola Unidad Educativa Agustín Cueva. Completé el test en su web. Busco información de cupos para ${wizardState.answers.q1}. Necesito esto ${wizardState.answers.q3} y me interesa especialmente su ${wizardState.answers.q2}. Mi nivel de urgencia es: ${scoreString}. ¿Me ayudan con los requisitos?`;
+
+        const whatsappNumber = window.APP_CONFIG?.WHATSAPP_NUMBER || "593998765432";
+        const targetWhatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMsg)}`;
+
+        if (whatsappBtn) {
+            whatsappBtn.href = targetWhatsappUrl;
+        }
+
+        // Registro silencioso en segundo plano en Supabase (evita fricción y conserva la analítica en la nube)
+        try {
+            if (window.supabaseService && typeof window.supabaseService.insertLead === 'function') {
+                window.supabaseService.insertLead({
+                    full_name: `Prospecto (${wizardState.answers.q1})`,
+                    email: `lead_${Date.now()}@whatsapp.acd.edu.ec`,
+                    whatsapp: "Canal WhatsApp Directo",
+                    company: wizardState.answers.q1,
+                    estimated_budget: `Score: ${scoreString}`,
+                    primary_pain: wizardState.answers.q2,
+                    notes: `Wizard: Nivel=${wizardState.answers.q1} | Prioridad=${wizardState.answers.q2} | Urgencia=${wizardState.answers.q3} | Score=${scoreString}`
+                }).then(() => {
+                    console.log("✅ [Wizard] Prospecto registrado en Supabase.");
+                }).catch(err => {
+                    console.log("ℹ️ [Wizard] Nota background Supabase:", err?.message || err);
+                });
+            }
+        } catch (e) {
+            // Silencioso para asegurar que la redirección fluya siempre
+        }
+    }
+
+    function resetWizard() {
+        wizardState.currentStep = 1;
+        wizardState.answers = { q1: null, q2: null, q3: null };
+        wizardState.points = { q1: 0, q2: 0, q3: 0 };
+
+        optionButtons.forEach(btn => {
+            btn.classList.remove("border-[#0B3B2C]", "bg-emerald-50", "ring-2", "ring-[#0B3B2C]");
+        });
+
+        steps.slice(1).forEach(el => {
+            if (el) {
+                el.classList.add("hidden", "opacity-0");
+                el.classList.remove("opacity-100");
+            }
+        });
+
+        if (step1El) {
+            step1El.classList.remove("hidden");
+            void step1El.offsetWidth;
+            step1El.classList.remove("opacity-0");
+            step1El.classList.add("opacity-100");
+        }
+
+        updateProgressUI(1);
+        if (window.lucide) window.lucide.createIcons();
     }
 }
 

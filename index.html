@@ -73,7 +73,7 @@
         <div class="max-w-7xl mx-auto flex items-center justify-center gap-2">
             <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
             <span><strong>Admisiones Abiertas Periodo 2026-2027</strong> | Cupos regulados por aula para garantizar seguridad integral, dignidad y trato personalizado en Ibarra.</span>
-            <a href="#formulario-admision" class="underline hover:text-amber-300 font-bold ml-2 hidden sm:inline transition-colors">Postular cupo &rarr;</a>
+            <a href="#formulario-admision" class="underline hover:text-amber-300 font-bold ml-2 hidden sm:inline transition-colors">Consulta disponibilidad de cupos &rarr;</a>
         </div>
     </aside>
 
@@ -126,7 +126,7 @@
 
                     <!-- CTA Primario en Verde Oscuro Institucional (#0B3B2C) -->
                     <a href="#formulario-admision" class="px-5 py-2.5 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white font-bold text-sm shadow-md hover:shadow-emerald-900/30 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 border border-emerald-500/40 flex items-center gap-2">
-                        <span>Iniciar Admisión</span>
+                        <span>Consulta disponibilidad de cupos</span>
                         <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </a>
                 </div>
@@ -149,7 +149,7 @@
             <a href="#faq" class="block text-slate-200 font-medium py-2">Preguntas Frecuentes</a>
             <div class="pt-3 border-t border-white/10 flex flex-col gap-2">
                 <a href="#formulario-admision" class="w-full text-center px-4 py-3 rounded-xl bg-[#0B3B2C] text-white font-bold">
-                    Iniciar Admisión &rarr;
+                    Consulta disponibilidad de cupos &rarr;
                 </a>
             </div>
         </div>
@@ -187,8 +187,8 @@
                 <!-- CTAs Principales con Verde Oscuro #0B3B2C -->
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
                     <a href="#formulario-admision" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white font-extrabold text-base shadow-xl hover:shadow-emerald-950/40 transition-all duration-300 transform hover:-translate-y-0.5 border border-emerald-500/50 flex items-center justify-center gap-2.5">
-                        <i data-lucide="file-check-2" class="w-5 h-5 text-amber-300"></i>
-                        <span>Agenda tu Visita / Inicia tu Admisión</span>
+                        <i data-lucide="sparkles" class="w-5 h-5 text-amber-300"></i>
+                        <span>Consulta disponibilidad de cupos</span>
                     </a>
 
                     <button type="button" class="open-video-btn w-full sm:w-auto px-7 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-base border border-white/25 backdrop-blur-md transition-all flex items-center justify-center gap-2.5 group" data-video-type="reel_30s">
@@ -1115,7 +1115,7 @@
                 </div>
                 <div class="w-full md:w-auto flex-shrink-0">
                     <a href="#formulario-admision" class="inline-block w-full md:w-auto text-center px-8 py-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-base transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                        Agendar Recorrido en Persona &rarr;
+                        Consulta disponibilidad de cupos &rarr;
                     </a>
                 </div>
             </div>
@@ -1124,152 +1124,338 @@
     </section>
 
     <!-- ========================================================================= -->
-    <!-- 8. FORMULARIO DE CUALIFICACIÓN MOFU (INTEGRACIÓN CON SUPABASE CLOUD)      -->
+    <!-- 8. WIZARD INTERACTIVO DE CUALIFICACIÓN (CONSULTA DE CUPOS & SCORING MOFU) -->
     <!-- ========================================================================= -->
-    <section id="formulario-admision" class="py-16 md:py-24 bg-gradient-to-b from-slate-50 via-emerald-50/20 to-slate-100">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="formulario-admision" class="py-16 md:py-24 bg-gradient-to-b from-slate-50 via-emerald-50/20 to-slate-100 scroll-mt-20">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <div class="text-center mb-10 reveal-on-scroll opacity-0 translate-y-8">
                 <span class="text-xs font-bold uppercase tracking-wider text-[#0B3B2C] bg-emerald-100 px-3.5 py-1.5 rounded-full border border-emerald-200 inline-flex items-center gap-1.5">
-                    <i data-lucide="cloud-check" class="w-4 h-4 text-emerald-700"></i>
-                    <span>Filtro MOFU & Captura Segura en la Nube</span>
+                    <i data-lucide="sparkles" class="w-4 h-4 text-emerald-700"></i>
+                    <span>Test de Admisión 2026-2027 • 3 Pasos Rápidos</span>
                 </span>
                 <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0A192F] mt-3 tracking-tight">
-                    Solicitud de Cualificación y Admisión 2026-2027
+                    Consulta disponibilidad de cupos
                 </h2>
-                <p class="text-slate-600 text-sm sm:text-base mt-2 max-w-2xl mx-auto">
-                    Completa tus datos para evaluar la disponibilidad de cupo, asignar la modalidad formativa adecuada y coordinar tu visita guiada:
+                <p class="text-slate-600 text-sm sm:text-base mt-2 max-w-xl mx-auto">
+                    Responde 3 preguntas breves para perfilar a tu hijo, calcular la urgencia de cupo y recibir los requisitos oficiales por WhatsApp en 30 segundos.
                 </p>
             </div>
 
-            <!-- Tarjeta del Formulario MOFU (Blanco Puro y Alto Contraste) -->
-            <div class="bg-white rounded-3xl border border-slate-200 shadow-2xl p-6 sm:p-10 relative overflow-hidden">
+            <!-- Tarjeta Principal del Wizard (Typeform Style) -->
+            <div id="cuposWizardCard" class="bg-white rounded-3xl border border-slate-200 shadow-2xl p-6 sm:p-10 relative overflow-hidden transition-all duration-300">
                 
-                <!-- Encabezado de Seguridad de Datos -->
-                <div class="flex items-center justify-between pb-6 mb-6 border-b border-slate-100 text-xs text-slate-500">
-                    <div class="flex items-center gap-2">
-                        <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
-                        <span>Conexión directa bajo protocolo HTTPS & Supabase Cloud</span>
+                <!-- Encabezado de Progreso -->
+                <div class="mb-8">
+                    <div class="flex items-center justify-between text-xs sm:text-sm font-bold text-slate-500 mb-2.5">
+                        <span id="wizardStepLabel" class="text-[#0B3B2C] font-extrabold uppercase tracking-wide flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span>Paso 1 de 3</span>
+                        </span>
+                        <span id="wizardProgressPercentage" class="text-slate-400 font-semibold">33% completado</span>
                     </div>
-                    <span class="font-bold text-[#0B3B2C] hidden sm:inline">Paso 1 de 1 • Evaluación MOFU</span>
+                    <!-- Barra de Progreso Animada -->
+                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                        <div id="wizardProgressBar" class="h-full bg-gradient-to-r from-[#0B3B2C] to-emerald-500 rounded-full transition-all duration-500 ease-out" style="width: 33.33%;"></div>
+                    </div>
                 </div>
 
-                <!-- Alerta dinámica de error / éxito -->
-                <div id="formAlert" class="hidden mb-6 p-4 rounded-xl text-sm" role="alert"></div>
+                <!-- CONTENEDOR DE PASOS -->
+                <div id="wizardStepsContainer" class="relative min-h-[340px] flex flex-col justify-between">
+                    
+                    <!-- ========================================== -->
+                    <!-- PASO 1: Nivel Educativo                    -->
+                    <!-- ========================================== -->
+                    <div id="wizardStep1" class="wizard-step transition-all duration-300 ease-in-out opacity-100">
+                        <div class="mb-6">
+                            <span class="text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">Pregunta 1</span>
+                            <h3 class="text-xl sm:text-2xl font-extrabold text-[#0A192F] mt-2 mb-1.5">
+                                ¿Para qué nivel educativo estás buscando cupo?
+                            </h3>
+                            <p class="text-slate-500 text-xs sm:text-sm">
+                                Selecciona el nivel correspondiente para verificar vacantes en las aulas:
+                            </p>
+                        </div>
 
-                <!-- Formulario con los 6 Campos Estrictos -->
-                <form id="mofuLeadForm" class="space-y-6">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        
-                        <!-- 1. NOMBRE COMPLETO -->
-                        <div>
-                            <label for="full_name" class="block text-sm font-bold text-slate-800 mb-2">
-                                Nombre completo del representante o tutor <span class="text-rose-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <input type="text" id="full_name" name="full_name" required placeholder="Ej. Carlos Fernando Mendoza" class="w-full px-4 py-3.5 pl-11 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#0B3B2C] focus:border-[#0B3B2C] outline-none transition-all text-sm placeholder:text-slate-400 bg-slate-50/50 focus:bg-white text-slate-900">
-                                <i data-lucide="user" class="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2"></i>
+                        <div class="grid grid-cols-1 gap-3.5">
+                            <!-- Opción 1A: Inicial -->
+                            <button type="button" class="wizard-option-btn text-left p-4 sm:p-5 rounded-2xl border-2 border-slate-200 hover:border-[#0B3B2C] hover:bg-emerald-50/30 transition-all duration-200 flex items-center justify-between group" data-step="1" data-value="Educación Inicial" data-points="10">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-xl bg-emerald-100 text-[#0B3B2C] flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-[#0B3B2C] group-hover:text-white transition-all">
+                                        <i data-lucide="baby" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-slate-900 text-base group-hover:text-[#0B3B2C] transition-colors">Educación Inicial</div>
+                                        <div class="text-xs text-slate-500 mt-0.5">3 a 4 años • Estimulación, psicomotricidad y ambiente cálido</div>
+                                    </div>
+                                </div>
+                                <div class="w-6 h-6 rounded-full border-2 border-slate-300 group-hover:border-[#0B3B2C] group-hover:bg-[#0B3B2C] flex items-center justify-center text-white text-xs transition-all flex-shrink-0">
+                                    <i data-lucide="check" class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100"></i>
+                                </div>
+                            </button>
+
+                            <!-- Opción 1B: Básica -->
+                            <button type="button" class="wizard-option-btn text-left p-4 sm:p-5 rounded-2xl border-2 border-slate-200 hover:border-[#0B3B2C] hover:bg-emerald-50/30 transition-all duration-200 flex items-center justify-between group" data-step="1" data-value="Educación Básica" data-points="10">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-xl bg-blue-100 text-[#0F2C59] flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-[#0F2C59] group-hover:text-white transition-all">
+                                        <i data-lucide="book-open" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-slate-900 text-base group-hover:text-[#0F2C59] transition-colors">Educación Básica</div>
+                                        <div class="text-xs text-slate-500 mt-0.5">Preparatoria, Elemental, Media y Superior (1ero a 10mo EGB)</div>
+                                    </div>
+                                </div>
+                                <div class="w-6 h-6 rounded-full border-2 border-slate-300 group-hover:border-[#0F2C59] group-hover:bg-[#0F2C59] flex items-center justify-center text-white text-xs transition-all flex-shrink-0">
+                                    <i data-lucide="check" class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100"></i>
+                                </div>
+                            </button>
+
+                            <!-- Opción 1C: Bachillerato -->
+                            <button type="button" class="wizard-option-btn text-left p-4 sm:p-5 rounded-2xl border-2 border-slate-200 hover:border-[#0B3B2C] hover:bg-emerald-50/30 transition-all duration-200 flex items-center justify-between group" data-step="1" data-value="Bachillerato" data-points="10">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-amber-600 group-hover:text-white transition-all">
+                                        <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-slate-900 text-base group-hover:text-[#0B3B2C] transition-colors">Bachillerato</div>
+                                        <div class="text-xs text-slate-500 mt-0.5">Bachillerato en Ciencias • Enfoque preuniversitario sólido</div>
+                                    </div>
+                                </div>
+                                <div class="w-6 h-6 rounded-full border-2 border-slate-300 group-hover:border-[#0B3B2C] group-hover:bg-[#0B3B2C] flex items-center justify-center text-white text-xs transition-all flex-shrink-0">
+                                    <i data-lucide="check" class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100"></i>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ========================================== -->
+                    <!-- PASO 2: Prioridad Educativa                -->
+                    <!-- ========================================== -->
+                    <div id="wizardStep2" class="wizard-step hidden transition-all duration-300 ease-in-out opacity-0">
+                        <div class="mb-6">
+                            <span class="text-xs font-bold text-blue-800 bg-blue-50 px-2.5 py-1 rounded-md border border-blue-200">Pregunta 2</span>
+                            <h3 class="text-xl sm:text-2xl font-extrabold text-[#0A192F] mt-2 mb-1.5">
+                                ¿Qué es lo más importante para ti en la educación de tu hijo?
+                            </h3>
+                            <p class="text-slate-500 text-xs sm:text-sm">
+                                Cuéntanos qué pilar buscas priorizar en la formación escolar:
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 gap-3.5">
+                            <!-- Opción 2A: Académico -->
+                            <button type="button" class="wizard-option-btn text-left p-4 sm:p-5 rounded-2xl border-2 border-slate-200 hover:border-[#0B3B2C] hover:bg-emerald-50/30 transition-all duration-200 flex items-center justify-between group" data-step="2" data-value="Nivel académico y malla curricular" data-points="10">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-xl bg-purple-100 text-purple-900 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-purple-700 group-hover:text-white transition-all">
+                                        <i data-lucide="award" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-slate-900 text-base group-hover:text-[#0B3B2C] transition-colors">Nivel académico y malla curricular</div>
+                                        <div class="text-xs text-slate-500 mt-0.5">Rigor pedagógico, inglés y preparación para la educación superior</div>
+                                    </div>
+                                </div>
+                                <div class="w-6 h-6 rounded-full border-2 border-slate-300 group-hover:border-[#0B3B2C] group-hover:bg-[#0B3B2C] flex items-center justify-center text-white text-xs transition-all flex-shrink-0">
+                                    <i data-lucide="check" class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100"></i>
+                                </div>
+                            </button>
+
+                            <!-- Opción 2B: DECE / Psicológico -->
+                            <button type="button" class="wizard-option-btn text-left p-4 sm:p-5 rounded-2xl border-2 border-slate-200 hover:border-[#0B3B2C] hover:bg-emerald-50/30 transition-all duration-200 flex items-center justify-between group" data-step="2" data-value="Acompañamiento psicológico / DECE" data-points="10">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-xl bg-emerald-100 text-[#0B3B2C] flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-[#0B3B2C] group-hover:text-white transition-all">
+                                        <i data-lucide="heart-handshake" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-slate-900 text-base group-hover:text-[#0B3B2C] transition-colors">Acompañamiento psicológico / DECE</div>
+                                        <div class="text-xs text-slate-500 mt-0.5">Entorno seguro, empatía, prevención del acoso y salud emocional</div>
+                                    </div>
+                                </div>
+                                <div class="w-6 h-6 rounded-full border-2 border-slate-300 group-hover:border-[#0B3B2C] group-hover:bg-[#0B3B2C] flex items-center justify-center text-white text-xs transition-all flex-shrink-0">
+                                    <i data-lucide="check" class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100"></i>
+                                </div>
+                            </button>
+
+                            <!-- Opción 2C: Instalaciones -->
+                            <button type="button" class="wizard-option-btn text-left p-4 sm:p-5 rounded-2xl border-2 border-slate-200 hover:border-[#0B3B2C] hover:bg-emerald-50/30 transition-all duration-200 flex items-center justify-between group" data-step="2" data-value="Ubicación e Instalaciones" data-points="10">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-xl bg-amber-100 text-amber-900 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-amber-600 group-hover:text-white transition-all">
+                                        <i data-lucide="building-2" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-slate-900 text-base group-hover:text-[#0B3B2C] transition-colors">Ubicación e Instalaciones</div>
+                                        <div class="text-xs text-slate-500 mt-0.5">Espacios dignos, canchas, laboratorios renovados y áreas verdes</div>
+                                    </div>
+                                </div>
+                                <div class="w-6 h-6 rounded-full border-2 border-slate-300 group-hover:border-[#0B3B2C] group-hover:bg-[#0B3B2C] flex items-center justify-center text-white text-xs transition-all flex-shrink-0">
+                                    <i data-lucide="check" class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100"></i>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div class="pt-6 border-t border-slate-100 mt-6 flex justify-between items-center">
+                            <button type="button" class="wizard-back-btn text-xs font-bold text-slate-500 hover:text-slate-800 flex items-center gap-1.5 transition-colors">
+                                <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                                <span>Volver a la pregunta anterior</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ========================================== -->
+                    <!-- PASO 3: Urgencia de Matrícula              -->
+                    <!-- ========================================== -->
+                    <div id="wizardStep3" class="wizard-step hidden transition-all duration-300 ease-in-out opacity-0">
+                        <div class="mb-6">
+                            <span class="text-xs font-bold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-md border border-amber-200">Pregunta 3 • Definición de Urgencia</span>
+                            <h3 class="text-xl sm:text-2xl font-extrabold text-[#0A192F] mt-2 mb-1.5">
+                                ¿Para cuándo necesitas concretar la matrícula?
+                            </h3>
+                            <p class="text-slate-500 text-xs sm:text-sm">
+                                Esto nos permite organizar la lista de espera y asignación directa de cupo:
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 gap-3.5">
+                            <!-- Opción 3A: Inmediata (+80 pts) -->
+                            <button type="button" class="wizard-option-btn text-left p-4 sm:p-5 rounded-2xl border-2 border-slate-200 hover:border-emerald-600 hover:bg-emerald-50/40 transition-all duration-200 flex items-center justify-between group" data-step="3" data-value="Lo antes posible / Este mes" data-points="80">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-emerald-600 group-hover:text-white transition-all">
+                                        <i data-lucide="zap" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="font-bold text-slate-900 text-base group-hover:text-emerald-800 transition-colors">Lo antes posible / Este mes</span>
+                                            <span class="text-[11px] font-extrabold bg-emerald-600 text-white px-2 py-0.5 rounded-full">+80 pts</span>
+                                        </div>
+                                        <div class="text-xs text-slate-500 mt-0.5">Necesito cupo prioritario inmediato para este periodo lectivo</div>
+                                    </div>
+                                </div>
+                                <div class="w-6 h-6 rounded-full border-2 border-slate-300 group-hover:border-emerald-600 group-hover:bg-emerald-600 flex items-center justify-center text-white text-xs transition-all flex-shrink-0">
+                                    <i data-lucide="check" class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100"></i>
+                                </div>
+                            </button>
+
+                            <!-- Opción 3B: Próximo año (+40 pts) -->
+                            <button type="button" class="wizard-option-btn text-left p-4 sm:p-5 rounded-2xl border-2 border-slate-200 hover:border-blue-600 hover:bg-blue-50/40 transition-all duration-200 flex items-center justify-between group" data-step="3" data-value="Para el próximo año lectivo" data-points="40">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-xl bg-blue-100 text-blue-800 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                                        <i data-lucide="calendar-clock" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="font-bold text-slate-900 text-base group-hover:text-blue-800 transition-colors">Para el próximo año lectivo</span>
+                                            <span class="text-[11px] font-extrabold bg-blue-600 text-white px-2 py-0.5 rounded-full">+40 pts</span>
+                                        </div>
+                                        <div class="text-xs text-slate-500 mt-0.5">Planificación anticipada para el ciclo 2026-2027</div>
+                                    </div>
+                                </div>
+                                <div class="w-6 h-6 rounded-full border-2 border-slate-300 group-hover:border-blue-600 group-hover:bg-blue-600 flex items-center justify-center text-white text-xs transition-all flex-shrink-0">
+                                    <i data-lucide="check" class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100"></i>
+                                </div>
+                            </button>
+
+                            <!-- Opción 3C: Solo información (+10 pts) -->
+                            <button type="button" class="wizard-option-btn text-left p-4 sm:p-5 rounded-2xl border-2 border-slate-200 hover:border-slate-500 hover:bg-slate-50 transition-all duration-200 flex items-center justify-between group" data-step="3" data-value="Solo estoy buscando información" data-points="10">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:bg-slate-700 group-hover:text-white transition-all">
+                                        <i data-lucide="search" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="font-bold text-slate-900 text-base group-hover:text-slate-800 transition-colors">Solo estoy buscando información</span>
+                                            <span class="text-[11px] font-extrabold bg-slate-600 text-white px-2 py-0.5 rounded-full">+10 pts</span>
+                                        </div>
+                                        <div class="text-xs text-slate-500 mt-0.5">Explorando costos, malla formativa y alternativas escolares</div>
+                                    </div>
+                                </div>
+                                <div class="w-6 h-6 rounded-full border-2 border-slate-300 group-hover:border-slate-700 group-hover:bg-slate-700 flex items-center justify-center text-white text-xs transition-all flex-shrink-0">
+                                    <i data-lucide="check" class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100"></i>
+                                </div>
+                            </button>
+                        </div>
+
+                        <div class="pt-6 border-t border-slate-100 mt-6 flex justify-between items-center">
+                            <button type="button" class="wizard-back-btn text-xs font-bold text-slate-500 hover:text-slate-800 flex items-center gap-1.5 transition-colors">
+                                <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                                <span>Volver a la pregunta anterior</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ========================================== -->
+                    <!-- PASO FINAL: RESULTADO Y REDIRECCIÓN WA     -->
+                    <!-- ========================================== -->
+                    <div id="wizardStepResult" class="wizard-step hidden transition-all duration-300 ease-in-out opacity-0">
+                        <div class="text-center py-2">
+                            <!-- Icono animado -->
+                            <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-700 mx-auto flex items-center justify-center shadow-inner mb-4">
+                                <i data-lucide="check-circle" class="w-9 h-9 stroke-[2.5]"></i>
+                            </div>
+
+                            <h3 class="text-2xl sm:text-3xl font-extrabold text-[#0A192F] tracking-tight">
+                                ¡Evaluación de Perfil Completada!
+                            </h3>
+                            <p class="text-slate-600 text-sm mt-1 max-w-md mx-auto">
+                                Hemos clasificado tu solicitud y preparado el canal directo con secretaría comercial.
+                            </p>
+
+                            <!-- Badge de Score Dinámico -->
+                            <div class="my-5 inline-flex items-center gap-2 px-4 py-2 rounded-2xl text-xs sm:text-sm font-extrabold border shadow-sm" id="wizardScoreBadgeContainer">
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+                                <span>Nivel de Urgencia Calculado: </span>
+                                <span id="wizardCalculatedScoreText" class="text-base font-black">100/100</span>
+                            </div>
+
+                            <!-- Resumen del Perfil -->
+                            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 text-left text-xs sm:text-sm space-y-2 mb-6 max-w-lg mx-auto">
+                                <div class="flex items-start gap-2">
+                                    <span class="font-bold text-slate-700 min-w-[130px] flex items-center gap-1.5">
+                                        <i data-lucide="graduation-cap" class="w-4 h-4 text-emerald-700"></i>
+                                        <span>Nivel de interés:</span>
+                                    </span>
+                                    <span id="summaryLevelText" class="text-slate-900 font-semibold">Bachillerato</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <span class="font-bold text-slate-700 min-w-[130px] flex items-center gap-1.5">
+                                        <i data-lucide="heart" class="w-4 h-4 text-emerald-700"></i>
+                                        <span>Prioridad clave:</span>
+                                    </span>
+                                    <span id="summaryPriorityText" class="text-slate-900 font-semibold">Acompañamiento psicológico / DECE</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <span class="font-bold text-slate-700 min-w-[130px] flex items-center gap-1.5">
+                                        <i data-lucide="clock" class="w-4 h-4 text-emerald-700"></i>
+                                        <span>Plazo requerido:</span>
+                                    </span>
+                                    <span id="summaryUrgencyText" class="text-slate-900 font-semibold">Lo antes posible / Este mes</span>
+                                </div>
+                            </div>
+
+                            <!-- Botón Principal: Ver Requisitos por WhatsApp -->
+                            <div class="max-w-lg mx-auto">
+                                <a id="wizardWhatsappBtn" href="#" target="_blank" rel="noopener noreferrer" class="w-full py-4 px-6 rounded-2xl bg-[#25D366] hover:bg-[#1EBE5D] text-slate-950 font-extrabold text-base sm:text-lg shadow-xl hover:shadow-emerald-900/20 hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-3 transform hover:-translate-y-0.5 border border-emerald-400/50 group">
+                                    <i data-lucide="message-circle" class="w-6 h-6 fill-current text-slate-950 group-hover:scale-110 transition-transform"></i>
+                                    <span>Ver requisitos por WhatsApp</span>
+                                    <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                                </a>
+                                
+                                <p class="text-[12px] text-slate-500 mt-2.5">
+                                    * Se abrirá WhatsApp con el mensaje pre-armado para una respuesta comercial inmediata.
+                                </p>
+
+                                <button id="wizardRestartBtn" type="button" class="mt-4 text-xs font-bold text-slate-400 hover:text-slate-700 underline transition-colors">
+                                    ← Volver a responder o cambiar datos
+                                </button>
                             </div>
                         </div>
-
-                        <!-- 2. CORREO ELECTRÓNICO -->
-                        <div>
-                            <label for="email" class="block text-sm font-bold text-slate-800 mb-2">
-                                Correo electrónico de contacto <span class="text-rose-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <input type="email" id="email" name="email" required placeholder="carlos.mendoza@email.com" class="w-full px-4 py-3.5 pl-11 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#0B3B2C] focus:border-[#0B3B2C] outline-none transition-all text-sm placeholder:text-slate-400 bg-slate-50/50 focus:bg-white text-slate-900">
-                                <i data-lucide="mail" class="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2"></i>
-                            </div>
-                        </div>
-
-                        <!-- 3. WHATSAPP -->
-                        <div>
-                            <label for="whatsapp" class="block text-sm font-bold text-slate-800 mb-2">
-                                WhatsApp de contacto (con código país) <span class="text-rose-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <input type="tel" id="whatsapp" name="whatsapp" required placeholder="Ej. +593 99 123 4567" class="w-full px-4 py-3.5 pl-11 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#0B3B2C] focus:border-[#0B3B2C] outline-none transition-all text-sm placeholder:text-slate-400 bg-slate-50/50 focus:bg-white text-slate-900">
-                                <i data-lucide="phone" class="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2"></i>
-                            </div>
-                        </div>
-
-                        <!-- 4. EMPRESA / NEGOCIO -->
-                        <div>
-                            <label for="company" class="block text-sm font-bold text-slate-800 mb-2">
-                                Empresa / Negocio o Actividad del tutor <span class="text-rose-500">*</span>
-                            </label>
-                            <div class="relative">
-                                <input type="text" id="company" name="company" required placeholder="Ej. Comercial Norte / Emprendimiento / Independiente" class="w-full px-4 py-3.5 pl-11 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#0B3B2C] focus:border-[#0B3B2C] outline-none transition-all text-sm placeholder:text-slate-400 bg-slate-50/50 focus:bg-white text-slate-900">
-                                <i data-lucide="briefcase" class="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2"></i>
-                            </div>
-                        </div>
                     </div>
 
-                    <!-- 5. PRESUPUESTO ESTIMADO (DROPDOWN DE FILTRO COMERCIAL) -->
-                    <div>
-                        <div class="flex items-center justify-between mb-2">
-                            <label for="estimated_budget" class="block text-sm font-bold text-slate-800">
-                                Presupuesto mensual estimado para educación <span class="text-rose-500">*</span>
-                            </label>
-                            <!-- Badge dinámico de cualificación en vivo -->
-                            <span id="qualifierBadge" class="hidden"></span>
-                        </div>
-                        <div class="relative">
-                            <select id="estimated_budget" name="estimated_budget" required class="w-full px-4 py-3.5 pl-11 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#0B3B2C] focus:border-[#0B3B2C] outline-none transition-all text-sm bg-slate-50/50 focus:bg-white text-slate-900 appearance-none">
-                                <option value="" disabled selected>Seleccione el rango presupuestario mensual estimado...</option>
-                                <option value="Menor a $120 / mes (Requiere análisis de Beca Social)">Menor a $120 / mes (Requiere análisis de Beca Social - Cupo Especial)</option>
-                                <option value="$120 - $220 / mes (Plan Estándar - Educación Integral)">$120 - $220 / mes (Plan Estándar - Educación Integral)</option>
-                                <option value="$220 - $350 / mes (Plan Avanzado - Técnico + Inglés Intensivo)">$220 - $350 / mes (Plan Avanzado - Técnico + Inglés Intensivo)</option>
-                                <option value="Más de $350 / mes (Plan Premium - Todo Incluido)">Más de $350 / mes (Plan Premium - Todo Incluido + Actividades)</option>
-                            </select>
-                            <i data-lucide="dollar-sign" class="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2"></i>
-                            <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"></i>
-                        </div>
-                        <p class="text-[12px] text-slate-500 mt-1.5">
-                            * Filtro MOFU para clasificar solicitudes de matrícula directa vs. postulaciones al programa de becas de apoyo solidario.
-                        </p>
-                    </div>
+                </div>
+            </div>
 
-                    <!-- 6. DOLOR PRINCIPAL / MAYOR OBSTÁCULO COMERCIAL -->
-                    <div>
-                        <label for="primary_pain" class="block text-sm font-bold text-slate-800 mb-2">
-                            Dolor principal / Mayor obstáculo en su elección escolar <span class="text-rose-500">*</span>
-                        </label>
-                        <div class="relative">
-                            <select id="primary_pain" name="primary_pain" required class="w-full px-4 py-3.5 pl-11 rounded-xl border border-slate-300 focus:ring-2 focus:ring-[#0B3B2C] focus:border-[#0B3B2C] outline-none transition-all text-sm bg-slate-50/50 focus:bg-white text-slate-900 appearance-none">
-                                <option value="" disabled selected>¿Cuál ha sido la mayor preocupación con los colegios actuales?</option>
-                                <option value="Inseguridad interna, robos y falta de control en el colegio actual">Inseguridad interna, robos y falta de control en el colegio actual</option>
-                                <option value="Miedo a discriminación o desvalorización del Bachillerato Técnico">Miedo a discriminación o desvalorización del Bachillerato Técnico</option>
-                                <option value="Infraestructura descuidada, aulas deterioradas y falta de higiene">Infraestructura descuidada, aulas deterioradas y falta de higiene</option>
-                                <option value="Falta de información clara, costos ocultos y mala atención administrativa">Falta de información clara, costos ocultos y mala atención administrativa</option>
-                                <option value="Otro obstáculo o motivo de cambio">Otro obstáculo o motivo de cambio</option>
-                            </select>
-                            <i data-lucide="help-circle" class="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2"></i>
-                            <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none"></i>
-                        </div>
-                    </div>
-
-                    <!-- BOTÓN DE ENVÍO EN VERDE OSCURO INSTITUCIONAL (#0B3B2C) -->
-                    <div class="pt-2">
-                        <button id="submitLeadBtn" type="submit" class="w-full py-4 px-8 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white font-extrabold text-base shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-3 relative group border border-emerald-500/40">
-                            <span id="btnText" class="flex items-center gap-2">
-                                <span>Enviar Solicitud y Verificar Cupo en Supabase</span>
-                                <i data-lucide="send" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                            </span>
-                            <!-- Spinner de carga animado -->
-                            <span id="btnSpinner" class="hidden flex items-center gap-2">
-                                <svg class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path></svg>
-                                <span>Guardando registro en Supabase Cloud...</span>
-                            </span>
-                        </button>
-                    </div>
-
-                    <div class="text-center text-xs text-slate-500 pt-2 flex items-center justify-center gap-1.5">
-                        <i data-lucide="check-check" class="w-4 h-4 text-emerald-600"></i>
-                        <span>Evaluación sin compromiso • Respuesta en menos de 24 horas laborables</span>
-                    </div>
-                </form>
+            <!-- Micro-confianza inferior -->
+            <div class="text-center text-xs text-slate-500 mt-6 flex items-center justify-center gap-2">
+                <i data-lucide="shield-check" class="w-4 h-4 text-emerald-700"></i>
+                <span>Atención oficial por Secretaría de Admisiones • Sin intermediarios ni costos ocultos</span>
             </div>
         </div>
     </section>
@@ -1368,7 +1554,7 @@
                         <li><a href="#dolores" class="hover:text-emerald-400 transition-colors">Diferencial de Mercado</a></li>
                         <li><a href="#modalidades" class="hover:text-emerald-400 transition-colors">Modalidades Educativas</a></li>
                         <li><a href="#instalaciones" class="hover:text-emerald-400 transition-colors">Instalaciones & Fotos</a></li>
-                        <li><a href="#formulario-admision" class="hover:text-emerald-400 transition-colors">Formulario MOFU</a></li>
+                        <li><a href="#formulario-admision" class="hover:text-emerald-400 transition-colors">Consulta de Cupos</a></li>
                     </ul>
                 </div>
 
@@ -1406,8 +1592,8 @@
     <!-- ========================================================================= -->
     <aside aria-label="Acciones flotantes" id="floatingCtaBtn" class="fixed bottom-6 right-6 z-40 transition-all duration-300 translate-y-24 opacity-0 pointer-events-none">
         <a href="#formulario-admision" class="px-5 py-3.5 rounded-2xl bg-[#0B3B2C] hover:bg-[#135D43] text-white font-extrabold text-xs sm:text-sm shadow-2xl flex items-center gap-2.5 border border-emerald-400/50 hover:scale-105 transition-transform duration-200">
-            <i data-lucide="calendar" class="w-4 h-4 text-amber-300"></i>
-            <span>Agendar Visita Guiada</span>
+            <i data-lucide="sparkles" class="w-4 h-4 text-amber-300"></i>
+            <span>Consulta disponibilidad de cupos</span>
         </a>
     </aside>
 
@@ -1517,9 +1703,9 @@
     </script>
 
     <!-- SCRIPTS DE ARQUITECTURA CON CACHE BUSTING -->
-    <script src="/api/env.js?v=20261007_v5"></script>
-    <script src="config.js?v=20261007_v5"></script>
-    <script src="supabase-client.js?v=20261007_v5"></script>
-    <script src="app.js?v=20261007_v5"></script>
+    <script src="/api/env.js?v=20261008_w1"></script>
+    <script src="config.js?v=20261008_w1"></script>
+    <script src="supabase-client.js?v=20261008_w1"></script>
+    <script src="app.js?v=20261008_w1"></script>
 </body>
 </html>
