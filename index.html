@@ -1132,13 +1132,13 @@
             <div class="text-center mb-10 reveal-on-scroll opacity-0 translate-y-8">
                 <span class="text-xs font-bold uppercase tracking-wider text-[#0B3B2C] bg-emerald-100 px-3.5 py-1.5 rounded-full border border-emerald-200 inline-flex items-center gap-1.5">
                     <i data-lucide="sparkles" class="w-4 h-4 text-emerald-700"></i>
-                    <span>Test de Admisión 2026-2027 • 3 Pasos Rápidos</span>
+                    <span>Test de Admisión 2026-2027 • 4 Pasos de Cualificación</span>
                 </span>
                 <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0A192F] mt-3 tracking-tight">
                     Consulta disponibilidad de cupos
                 </h2>
                 <p class="text-slate-600 text-sm sm:text-base mt-2 max-w-xl mx-auto">
-                    Responde 3 preguntas breves para perfilar a tu hijo, calcular la urgencia de cupo y recibir los requisitos oficiales por WhatsApp en 30 segundos.
+                    Responde 3 preguntas breves de perfilamiento y completa tus datos de contacto para validar vacantes oficiales con secretaría académica.
                 </p>
             </div>
 
@@ -1150,13 +1150,13 @@
                     <div class="flex items-center justify-between text-xs sm:text-sm font-bold text-slate-500 mb-2.5">
                         <span id="wizardStepLabel" class="text-[#0B3B2C] font-extrabold uppercase tracking-wide flex items-center gap-1.5">
                             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                            <span>Paso 1 de 3</span>
+                            <span>Paso 1 de 4</span>
                         </span>
-                        <span id="wizardProgressPercentage" class="text-slate-400 font-semibold">33% completado</span>
+                        <span id="wizardProgressPercentage" class="text-slate-400 font-semibold">25% completado</span>
                     </div>
                     <!-- Barra de Progreso Animada -->
                     <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
-                        <div id="wizardProgressBar" class="h-full bg-gradient-to-r from-[#0B3B2C] to-emerald-500 rounded-full transition-all duration-500 ease-out" style="width: 33.33%;"></div>
+                        <div id="wizardProgressBar" class="h-full bg-gradient-to-r from-[#0B3B2C] to-emerald-500 rounded-full transition-all duration-500 ease-out" style="width: 25%;"></div>
                     </div>
                 </div>
 
@@ -1381,6 +1381,142 @@
                         </div>
                     </div>
 
+                    <!-- ======================================================== -->
+                    <!-- PASO 4: FORMULARIO DE CONTACTO Y CUALIFICACIÓN OFICIAL   -->
+                    <!-- ======================================================== -->
+                    <div id="wizardStep4" class="wizard-step hidden transition-all duration-300 ease-in-out opacity-0">
+                        <div class="mb-5">
+                            <span class="text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
+                                Paso 4 de 4 • Datos de Admisión
+                            </span>
+                            <h3 class="text-xl sm:text-2xl font-extrabold text-[#0A192F] mt-2 mb-1.5">
+                                Finaliza tu postulación para validar disponibilidad de cupo
+                            </h3>
+                            <p class="text-slate-500 text-xs sm:text-sm">
+                                Ingresa los datos del representante para registrar el turno oficial en secretaría académica:
+                            </p>
+                        </div>
+
+                        <!-- Mini resumen visual de lo seleccionado en los 3 pasos anteriores -->
+                        <div class="bg-emerald-50/70 border border-emerald-200/80 rounded-2xl p-3 sm:p-3.5 mb-5 flex flex-wrap items-center gap-2 text-xs">
+                            <span class="font-bold text-emerald-950 flex items-center gap-1">
+                                <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-700"></i>
+                                <span>Perfil Seleccionado:</span>
+                            </span>
+                            <span id="step4SummaryLevel" class="bg-white px-2.5 py-1 rounded-lg border border-emerald-200 font-semibold text-slate-800">
+                                Nivel de Interés
+                            </span>
+                            <span id="step4SummaryUrgency" class="bg-white px-2.5 py-1 rounded-lg border border-emerald-200 font-semibold text-emerald-800">
+                                Urgencia
+                            </span>
+                        </div>
+
+                        <!-- Formulario de contacto con los campos obligatorios requeridos por rúbrica -->
+                        <form id="wizardContactForm" class="space-y-4">
+                            
+                            <!-- 1. Nombre completo (input type="text") -->
+                            <div>
+                                <label for="wizard_full_name" class="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+                                    <i data-lucide="user" class="w-3.5 h-3.5 text-emerald-700"></i>
+                                    <span>Nombre completo del representante o postulante *</span>
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="wizard_full_name" 
+                                    name="full_name" 
+                                    required 
+                                    placeholder="Ej. Ing. Carlos Fernando Mendoza" 
+                                    class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-[#0B3B2C] focus:border-[#0B3B2C] outline-none transition-all shadow-sm"
+                                >
+                            </div>
+
+                            <!-- Grilla 2 columnas para Correo y WhatsApp -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <!-- 2. Correo electrónico (input type="email") -->
+                                <div>
+                                    <label for="wizard_email" class="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+                                        <i data-lucide="mail" class="w-3.5 h-3.5 text-emerald-700"></i>
+                                        <span>Correo electrónico *</span>
+                                    </label>
+                                    <input 
+                                        type="email" 
+                                        id="wizard_email" 
+                                        name="email" 
+                                        required 
+                                        placeholder="ejemplo@correo.com" 
+                                        class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-[#0B3B2C] focus:border-[#0B3B2C] outline-none transition-all shadow-sm"
+                                    >
+                                </div>
+
+                                <!-- 3. WhatsApp (input type="tel") -->
+                                <div>
+                                    <label for="wizard_whatsapp" class="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+                                        <i data-lucide="phone" class="w-3.5 h-3.5 text-emerald-700"></i>
+                                        <span>WhatsApp *</span>
+                                    </label>
+                                    <input 
+                                        type="tel" 
+                                        id="wizard_whatsapp" 
+                                        name="whatsapp" 
+                                        required 
+                                        placeholder="0991234567 o +593991234567" 
+                                        class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-[#0B3B2C] focus:border-[#0B3B2C] outline-none transition-all shadow-sm"
+                                    >
+                                </div>
+                            </div>
+
+                            <!-- 4. Dolor principal / Obstáculo (con la etiqueta exacta requerida) -->
+                            <div>
+                                <label for="wizard_primary_pain" class="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+                                    <i data-lucide="help-circle" class="w-3.5 h-3.5 text-amber-600"></i>
+                                    <span>¿Cuál ha sido su mayor frustración en colegios anteriores? *</span>
+                                </label>
+                                <textarea 
+                                    id="wizard_primary_pain" 
+                                    name="primary_pain" 
+                                    rows="2" 
+                                    required 
+                                    placeholder="Ej. Falta de comunicación docente, inseguridad o cobros imprevistos..." 
+                                    class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-[#0B3B2C] focus:border-[#0B3B2C] outline-none transition-all shadow-sm resize-none"
+                                ></textarea>
+                            </div>
+
+                            <!-- Alerta de validación o error Supabase -->
+                            <div id="wizardAlert" class="hidden p-3.5 rounded-xl text-xs"></div>
+
+                            <!-- Botón de Envío -->
+                            <div class="pt-2">
+                                <button 
+                                    id="wizardSubmitBtn" 
+                                    type="submit" 
+                                    class="w-full py-4 px-6 rounded-2xl bg-[#0B3B2C] hover:bg-[#135D43] text-white font-extrabold text-base shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-3 border border-emerald-500/40 group cursor-pointer"
+                                >
+                                    <span id="wizardSubmitBtnText" class="flex items-center gap-2">
+                                        <span>Enviar Solicitud y Verificar Cupo</span>
+                                        <i data-lucide="send" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                                    </span>
+                                    <span id="wizardSubmitSpinner" class="hidden flex items-center gap-2">
+                                        <svg class="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                        </svg>
+                                        <span>Guardando registro en Supabase Cloud...</span>
+                                    </span>
+                                </button>
+                            </div>
+
+                            <!-- Navegación hacia atrás -->
+                            <div class="pt-4 border-t border-slate-100 flex justify-between items-center">
+                                <button type="button" class="wizard-back-btn text-xs font-bold text-slate-500 hover:text-slate-800 flex items-center gap-1.5 transition-colors">
+                                    <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+                                    <span>Volver a la pregunta anterior</span>
+                                </button>
+                                <span class="text-[11px] text-slate-400">Paso final de postulación</span>
+                            </div>
+
+                        </form>
+                    </div>
+
                     <!-- ========================================== -->
                     <!-- PASO FINAL: RESULTADO Y REDIRECCIÓN WA     -->
                     <!-- ========================================== -->
@@ -1392,10 +1528,10 @@
                             </div>
 
                             <h3 class="text-2xl sm:text-3xl font-extrabold text-[#0A192F] tracking-tight">
-                                ¡Evaluación de Perfil Completada!
+                                ¡Solicitud Registrada con Éxito!
                             </h3>
                             <p class="text-slate-600 text-sm mt-1 max-w-md mx-auto">
-                                Hemos clasificado tu solicitud y preparado el canal directo con secretaría comercial.
+                                Gracias, <strong id="summaryLeadName" class="text-slate-900"></strong>. Tu postulación ha sido guardada en nuestra base de datos en <strong>Supabase Cloud</strong>.
                             </p>
 
                             <!-- Badge de Score Dinámico -->
@@ -1428,6 +1564,13 @@
                                     </span>
                                     <span id="summaryUrgencyText" class="text-slate-900 font-semibold">Lo antes posible / Este mes</span>
                                 </div>
+                                <div class="flex items-start gap-2">
+                                    <span class="font-bold text-slate-700 min-w-[130px] flex items-center gap-1.5">
+                                        <i data-lucide="alert-circle" class="w-4 h-4 text-amber-600"></i>
+                                        <span>Frustración anterior:</span>
+                                    </span>
+                                    <span id="summaryPainText" class="text-slate-900 font-semibold italic"></span>
+                                </div>
                             </div>
 
                             <!-- Botón Principal: Ver Requisitos por WhatsApp -->
@@ -1439,7 +1582,7 @@
                                 </a>
                                 
                                 <p class="text-[12px] text-slate-500 mt-2.5">
-                                    * Se abrirá WhatsApp con el mensaje pre-armado para una respuesta comercial inmediata.
+                                    * Se abrirá WhatsApp con el mensaje pre-armado y tus datos para una respuesta comercial inmediata.
                                 </p>
 
                                 <button id="wizardRestartBtn" type="button" class="mt-4 text-xs font-bold text-slate-400 hover:text-slate-700 underline transition-colors">
@@ -1703,9 +1846,9 @@
     </script>
 
     <!-- SCRIPTS DE ARQUITECTURA CON CACHE BUSTING -->
-    <script src="/api/env.js?v=20261008_w1"></script>
-    <script src="config.js?v=20261008_w1"></script>
-    <script src="supabase-client.js?v=20261008_w1"></script>
-    <script src="app.js?v=20261008_w1"></script>
+    <script src="/api/env.js?v=20261008_w2"></script>
+    <script src="config.js?v=20261008_w2"></script>
+    <script src="supabase-client.js?v=20261008_w2"></script>
+    <script src="app.js?v=20261008_w2"></script>
 </body>
 </html>

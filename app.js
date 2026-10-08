@@ -377,42 +377,59 @@ function initVideoLightbox() {
 }
 
 // ==============================================================================
-// 7. WIZARD INTERACTIVO DE CUALIFICACIÓN (TYPEFORM STYLE & SCORING)
+// ==============================================================================
+// 7. WIZARD INTERACTIVO DE CUALIFICACIÓN (4 PASOS: TEST + FORMULARIO DE CONTACTO)
 // ==============================================================================
 function initQualificationWizard() {
     const wizardCard = document.getElementById("cuposWizardCard");
     if (!wizardCard) return;
 
-    // Estado interno del Wizard
+    // Estado interno del Wizard (4 pasos de cualificación)
     const wizardState = {
         currentStep: 1,
-        totalSteps: 3,
+        totalSteps: 4,
         answers: {
-            q1: null, // Nivel educativo
-            q2: null, // Prioridad
-            q3: null  // Urgencia
+            q1: null, // Nivel educativo (Paso 1)
+            q2: null, // Prioridad formativa (Paso 2)
+            q3: null  // Urgencia de matrícula (Paso 3)
         },
         points: {
             q1: 0,
             q2: 0,
             q3: 0
+        },
+        lead: {
+            full_name: "",
+            email: "",
+            whatsapp: "",
+            primary_pain: ""
         }
     };
 
-    // Referencias a los pasos del DOM
+    // Referencias a los contenedores del DOM
     const step1El = document.getElementById("wizardStep1");
     const step2El = document.getElementById("wizardStep2");
     const step3El = document.getElementById("wizardStep3");
+    const step4El = document.getElementById("wizardStep4");
     const stepResultEl = document.getElementById("wizardStepResult");
 
-    const steps = [null, step1El, step2El, step3El, stepResultEl];
+    const steps = [null, step1El, step2El, step3El, step4El, stepResultEl];
 
     // Barra de progreso y badges
     const progressBar = document.getElementById("wizardProgressBar");
     const stepLabel = document.getElementById("wizardStepLabel");
     const progressPercentage = document.getElementById("wizardProgressPercentage");
 
-    // Elementos de la pantalla de resultado
+    // Formulario del Paso 4
+    const contactForm = document.getElementById("wizardContactForm");
+    const submitBtn = document.getElementById("wizardSubmitBtn");
+    const submitBtnText = document.getElementById("wizardSubmitBtnText");
+    const submitSpinner = document.getElementById("wizardSubmitSpinner");
+    const wizardAlert = document.getElementById("wizardAlert");
+
+    // Elementos de la pantalla de resultado (Paso 5)
+    const summaryLeadName = document.getElementById("summaryLeadName");
+    const summaryPainText = document.getElementById("summaryPainText");
     const scoreBadgeContainer = document.getElementById("wizardScoreBadgeContainer");
     const calculatedScoreText = document.getElementById("wizardCalculatedScoreText");
     const summaryLevelText = document.getElementById("summaryLevelText");
@@ -421,7 +438,7 @@ function initQualificationWizard() {
     const whatsappBtn = document.getElementById("wizardWhatsappBtn");
     const restartBtn = document.getElementById("wizardRestartBtn");
 
-    // Click en opciones
+    // Click en opciones de los pasos 1, 2 y 3
     const optionButtons = wizardCard.querySelectorAll(".wizard-option-btn");
     optionButtons.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -433,7 +450,7 @@ function initQualificationWizard() {
         });
     });
 
-    // Click en botón volver
+    // Botones de volver atrás en los pasos 2, 3 y 4
     const backButtons = wizardCard.querySelectorAll(".wizard-back-btn");
     backButtons.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -443,7 +460,7 @@ function initQualificationWizard() {
         });
     });
 
-    // Click en reiniciar
+    // Click en reiniciar desde la pantalla de éxito
     if (restartBtn) {
         restartBtn.addEventListener("click", () => {
             resetWizard();
@@ -472,12 +489,25 @@ function initQualificationWizard() {
             wizardState.points.q3 = points;
         }
 
-        // Pequeño retardo de 220ms para percibir la animación de selección y pasar al siguiente paso
+        // Pequeño retardo de 220ms para percibir la animación táctil y avanzar de paso
         setTimeout(() => {
             if (stepNum < 3) {
                 goToStep(stepNum + 1);
-            } else {
-                finishWizard();
+            } else if (stepNum === 3) {
+                // Al responder la Pregunta 3, avanzar al Paso 4 (Formulario de Contacto)
+                goToStep(4);
+
+                // Actualizar mini resumen de selección en la cabecera del Paso 4
+                const step4SummaryLevel = document.getElementById("step4SummaryLevel");
+                const step4SummaryUrgency = document.getElementById("step4SummaryUrgency");
+                if (step4SummaryLevel) step4SummaryLevel.textContent = wizardState.answers.q1 || "Educación General";
+                if (step4SummaryUrgency) step4SummaryUrgency.textContent = wizardState.answers.q3 || "Urgencia";
+
+                // Foco accesible al primer campo tras la transición
+                setTimeout(() => {
+                    const fullNameInput = document.getElementById("wizard_full_name");
+                    if (fullNameInput) fullNameInput.focus();
+                }, 220);
             }
         }, 220);
     }
@@ -499,7 +529,7 @@ function initQualificationWizard() {
             updateProgressUI(targetStep);
 
             nextEl.classList.remove("hidden");
-            // Forzar reflow para que la transición CSS opere fluidamente
+            // Forzar reflow para animación CSS fluida
             void nextEl.offsetWidth;
             nextEl.classList.remove("opacity-0");
             nextEl.classList.add("opacity-100");
@@ -511,53 +541,136 @@ function initQualificationWizard() {
     function updateProgressUI(step) {
         if (!progressBar || !stepLabel || !progressPercentage) return;
 
-        if (step <= 3) {
-            const pct = Math.round((step / 3) * 100);
+        if (step <= 4) {
+            const pct = Math.round((step / 4) * 100);
             progressBar.style.width = `${pct}%`;
-            stepLabel.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span><span>Paso ${step} de 3</span>`;
+            stepLabel.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span><span>Paso ${step} de 4</span>`;
             progressPercentage.textContent = `${pct}% completado`;
         } else {
+            // Pantalla final post-envío
             progressBar.style.width = "100%";
-            stepLabel.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500"></span><span>¡Test Completado!</span>`;
+            stepLabel.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500"></span><span>¡Solicitud Registrada!</span>`;
             progressPercentage.textContent = "100% completado";
         }
     }
 
-    function finishWizard() {
-        // Cálculo del Score de Urgencia
-        const totalScore = (wizardState.points.q1 || 10) + (wizardState.points.q2 || 10) + (wizardState.points.q3 || 10);
-        const scoreString = `${totalScore}/100`;
+    // ==========================================================================
+    // ENVÍO OFICIAL DEL PASO 4: RECOLECCIÓN DE LOS 4 PASOS Y REGISTRO EN SUPABASE
+    // ==========================================================================
+    if (contactForm) {
+        contactForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
 
-        // Mostrar pantalla de resultado
-        goToStep(4);
+            if (wizardAlert) {
+                wizardAlert.classList.add("hidden");
+                wizardAlert.innerHTML = "";
+            }
 
-        // Actualizar resumen en la tarjeta
+            // 1. Obtener valores de los 4 campos del Paso 4
+            const fullNameVal = document.getElementById("wizard_full_name")?.value?.trim() || "";
+            const emailVal = document.getElementById("wizard_email")?.value?.trim().toLowerCase() || "";
+            const whatsappVal = document.getElementById("wizard_whatsapp")?.value?.trim() || "";
+            const primaryPainVal = document.getElementById("wizard_primary_pain")?.value?.trim() || "";
+
+            // Validación estricta de campos obligatorios
+            if (!fullNameVal || !emailVal || !whatsappVal || !primaryPainVal) {
+                showWizardAlert("Por favor completa todos los campos para validar tu postulación.", "error");
+                return;
+            }
+
+            // Validar que los pasos 1, 2 y 3 tengan respuestas registradas
+            const nivelEducativo = wizardState.answers.q1 || "Educación General";
+            const prioridadPilar = wizardState.answers.q2 || "Nivel académico y formación integral";
+            const urgenciaPlazo = wizardState.answers.q3 || "Lo antes posible / Este mes";
+
+            // 2. Cálculo del Score de Urgencia acumulado (Q1 + Q2 + Q3)
+            const totalScore = (wizardState.points.q1 || 10) + (wizardState.points.q2 || 10) + (wizardState.points.q3 || 80);
+            const scoreString = `${totalScore}/100`;
+
+            // Guardar datos en el estado interno
+            wizardState.lead.full_name = fullNameVal;
+            wizardState.lead.email = emailVal;
+            wizardState.lead.whatsapp = whatsappVal;
+            wizardState.lead.primary_pain = primaryPainVal;
+
+            // 3. Estructuración del Payload para la tabla 'leads' en Supabase
+            const payloadData = {
+                full_name: fullNameVal,
+                email: emailVal,
+                whatsapp: whatsappVal,
+                company: nivelEducativo,               // Nivel educativo solicitado
+                estimated_budget: `Score: ${scoreString}`, // Score calculado
+                primary_pain: primaryPainVal,           // Frustración en colegios anteriores
+                notes: `Test Admisión (4 Pasos) | Nivel: ${nivelEducativo} | Prioridad: ${prioridadPilar} | Plazo: ${urgenciaPlazo} | Score: ${scoreString} | Frustración anterior: ${primaryPainVal}`
+            };
+
+            toggleSubmitLoading(true);
+
+            try {
+                // 4. Enviar a Supabase mediante supabase-client.js
+                if (!window.supabaseService || typeof window.supabaseService.insertLead !== 'function') {
+                    throw new Error("El cliente de Supabase no está inicializado en la página.");
+                }
+
+                const result = await window.supabaseService.insertLead(payloadData);
+                console.log("✅ [Supabase Lead Insert] Postulación registrada con éxito:", result);
+
+                // 5. Transición a la pantalla de resultado y armado de WhatsApp
+                showResultScreen(scoreString, totalScore);
+
+            } catch (error) {
+                console.error("❌ [Wizard Submit Error] Error al enviar lead a Supabase:", error);
+                console.log("🔍 [Debug Info Supabase]:", {
+                    name: error.name,
+                    message: error.message,
+                    payloadData,
+                    timestamp: new Date().toISOString()
+                });
+
+                let displayMessage = error.message || "Error de comunicación con Supabase.";
+                if (displayMessage.includes("Invalid path") || displayMessage.includes("PGRST125")) {
+                    displayMessage = "URL de Supabase incorrecta. Verifica las variables de entorno en Vercel.";
+                } else if (displayMessage.includes("Could not find the table") || displayMessage.includes("PGRST205")) {
+                    displayMessage = "La tabla 'public.leads' no existe en el proyecto de Supabase configurado.";
+                }
+
+                showWizardAlert(`Error al registrar en Supabase: ${displayMessage}`, "error");
+            } finally {
+                toggleSubmitLoading(false);
+            }
+        });
+    }
+
+    function showResultScreen(scoreString, totalScore) {
+        // Transición hacia la pantalla de éxito (Paso 5)
+        goToStep(5);
+
+        // Actualizar datos del lead en el resumen final
+        if (summaryLeadName) summaryLeadName.textContent = wizardState.lead.full_name;
+        if (summaryPainText) summaryPainText.textContent = `"${wizardState.lead.primary_pain}"`;
         if (calculatedScoreText) calculatedScoreText.textContent = scoreString;
         if (summaryLevelText) summaryLevelText.textContent = wizardState.answers.q1 || "Educación Básica";
-        if (summaryPriorityText) summaryPriorityText.textContent = wizardState.answers.q2 || "Nivel académico y malla curricular";
-        if (summaryUrgencyText) summaryUrgencyText.textContent = wizardState.answers.q3 || "Lo antes posible / Este mes";
+        if (summaryPriorityText) summaryPriorityText.textContent = wizardState.answers.q2 || "Nivel académico";
+        if (summaryUrgencyText) summaryUrgencyText.textContent = wizardState.answers.q3 || "Lo antes posible";
 
         // Estilos dinámicos del badge de urgencia
         if (scoreBadgeContainer) {
             scoreBadgeContainer.className = "my-5 inline-flex items-center gap-2 px-4 py-2 rounded-2xl text-xs sm:text-sm font-extrabold border shadow-sm";
             if (totalScore >= 90) {
-                // Score 100/100
                 scoreBadgeContainer.classList.add("bg-emerald-50", "text-emerald-900", "border-emerald-300");
                 scoreBadgeContainer.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span><span>Nivel de Urgencia Calculado: </span><span class="text-base font-black text-emerald-950">${scoreString} (Prioridad Alta)</span>`;
             } else if (totalScore >= 50) {
-                // Score 60/100
                 scoreBadgeContainer.classList.add("bg-blue-50", "text-blue-900", "border-blue-300");
                 scoreBadgeContainer.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span><span>Nivel de Urgencia Calculado: </span><span class="text-base font-black text-blue-950">${scoreString} (Próximo Periodo)</span>`;
             } else {
-                // Score 30/100
                 scoreBadgeContainer.classList.add("bg-slate-100", "text-slate-800", "border-slate-300");
                 scoreBadgeContainer.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span><span>Nivel de Urgencia Calculado: </span><span class="text-base font-black text-slate-900">${scoreString} (Informativo)</span>`;
             }
         }
 
-        // Formato exacto del mensaje de WhatsApp solicitado:
+        // Formato oficial del mensaje dinámico para WhatsApp con codificación encodeURIComponent:
         // "Hola Unidad Educativa Agustín Cueva. Completé el test en su web. Busco información de cupos para [Respuesta_Pregunta1]. Necesito esto [Respuesta_Pregunta3] y me interesa especialmente su [Respuesta_Pregunta2]. Mi nivel de urgencia es: [Score_Calculado/100]. ¿Me ayudan con los requisitos?"
-        const whatsappMsg = `Hola Unidad Educativa Agustín Cueva. Completé el test en su web. Busco información de cupos para ${wizardState.answers.q1}. Necesito esto ${wizardState.answers.q3} y me interesa especialmente su ${wizardState.answers.q2}. Mi nivel de urgencia es: ${scoreString}. ¿Me ayudan con los requisitos?`;
+        const whatsappMsg = `Hola Unidad Educativa Agustín Cueva. Completé el test en su web. Mi nombre es ${wizardState.lead.full_name}. Busco información de cupos para ${wizardState.answers.q1}. Necesito esto ${wizardState.answers.q3} y me interesa especialmente su ${wizardState.answers.q2}. Mi nivel de urgencia es: ${scoreString}. ¿Me ayudan con los requisitos?`;
 
         const whatsappNumber = window.APP_CONFIG?.WHATSAPP_NUMBER || "593998765432";
         const targetWhatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMsg)}`;
@@ -565,33 +678,42 @@ function initQualificationWizard() {
         if (whatsappBtn) {
             whatsappBtn.href = targetWhatsappUrl;
         }
+    }
 
-        // Registro silencioso en segundo plano en Supabase (evita fricción y conserva la analítica en la nube)
-        try {
-            if (window.supabaseService && typeof window.supabaseService.insertLead === 'function') {
-                window.supabaseService.insertLead({
-                    full_name: `Prospecto (${wizardState.answers.q1})`,
-                    email: `lead_${Date.now()}@whatsapp.acd.edu.ec`,
-                    whatsapp: "Canal WhatsApp Directo",
-                    company: wizardState.answers.q1,
-                    estimated_budget: `Score: ${scoreString}`,
-                    primary_pain: wizardState.answers.q2,
-                    notes: `Wizard: Nivel=${wizardState.answers.q1} | Prioridad=${wizardState.answers.q2} | Urgencia=${wizardState.answers.q3} | Score=${scoreString}`
-                }).then(() => {
-                    console.log("✅ [Wizard] Prospecto registrado en Supabase.");
-                }).catch(err => {
-                    console.log("ℹ️ [Wizard] Nota background Supabase:", err?.message || err);
-                });
-            }
-        } catch (e) {
-            // Silencioso para asegurar que la redirección fluya siempre
+    function toggleSubmitLoading(isLoading) {
+        if (!submitBtn) return;
+        submitBtn.disabled = isLoading;
+        if (isLoading) {
+            submitBtnText?.classList.add("hidden");
+            submitSpinner?.classList.remove("hidden");
+        } else {
+            submitBtnText?.classList.remove("hidden");
+            submitSpinner?.classList.add("hidden");
         }
+    }
+
+    function showWizardAlert(message, type) {
+        if (!wizardAlert) return;
+        wizardAlert.classList.remove("hidden", "bg-red-50", "text-red-700", "border-red-200", "bg-emerald-50", "text-emerald-700", "border-emerald-200");
+        if (type === "error") {
+            wizardAlert.classList.add("bg-red-50", "text-red-700", "border-red-200", "border");
+        } else {
+            wizardAlert.classList.add("bg-emerald-50", "text-emerald-700", "border-emerald-200", "border");
+        }
+        wizardAlert.innerHTML = `<span>${message}</span>`;
     }
 
     function resetWizard() {
         wizardState.currentStep = 1;
         wizardState.answers = { q1: null, q2: null, q3: null };
         wizardState.points = { q1: 0, q2: 0, q3: 0 };
+        wizardState.lead = { full_name: "", email: "", whatsapp: "", primary_pain: "" };
+
+        if (contactForm) contactForm.reset();
+        if (wizardAlert) {
+            wizardAlert.classList.add("hidden");
+            wizardAlert.innerHTML = "";
+        }
 
         optionButtons.forEach(btn => {
             btn.classList.remove("border-[#0B3B2C]", "bg-emerald-50", "ring-2", "ring-[#0B3B2C]");
