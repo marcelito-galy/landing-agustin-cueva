@@ -524,8 +524,10 @@ function openSuccessModal(leadData, isDemo) {
     }
 
     if (whatsappLink) {
+        const fechaStr = window.supabaseService?.getEcuadorReadableDate ? window.supabaseService.getEcuadorReadableDate() : new Date().toLocaleDateString("es-EC");
         const text = encodeURIComponent(
             `¡Hola! Acabo de registrar mi postulación en la web de la Unidad Educativa Agustín Cueva Dávila.\n\n` +
+            `*Fecha:* ${fechaStr}\n` +
             `*Nombre:* ${leadData.full_name}\n` +
             `*Actividad/Empresa:* ${leadData.company}\n` +
             `*Preocupación Principal:* ${leadData.primary_pain}\n` +

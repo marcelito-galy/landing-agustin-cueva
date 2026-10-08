@@ -82,6 +82,26 @@ class SupabaseService {
     }
 
     /**
+     * Retorna la fecha y hora legible en español para Ecuador (DD/MM/YYYY, HH:mm:ss)
+     * @returns {string} Fecha en español (ej: "07/10/2026, 20:33:29")
+     */
+    getEcuadorReadableDate() {
+        const d = new Date();
+        const utcTime = d.getTime() + (d.getTimezoneOffset() * 60000);
+        const ecuadorDate = new Date(utcTime - (5 * 3600000));
+
+        const pad = (n) => String(n).padStart(2, '0');
+        const dd = pad(ecuadorDate.getDate());
+        const mm = pad(ecuadorDate.getMonth() + 1);
+        const yyyy = ecuadorDate.getFullYear();
+        const hh = pad(ecuadorDate.getHours());
+        const mi = pad(ecuadorDate.getMinutes());
+        const ss = pad(ecuadorDate.getSeconds());
+
+        return `${dd}/${mm}/${yyyy}, ${hh}:${mi}:${ss}`;
+    }
+
+    /**
      * Retorna la fecha y hora local exacta de Ecuador (UTC-5 / America/Guayaquil)
      * en formato estándar compatible con PostgreSQL: YYYY-MM-DD HH:mm:ss
      * @returns {string} Fecha y hora formateada (ej: "2026-10-07 20:25:05")
@@ -110,9 +130,11 @@ class SupabaseService {
      */
     async insertLead(formData) {
         const { isQualified, tier } = this.evaluateLeadQualification(formData.estimated_budget);
+        const readableDate = this.getEcuadorReadableDate();
 
         const payload = {
             created_at: this.getEcuadorTimestamp(),
+            fecha: readableDate,
             full_name: formData.full_name?.trim(),
             email: formData.email?.trim().toLowerCase(),
             whatsapp: formData.whatsapp?.trim(),
@@ -123,7 +145,7 @@ class SupabaseService {
             qualification_tier: tier,
             lead_status: 'nuevo',
             source: 'landing_mofu_acd_vibe',
-            notes: formData.notes || null,
+            notes: formData.notes ? `${formData.notes} | Fecha: ${readableDate}` : `Registrado el ${readableDate}`,
             user_agent: navigator.userAgent
         };
 
@@ -168,7 +190,7 @@ class SupabaseService {
         console.log("📦 [Supabase Payload]:", payload);
 
         try {
-            const response = await fetch(endpoint, {
+            let response = await fetch(endpoint, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -178,6 +200,25 @@ class SupabaseService {
                 },
                 body: JSON.stringify(payload)
             });
+
+            // Resiliencia inteligente: Si la columna 'fecha' aún no existe en Supabase, reintentar sin ella
+            if (!response.ok && payload.fecha) {
+                const errClone = await response.clone().json().catch(() => ({}));
+                if (errClone.message?.includes("'fecha'") || errClone.code === "PGRST204") {
+                    console.warn("⚠️ Columna 'fecha' pendiente en Supabase. Reintentando guardado seguro sin 'fecha'...");
+                    delete payload.fecha;
+                    response = await fetch(endpoint, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "apikey": rawKey,
+                            "Authorization": `Bearer ${rawKey}`,
+                            "Prefer": "return=minimal"
+                        },
+                        body: JSON.stringify(payload)
+                    });
+                }
+            }
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));

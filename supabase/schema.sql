@@ -31,6 +31,7 @@ ALTER COLUMN created_at DROP NOT NULL;
 -- (Si la tabla ya existía, ADD COLUMN IF NOT EXISTS agrega las columnas faltantes sin borrar datos)
 
 -- Columnas del Formulario:
+ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS fecha TEXT;
 ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS full_name TEXT;
 ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS email TEXT;
 ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS whatsapp TEXT;
