@@ -12,8 +12,16 @@ CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 -- 2. Crear tabla principal 'leads' si no existe
 CREATE TABLE IF NOT EXISTS public.leads (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    created_at TIMESTAMPTZ DEFAULT timezone('utc'::text, now()) NOT NULL
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT (now() AT TIME ZONE 'America/Guayaquil') NOT NULL
 );
+
+-- Asegurar que created_at esté ajustado a la hora oficial de Ecuador (America/Guayaquil, UTC-5)
+ALTER TABLE public.leads 
+ALTER COLUMN created_at TYPE TIMESTAMP WITHOUT TIME ZONE 
+USING (created_at AT TIME ZONE 'America/Guayaquil');
+
+ALTER TABLE public.leads 
+ALTER COLUMN created_at SET DEFAULT (now() AT TIME ZONE 'America/Guayaquil');
 
 -- 3. Asegurar que TODAS las columnas del formulario y del sistema existan
 -- (Si la tabla ya existía, ADD COLUMN IF NOT EXISTS agrega las columnas faltantes sin borrar datos)
