@@ -67,6 +67,32 @@
         .text-glow-gold {
             text-shadow: 0 0 20px rgba(245, 158, 11, 0.35);
         }
+        @keyframes floatCharacter {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-14px);
+            }
+        }
+        @keyframes shadowPulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.45;
+            }
+            50% {
+                transform: scale(0.8);
+                opacity: 0.2;
+            }
+        }
+        .animate-floating {
+            animation: floatCharacter 4.5s ease-in-out infinite;
+            will-change: transform;
+        }
+        .animate-shadow {
+            animation: shadowPulse 4.5s ease-in-out infinite;
+            will-change: transform, opacity;
+        }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -170,52 +196,90 @@
         <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[650px] h-[350px] bg-emerald-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center max-w-4xl mx-auto reveal-on-scroll opacity-0 translate-y-8 transition-all duration-700">
+            <!-- Grid 2 Columnas Hero: Textos de bienvenida a la izquierda + Personaje 3D Agustín a la derecha -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-14 md:mb-16">
                 
-                <!-- Badge de Autoridad -->
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0B3B2C]/80 border border-emerald-500/40 text-emerald-200 text-xs md:text-sm font-semibold mb-6 backdrop-blur-md shadow-sm">
-                    <span class="flex h-2 w-2 relative">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
-                    </span>
-                    <span>Educación de Calidad • Ibarra, Ecuador</span>
-                </div>
+                <!-- Columna Izquierda: Mensaje de Bienvenida, Título, Eslogan y CTAs -->
+                <div class="lg:col-span-7 xl:col-span-8 text-center lg:text-left reveal-on-scroll opacity-0 translate-y-8 transition-all duration-700">
+                    
+                    <!-- Badge de Autoridad -->
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0B3B2C]/80 border border-emerald-500/40 text-emerald-200 text-xs md:text-sm font-semibold mb-6 backdrop-blur-md shadow-sm">
+                        <span class="flex h-2 w-2 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+                        </span>
+                        <span>Educación de Calidad • Ibarra, Ecuador</span>
+                    </div>
 
-                <!-- Título Principal de la PUV (Fase 1) -->
-                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.12] mb-5 text-white text-glow">
-                    En la Unidad Educativa Agustín Cueva Dávila, <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-amber-200 to-white">cada estudiante importa igual:</span> el entorno es seguro, el trato es justo y el aprendizaje ocurre en espacios dignos.
-                </h1>
+                    <!-- Título Principal de la PUV (Fase 1) -->
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-[1.12] mb-5 text-white text-glow">
+                        En la Unidad Educativa Agustín Cueva Dávila, <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-amber-200 to-white">cada estudiante importa igual:</span> el entorno es seguro, el trato es justo y el aprendizaje ocurre en espacios dignos.
+                    </h1>
 
-                <!-- Eslogan Oficial Institucional (Hero) -->
-                <div class="mb-8 flex items-center justify-center">
-                    <div class="inline-flex items-center gap-2.5 sm:gap-3 px-5 py-2.5 rounded-full bg-white/5 border border-amber-400/30 backdrop-blur-md shadow-lg shadow-amber-950/20">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-                        <p class="font-slogan text-base sm:text-xl md:text-2xl text-[#FCD34D] text-glow-gold tracking-wide">
-                            «Educación con historia, excelencia con futuro»
-                        </p>
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                    <!-- Eslogan Oficial Institucional (Hero) -->
+                    <div class="mb-6 flex items-center justify-center lg:justify-start">
+                        <div class="inline-flex items-center gap-2.5 sm:gap-3 px-5 py-2 rounded-full bg-white/5 border border-amber-400/30 backdrop-blur-md shadow-lg shadow-amber-950/20">
+                            <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                            <p class="font-slogan text-base sm:text-lg md:text-xl text-[#FCD34D] text-glow-gold tracking-wide">
+                                «Educación con historia, excelencia con futuro»
+                            </p>
+                            <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                        </div>
+                    </div>
+
+                    <!-- Subtítulo de Conversión -->
+                    <p class="text-base sm:text-lg text-slate-200 max-w-2xl lg:max-w-none mx-auto lg:mx-0 mb-8 leading-relaxed font-light">
+                        Rompemos con las quejas históricas del mercado escolar en Ibarra: blindamos a tu familia con protocolos estrictos contra robos, valoramos el <strong>Bachillerato Técnico</strong> con el mismo prestigio que Ciencias, y garantizamos instalaciones higiénicas y renovadas.
+                    </p>
+
+                    <!-- CTAs Principales con Verde Oscuro #0B3B2C -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                        <a href="#formulario-admision" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white font-extrabold text-base shadow-xl hover:shadow-emerald-950/40 transition-all duration-300 transform hover:-translate-y-0.5 border border-emerald-500/50 flex items-center justify-center gap-2.5">
+                            <i data-lucide="sparkles" class="w-5 h-5 text-amber-300"></i>
+                            <span>Consulta disponibilidad de cupos</span>
+                        </a>
+
+                        <button type="button" class="open-video-btn w-full sm:w-auto px-7 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-base border border-white/25 backdrop-blur-md transition-all flex items-center justify-center gap-2.5 group" data-video-type="reel_30s">
+                            <div class="w-7 h-7 rounded-full bg-white text-[#0B3B2C] flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <i data-lucide="play" class="w-3.5 h-3.5 fill-current ml-0.5"></i>
+                            </div>
+                            <span>Ver Spot Institucional (30s)</span>
+                        </button>
                     </div>
                 </div>
 
-                <!-- Subtítulo de Conversión -->
-                <p class="text-base sm:text-lg md:text-xl text-slate-200 max-w-3xl mx-auto mb-10 leading-relaxed font-light">
-                    Rompemos con las quejas históricas del mercado escolar en Ibarra: blindamos a tu familia con protocolos estrictos contra robos, valoramos el <strong>Bachillerato Técnico</strong> con el mismo prestigio que Ciencias, y garantizamos instalaciones higiénicas y renovadas.
-                </p>
+                <!-- Columna Derecha: Personaje 3D Agustín Flotante -->
+                <div class="lg:col-span-5 xl:col-span-4 flex flex-col items-center justify-center relative mt-4 lg:mt-0 reveal-on-scroll opacity-0 translate-y-8 transition-all duration-700 delay-150">
+                    <!-- Resplandor Aura Institucional -->
+                    <div class="absolute w-60 h-60 sm:w-72 sm:h-72 rounded-full bg-emerald-500/20 blur-3xl pointer-events-none -z-0"></div>
+                    <div class="absolute w-44 h-44 sm:w-56 sm:h-56 rounded-full bg-amber-400/15 blur-2xl pointer-events-none -z-0"></div>
 
-                <!-- CTAs Principales con Verde Oscuro #0B3B2C -->
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-                    <a href="#formulario-admision" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white font-extrabold text-base shadow-xl hover:shadow-emerald-950/40 transition-all duration-300 transform hover:-translate-y-0.5 border border-emerald-500/50 flex items-center justify-center gap-2.5">
-                        <i data-lucide="sparkles" class="w-5 h-5 text-amber-300"></i>
-                        <span>Consulta disponibilidad de cupos</span>
-                    </a>
-
-                    <button type="button" class="open-video-btn w-full sm:w-auto px-7 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-base border border-white/25 backdrop-blur-md transition-all flex items-center justify-center gap-2.5 group" data-video-type="reel_30s">
-                        <div class="w-7 h-7 rounded-full bg-white text-[#0B3B2C] flex items-center justify-center group-hover:scale-110 transition-transform">
-                            <i data-lucide="play" class="w-3.5 h-3.5 fill-current ml-0.5"></i>
+                    <!-- Contenedor del Personaje Flotante 3D -->
+                    <div class="relative z-10 flex flex-col items-center">
+                        <!-- Personaje 3D con animación CSS suave de tipo 'floating' continua -->
+                        <div class="animate-floating select-none cursor-pointer group">
+                            <img 
+                                src="assets/images/agustin-terno.png" 
+                                onerror="this.onerror=null; this.src='assets/images/AGUSTIN TERNO.png';" 
+                                alt="Agustín - Personaje 3D Institucional de la Unidad Educativa Agustín Cueva Dávila" 
+                                class="w-52 sm:w-60 md:w-64 lg:w-72 xl:w-80 max-h-[380px] sm:max-h-[440px] md:max-h-[480px] object-contain drop-shadow-[0_25px_35px_rgba(0,0,0,0.65)] transition-transform duration-300 group-hover:scale-105"
+                                loading="eager"
+                            />
                         </div>
-                        <span>Ver Spot Institucional (30s)</span>
-                    </button>
+
+                        <!-- Sombra elíptica reactiva al movimiento de flotación -->
+                        <div class="w-32 sm:w-36 md:w-44 h-3.5 rounded-full bg-black/50 blur-sm animate-shadow -mt-2"></div>
+
+                        <!-- Badge oficial identificador del personaje -->
+                        <div class="mt-4 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs text-slate-200 shadow-md">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            <span class="font-bold text-white">Agustín</span>
+                            <span class="text-slate-300">• Estudiante Cueva Dávila</span>
+                        </div>
+                    </div>
                 </div>
+
+            </div>
 
                 <!-- 4 Indicadores Dinámicos con Iconos Modernos -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 text-left">
