@@ -45,13 +45,17 @@
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <!-- Google Fonts: Plus Jakarta Sans, Inter, Playfair Display (Italic) & Caveat -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-slogan {
+            font-family: 'Playfair Display', Georgia, Cambria, 'Times New Roman', serif;
+            font-style: italic;
+        }
         .hero-pattern {
             background-color: #0A192F;
             background-image: radial-gradient(rgba(11, 59, 44, 0.4) 1px, transparent 1px);
@@ -59,6 +63,9 @@
         }
         .text-glow {
             text-shadow: 0 0 25px rgba(16, 185, 129, 0.25);
+        }
+        .text-glow-gold {
+            text-shadow: 0 0 20px rgba(245, 158, 11, 0.35);
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -175,9 +182,20 @@
                 </div>
 
                 <!-- Título Principal de la PUV (Fase 1) -->
-                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.12] mb-6 text-white text-glow">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.12] mb-5 text-white text-glow">
                     En la Unidad Educativa Agustín Cueva Dávila, <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-amber-200 to-white">cada estudiante importa igual:</span> el entorno es seguro, el trato es justo y el aprendizaje ocurre en espacios dignos.
                 </h1>
+
+                <!-- Eslogan Oficial Institucional (Hero) -->
+                <div class="mb-8 flex items-center justify-center">
+                    <div class="inline-flex items-center gap-2.5 sm:gap-3 px-5 py-2.5 rounded-full bg-white/5 border border-amber-400/30 backdrop-blur-md shadow-lg shadow-amber-950/20">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                        <p class="font-slogan text-base sm:text-xl md:text-2xl text-[#FCD34D] text-glow-gold tracking-wide">
+                            «Educación con historia, excelencia con futuro»
+                        </p>
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                    </div>
+                </div>
 
                 <!-- Subtítulo de Conversión -->
                 <p class="text-base sm:text-lg md:text-xl text-slate-200 max-w-3xl mx-auto mb-10 leading-relaxed font-light">
@@ -1720,7 +1738,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
                 
                 <!-- Info Colegio con Logotipo -->
-                <div class="md:col-span-2 space-y-4">
+                <div class="md:col-span-2 space-y-3">
                     <div class="flex items-center gap-3">
                         <img 
                             src="assets/logo-acd.png" 
@@ -1729,6 +1747,10 @@
                             class="h-11 w-auto object-contain"
                         />
                     </div>
+                    <!-- Eslogan Oficial Institucional (Footer) -->
+                    <p class="font-slogan text-sm sm:text-base text-slate-200 tracking-wide italic font-normal pt-0.5">
+                        «Educación con historia, excelencia con futuro»
+                    </p>
                     <p class="text-sm text-slate-300 max-w-md leading-relaxed font-light">
                         Donde cada estudiante importa igual: entorno seguro, equidad para todas las modalidades y aprendizaje en espacios dignos. Educación de calidad respaldada por hechos.
                     </p>
