@@ -1465,7 +1465,45 @@
                                 </div>
                             </div>
 
-                            <!-- 4. Dolor principal / Obstáculo (con la etiqueta exacta requerida) -->
+                            <!-- Grilla 2 columnas para Ocupación y Sector de Residencia / Zonificación -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <!-- 4. Ocupación -->
+                                <div>
+                                    <label for="wizard_occupation" class="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+                                        <i data-lucide="briefcase" class="w-3.5 h-3.5 text-emerald-700"></i>
+                                        <span>Ocupación *</span>
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        id="wizard_occupation" 
+                                        name="occupation" 
+                                        required 
+                                        placeholder="Ej. Comerciante, Docente, Independiente, Empleado..." 
+                                        class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-[#0B3B2C] focus:border-[#0B3B2C] outline-none transition-all shadow-sm"
+                                    >
+                                </div>
+
+                                <!-- 5. Sector de Residencia / Zonificación (<select> obligatorio) -->
+                                <div>
+                                    <label for="wizard_residence_sector" class="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
+                                        <i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-700"></i>
+                                        <span>Sector de Residencia / Zonificación *</span>
+                                    </label>
+                                    <select 
+                                        id="wizard_residence_sector" 
+                                        name="residence_sector" 
+                                        required 
+                                        class="w-full px-4 py-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-[#0B3B2C] focus:border-[#0B3B2C] outline-none transition-all shadow-sm bg-white text-slate-800"
+                                    >
+                                        <option value="" disabled selected>Seleccione una opción...</option>
+                                        <option value="Distrito 10D01 (Ibarra Urbano / Centro)">Distrito 10D01 (Ibarra Urbano / Centro)</option>
+                                        <option value="Ibarra Periferia (Sectores Rurales)">Ibarra Periferia (Sectores Rurales)</option>
+                                        <option value="Fuera del cantón / Otra ciudad">Fuera del cantón / Otra ciudad</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- 6. Dolor principal / Obstáculo (con la etiqueta exacta requerida) -->
                             <div>
                                 <label for="wizard_primary_pain" class="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
                                     <i data-lucide="help-circle" class="w-3.5 h-3.5 text-amber-600"></i>
@@ -1563,6 +1601,13 @@
                                         <span>Plazo requerido:</span>
                                     </span>
                                     <span id="summaryUrgencyText" class="text-slate-900 font-semibold">Lo antes posible / Este mes</span>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <span class="font-bold text-slate-700 min-w-[130px] flex items-center gap-1.5">
+                                        <i data-lucide="map-pin" class="w-4 h-4 text-emerald-700"></i>
+                                        <span>Sector de residencia:</span>
+                                    </span>
+                                    <span id="summarySectorText" class="text-slate-900 font-semibold">Distrito 10D01 (Ibarra Urbano / Centro)</span>
                                 </div>
                                 <div class="flex items-start gap-2">
                                     <span class="font-bold text-slate-700 min-w-[130px] flex items-center gap-1.5">
@@ -1846,9 +1891,9 @@
     </script>
 
     <!-- SCRIPTS DE ARQUITECTURA CON CACHE BUSTING -->
-    <script src="/api/env.js?v=20261008_w2"></script>
-    <script src="config.js?v=20261008_w2"></script>
-    <script src="supabase-client.js?v=20261008_w2"></script>
-    <script src="app.js?v=20261008_w2"></script>
+    <script src="/api/env.js?v=20261008_w3"></script>
+    <script src="config.js?v=20261008_w3"></script>
+    <script src="supabase-client.js?v=20261008_w3"></script>
+    <script src="app.js?v=20261008_w3"></script>
 </body>
 </html>

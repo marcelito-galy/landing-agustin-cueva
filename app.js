@@ -402,6 +402,8 @@ function initQualificationWizard() {
             full_name: "",
             email: "",
             whatsapp: "",
+            occupation: "",
+            residence_sector: "",
             primary_pain: ""
         }
     };
@@ -566,15 +568,17 @@ function initQualificationWizard() {
                 wizardAlert.innerHTML = "";
             }
 
-            // 1. Obtener valores de los 4 campos del Paso 4
+            // 1. Obtener valores de los campos del Paso 4
             const fullNameVal = document.getElementById("wizard_full_name")?.value?.trim() || "";
             const emailVal = document.getElementById("wizard_email")?.value?.trim().toLowerCase() || "";
             const whatsappVal = document.getElementById("wizard_whatsapp")?.value?.trim() || "";
+            const occupationVal = document.getElementById("wizard_occupation")?.value?.trim() || "";
+            const residenceSectorVal = document.getElementById("wizard_residence_sector")?.value?.trim() || "";
             const primaryPainVal = document.getElementById("wizard_primary_pain")?.value?.trim() || "";
 
             // Validación estricta de campos obligatorios
-            if (!fullNameVal || !emailVal || !whatsappVal || !primaryPainVal) {
-                showWizardAlert("Por favor completa todos los campos para validar tu postulación.", "error");
+            if (!fullNameVal || !emailVal || !whatsappVal || !occupationVal || !residenceSectorVal || !primaryPainVal) {
+                showWizardAlert("Por favor completa todos los campos obligatorios, incluyendo Ocupación y Sector de Residencia.", "error");
                 return;
             }
 
@@ -591,17 +595,22 @@ function initQualificationWizard() {
             wizardState.lead.full_name = fullNameVal;
             wizardState.lead.email = emailVal;
             wizardState.lead.whatsapp = whatsappVal;
+            wizardState.lead.occupation = occupationVal;
+            wizardState.lead.residence_sector = residenceSectorVal;
             wizardState.lead.primary_pain = primaryPainVal;
 
             // 3. Estructuración del Payload para la tabla 'leads' en Supabase
+            // - 'company': almacena la Ocupación
+            // - 'estimated_budget': almacena el Sector de Residencia / Zonificación (reemplazo de presupuesto)
+            // - 'primary_pain': almacena el dolor principal / obstáculo
             const payloadData = {
                 full_name: fullNameVal,
                 email: emailVal,
                 whatsapp: whatsappVal,
-                company: nivelEducativo,               // Nivel educativo solicitado
-                estimated_budget: `Score: ${scoreString}`, // Score calculado
-                primary_pain: primaryPainVal,           // Frustración en colegios anteriores
-                notes: `Test Admisión (4 Pasos) | Nivel: ${nivelEducativo} | Prioridad: ${prioridadPilar} | Plazo: ${urgenciaPlazo} | Score: ${scoreString} | Frustración anterior: ${primaryPainVal}`
+                company: occupationVal,                        // Ocupación
+                estimated_budget: residenceSectorVal,          // Sector de Residencia / Zonificación
+                primary_pain: primaryPainVal,                  // Frustración en colegios anteriores
+                notes: `Test Admisión (4 Pasos) | Nivel: ${nivelEducativo} | Prioridad: ${prioridadPilar} | Plazo: ${urgenciaPlazo} | Score: ${scoreString} | Ocupación: ${occupationVal} | Sector: ${residenceSectorVal} | Frustración: ${primaryPainVal}`
             };
 
             toggleSubmitLoading(true);
@@ -648,6 +657,9 @@ function initQualificationWizard() {
         // Actualizar datos del lead en el resumen final
         if (summaryLeadName) summaryLeadName.textContent = wizardState.lead.full_name;
         if (summaryPainText) summaryPainText.textContent = `"${wizardState.lead.primary_pain}"`;
+        const summarySectorText = document.getElementById("summarySectorText");
+        if (summarySectorText) summarySectorText.textContent = wizardState.lead.residence_sector || "Distrito 10D01";
+
         if (calculatedScoreText) calculatedScoreText.textContent = scoreString;
         if (summaryLevelText) summaryLevelText.textContent = wizardState.answers.q1 || "Educación Básica";
         if (summaryPriorityText) summaryPriorityText.textContent = wizardState.answers.q2 || "Nivel académico";
@@ -670,7 +682,7 @@ function initQualificationWizard() {
 
         // Formato oficial del mensaje dinámico para WhatsApp con codificación encodeURIComponent:
         // "Hola Unidad Educativa Agustín Cueva. Completé el test en su web. Busco información de cupos para [Respuesta_Pregunta1]. Necesito esto [Respuesta_Pregunta3] y me interesa especialmente su [Respuesta_Pregunta2]. Mi nivel de urgencia es: [Score_Calculado/100]. ¿Me ayudan con los requisitos?"
-        const whatsappMsg = `Hola Unidad Educativa Agustín Cueva. Completé el test en su web. Mi nombre es ${wizardState.lead.full_name}. Busco información de cupos para ${wizardState.answers.q1}. Necesito esto ${wizardState.answers.q3} y me interesa especialmente su ${wizardState.answers.q2}. Mi nivel de urgencia es: ${scoreString}. ¿Me ayudan con los requisitos?`;
+        const whatsappMsg = `Hola Unidad Educativa Agustín Cueva. Completé el test en su web. Mi nombre es ${wizardState.lead.full_name}. Busco información de cupos para ${wizardState.answers.q1} (Sector: ${wizardState.lead.residence_sector}). Necesito esto ${wizardState.answers.q3} y me interesa especialmente su ${wizardState.answers.q2}. Mi nivel de urgencia es: ${scoreString}. ¿Me ayudan con los requisitos?`;
 
         const whatsappNumber = window.APP_CONFIG?.WHATSAPP_NUMBER || "593998765432";
         const targetWhatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMsg)}`;
@@ -707,7 +719,7 @@ function initQualificationWizard() {
         wizardState.currentStep = 1;
         wizardState.answers = { q1: null, q2: null, q3: null };
         wizardState.points = { q1: 0, q2: 0, q3: 0 };
-        wizardState.lead = { full_name: "", email: "", whatsapp: "", primary_pain: "" };
+        wizardState.lead = { full_name: "", email: "", whatsapp: "", occupation: "", residence_sector: "", primary_pain: "" };
 
         if (contactForm) contactForm.reset();
         if (wizardAlert) {

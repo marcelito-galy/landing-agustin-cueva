@@ -35,9 +35,11 @@ ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS fecha TEXT;
 ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS full_name TEXT;
 ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS email TEXT;
 ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS whatsapp TEXT;
-ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS company TEXT;
-ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS estimated_budget TEXT;
-ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS primary_pain TEXT;
+ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS company TEXT; -- Almacena Ocupación / Actividad económica
+ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS estimated_budget TEXT; -- Almacena Sector de Residencia / Zonificación
+ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS primary_pain TEXT; -- Almacena Frustración en colegios anteriores / Dolor principal
+ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS sector_residencia TEXT; -- Alias explícito para Sector de Residencia
+ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS occupation TEXT; -- Alias explícito para Ocupación
 
 -- Columnas de Metadatos y Cualificación MOFU:
 ALTER TABLE public.leads ADD COLUMN IF NOT EXISTS is_qualified BOOLEAN DEFAULT true;
