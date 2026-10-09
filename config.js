@@ -24,7 +24,7 @@ const APP_CONFIG = {
     TABLE_NAME: "leads",
 
     // WhatsApp institucional de admisiones para cierre rápido
-    WHATSAPP_NUMBER: "593998765432", // Formato internacional Ecuador
+    WHATSAPP_NUMBER: "593959920177", // Formato internacional Ecuador
 
     // Video institucional (Ruta de archivo MP4 local o URL de YouTube / Vimeo)
     // 📁 Opción A (Archivo local): "assets/videos/video-institucional.mp4"

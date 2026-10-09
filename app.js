@@ -684,7 +684,7 @@ function initQualificationWizard() {
         // "Hola Unidad Educativa Agustín Cueva. Completé el test en su web. Busco información de cupos para [Respuesta_Pregunta1]. Necesito esto [Respuesta_Pregunta3] y me interesa especialmente su [Respuesta_Pregunta2]. Mi nivel de urgencia es: [Score_Calculado/100]. ¿Me ayudan con los requisitos?"
         const whatsappMsg = `Hola Unidad Educativa Agustín Cueva. Completé el test en su web. Mi nombre es ${wizardState.lead.full_name}. Busco información de cupos para ${wizardState.answers.q1} (Sector: ${wizardState.lead.residence_sector}). Necesito esto ${wizardState.answers.q3} y me interesa especialmente su ${wizardState.answers.q2}. Mi nivel de urgencia es: ${scoreString}. ¿Me ayudan con los requisitos?`;
 
-        const whatsappNumber = window.APP_CONFIG?.WHATSAPP_NUMBER || "593998765432";
+        const whatsappNumber = window.APP_CONFIG?.WHATSAPP_NUMBER || "593959920177";
         const targetWhatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMsg)}`;
 
         if (whatsappBtn) {
@@ -782,7 +782,8 @@ function openSuccessModal(leadData, isDemo) {
             `*Presupuesto Estimado:* ${leadData.estimated_budget}\n\n` +
             `Quisiera confirmar la visita guiada para conocer las aulas e iniciar mi proceso de matrícula.`
         );
-        whatsappLink.href = `https://wa.me/${window.APP_CONFIG.WHATSAPP_NUMBER}?text=${text}`;
+        const modalWaNumber = window.APP_CONFIG?.WHATSAPP_NUMBER || "593959920177";
+        whatsappLink.href = `https://wa.me/${modalWaNumber}?text=${text}`;
     }
 
     modal.classList.remove("hidden");

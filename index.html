@@ -1756,7 +1756,11 @@
                         </li>
                         <li class="flex items-center gap-2">
                             <i data-lucide="phone" class="w-4 h-4 text-emerald-400"></i>
-                            <span>WhatsApp: +593 99 876 5432</span>
+                            <a href="https://wa.me/593959920177" target="_blank" rel="noopener noreferrer" class="hover:text-emerald-400 transition-colors"><span>WhatsApp: +593 95 992 0177</span></a>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i data-lucide="phone-call" class="w-4 h-4 text-emerald-400"></i>
+                            <a href="tel:+593959920177" class="hover:text-emerald-400 transition-colors"><span>Llamadas: +593 95 992 0177</span></a>
                         </li>
                         <li class="flex items-center gap-2">
                             <i data-lucide="mail" class="w-4 h-4 text-emerald-400"></i>
@@ -1776,10 +1780,14 @@
     </footer>
 
     <!-- ========================================================================= -->
-    <!-- 11. BOTÓN FLOTANTE PERMANENTE (FLOATING CTA EN VERDE OSCURO #0B3B2C)      -->
+    <!-- 11. BOTÓN FLOTANTE PERMANENTE (FLOATING CTA + WHATSAPP OFICIAL)           -->
     <!-- ========================================================================= -->
-    <aside aria-label="Acciones flotantes" id="floatingCtaBtn" class="fixed bottom-6 right-6 z-40 transition-all duration-300 translate-y-24 opacity-0 pointer-events-none">
-        <a href="#formulario-admision" class="px-5 py-3.5 rounded-2xl bg-[#0B3B2C] hover:bg-[#135D43] text-white font-extrabold text-xs sm:text-sm shadow-2xl flex items-center gap-2.5 border border-emerald-400/50 hover:scale-105 transition-transform duration-200">
+    <aside aria-label="Acciones flotantes" id="floatingCtaBtn" class="fixed bottom-6 right-6 z-40 transition-all duration-300 translate-y-24 opacity-0 pointer-events-none flex flex-col sm:flex-row items-end sm:items-center gap-2.5">
+        <!-- Botón flotante directo de WhatsApp -->
+        <a href="https://wa.me/593959920177" target="_blank" rel="noopener noreferrer" title="Contactar por WhatsApp" aria-label="WhatsApp Institucional +593 95 992 0177" class="w-12 h-12 rounded-full bg-[#25D366] hover:bg-[#1EBE5D] text-white shadow-2xl flex items-center justify-center hover:scale-110 transition-transform duration-200 border border-emerald-300 pointer-events-auto">
+            <i data-lucide="message-circle" class="w-6 h-6"></i>
+        </a>
+        <a href="#formulario-admision" class="px-5 py-3.5 rounded-2xl bg-[#0B3B2C] hover:bg-[#135D43] text-white font-extrabold text-xs sm:text-sm shadow-2xl flex items-center gap-2.5 border border-emerald-400/50 hover:scale-105 transition-transform duration-200 pointer-events-auto">
             <i data-lucide="sparkles" class="w-4 h-4 text-amber-300"></i>
             <span>Consulta disponibilidad de cupos</span>
         </a>
@@ -1891,9 +1899,9 @@
     </script>
 
     <!-- SCRIPTS DE ARQUITECTURA CON CACHE BUSTING -->
-    <script src="/api/env.js?v=20261008_w3"></script>
-    <script src="config.js?v=20261008_w3"></script>
-    <script src="supabase-client.js?v=20261008_w3"></script>
-    <script src="app.js?v=20261008_w3"></script>
+    <script src="/api/env.js?v=20261008_w4"></script>
+    <script src="config.js?v=20261008_w4"></script>
+    <script src="supabase-client.js?v=20261008_w4"></script>
+    <script src="app.js?v=20261008_w4"></script>
 </body>
 </html>
