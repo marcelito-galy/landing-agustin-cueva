@@ -322,8 +322,21 @@
     <!-- ========================================================================= -->
     <!-- 4. DIFERENCIAL DE MERCADO: RESOLUCIÓN A LOS 3 CORE PAINS                  -->
     <!-- ========================================================================= -->
-    <section id="dolores" class="py-16 md:py-24 bg-white border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="dolores" class="relative py-16 md:py-24 bg-white border-b border-slate-200 overflow-hidden">
+        <!-- Marca de Agua de Fondo (Emblema y Bandera Institucional) -->
+        <div class="absolute inset-0 pointer-events-none select-none overflow-hidden z-0 flex items-center justify-center" aria-hidden="true">
+            <img 
+                src="assets/images/marca-agua-dolores.jpg" 
+                onerror="this.onerror=null; this.src='images/marca-agua-dolores.jpg';" 
+                alt="Emblema y Bandera Institucional Agustín Cueva Dávila - Marca de Agua" 
+                class="w-full h-full object-cover object-center opacity-[0.07] sm:opacity-[0.08]"
+                loading="lazy"
+            />
+            <!-- Difuminado perimetral para integración perfecta con el fondo blanco -->
+            <div class="absolute inset-0 bg-gradient-to-b from-white/80 via-transparent to-white/80"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             
             <div class="max-w-3xl mx-auto text-center mb-16 reveal-on-scroll opacity-0 translate-y-8 transition-all duration-700">
                 <span class="text-xs font-bold uppercase tracking-wider text-[#0B3B2C] bg-emerald-50 px-3.5 py-1 rounded-full border border-emerald-200 inline-flex items-center gap-1.5">
