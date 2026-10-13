@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initEducationalTabs();
     initMultimediaSlider();
     initVideoLightbox();
+    initImageLightbox();
     initFAQ();
 
     // 3. Módulo de Wizard Interactivo de Cualificación (Typeform style)
@@ -408,6 +409,68 @@ function initVideoLightbox() {
 }
 
 // ==============================================================================
+// 6.1. MODAL DE INSPECCIÓN VISUAL EN ALTA DEFINICIÓN (LIGHTBOX DE FOTOS)
+// ==============================================================================
+function initImageLightbox() {
+    const imgModal = document.getElementById("imageLightboxModal");
+    const closeBtn = document.getElementById("closeImageLightboxBtn");
+    const modalImg = document.getElementById("lightboxImage");
+    const modalTitle = document.getElementById("lightboxTitle");
+    const modalDesc = document.getElementById("lightboxDesc");
+    const modalBadge = document.getElementById("lightboxBadge");
+    const cards = document.querySelectorAll(".gallery-card");
+
+    if (!imgModal || !cards.length) return;
+
+    cards.forEach(card => {
+        card.addEventListener("click", () => {
+            const imgEl = card.querySelector("img");
+            const titleEl = card.querySelector("h4");
+            const descEl = card.querySelector("p");
+
+            if (modalImg && imgEl) {
+                modalImg.src = imgEl.src;
+                modalImg.alt = imgEl.alt || "Instalación de la Unidad Educativa Agustín Cueva Dávila";
+            }
+            if (modalTitle && titleEl) {
+                modalTitle.textContent = titleEl.textContent.trim();
+            }
+            if (modalDesc && descEl) {
+                modalDesc.textContent = descEl.textContent.trim();
+            }
+            if (modalBadge) {
+                const badgeText = card.getAttribute("data-badge") || "Espacio Verificado";
+                modalBadge.textContent = badgeText;
+            }
+
+            imgModal.classList.remove("hidden");
+            document.body.classList.add("overflow-hidden");
+            if (window.lucide) window.lucide.createIcons();
+        });
+    });
+
+    function closeLightbox() {
+        imgModal.classList.add("hidden");
+        document.body.classList.remove("overflow-hidden");
+    }
+
+    if (closeBtn) {
+        closeBtn.addEventListener("click", closeLightbox);
+    }
+
+    imgModal.addEventListener("click", (e) => {
+        if (e.target === imgModal || e.target.classList.contains("lightbox-backdrop")) {
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !imgModal.classList.contains("hidden")) {
+            closeLightbox();
+        }
+    });
+}
+
 // ==============================================================================
 // 7. WIZARD INTERACTIVO DE CUALIFICACIÓN (4 PASOS: TEST + FORMULARIO DE CONTACTO)
 // ==============================================================================
