@@ -126,6 +126,122 @@
             transform: scale(1.25);
             filter: brightness(1.06) contrast(1.02);
         }
+
+        /* ===================================================================== */
+        /* ANIMACIONES DE INGRESO ELEGANTE Y PROFESIONAL EN EL HERO SECTION      */
+        /* ===================================================================== */
+        .hero-headline {
+            opacity: 0;
+            animation: heroHeadlineEntrance 1.15s cubic-bezier(0.16, 1, 0.3, 1) 0.12s forwards;
+            will-change: transform, opacity;
+        }
+
+        @keyframes heroHeadlineEntrance {
+            0% {
+                opacity: 0;
+                transform: translateY(32px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-phrase {
+            display: inline;
+            opacity: 0;
+            will-change: opacity, filter;
+        }
+
+        .hero-phrase-1 {
+            animation: heroPhraseReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.18s forwards;
+        }
+
+        .hero-phrase-2 {
+            animation: heroPhraseReveal 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards, heroGradientLuster 8s ease-in-out 1.4s infinite;
+            background-size: 200% auto;
+        }
+
+        .hero-phrase-3 {
+            animation: heroPhraseReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.72s forwards;
+        }
+
+        @keyframes heroPhraseReveal {
+            0% {
+                opacity: 0;
+                filter: blur(8px);
+            }
+            100% {
+                opacity: 1;
+                filter: blur(0px);
+            }
+        }
+
+        @keyframes heroGradientLuster {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* Elementos del Hero coordinados con entrada armónica */
+        .hero-elem-badge {
+            opacity: 0;
+            animation: heroElemFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
+        }
+
+        .hero-elem-slogan {
+            opacity: 0;
+            animation: heroElemFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.92s forwards;
+        }
+
+        .hero-elem-desc {
+            opacity: 0;
+            animation: heroElemFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) 1.05s forwards;
+        }
+
+        .hero-elem-ctas {
+            opacity: 0;
+            animation: heroElemFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) 1.18s forwards;
+        }
+
+        .hero-elem-character {
+            opacity: 0;
+            animation: heroElemFadeUp 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+        }
+
+        @keyframes heroElemFadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(24px);
+                filter: blur(4px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0px);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-headline,
+            .hero-phrase,
+            .hero-phrase-1,
+            .hero-phrase-2,
+            .hero-phrase-3,
+            .hero-elem-badge,
+            .hero-elem-slogan,
+            .hero-elem-desc,
+            .hero-elem-ctas,
+            .hero-elem-character {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+                filter: none !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased selection:bg-[#0B3B2C] selection:text-white">
@@ -231,10 +347,10 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-14 md:mb-16">
                 
                 <!-- Columna Izquierda: Mensaje de Bienvenida, Título, Eslogan y CTAs -->
-                <div class="lg:col-span-7 xl:col-span-8 text-center lg:text-left reveal-on-scroll opacity-0 translate-y-8 transition-all duration-700">
+                <div class="lg:col-span-7 xl:col-span-8 text-center lg:text-left">
                     
                     <!-- Badge de Autoridad -->
-                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0B3B2C]/80 border border-emerald-500/40 text-emerald-200 text-xs md:text-sm font-semibold mb-6 backdrop-blur-md shadow-sm">
+                    <div class="hero-elem-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0B3B2C]/80 border border-emerald-500/40 text-emerald-200 text-xs md:text-sm font-semibold mb-6 backdrop-blur-md shadow-sm">
                         <span class="flex h-2 w-2 relative">
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
@@ -242,13 +358,13 @@
                         <span>Educación de Calidad • Ibarra, Ecuador</span>
                     </div>
 
-                    <!-- Título Principal de la PUV (Fase 1) -->
-                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-[1.12] mb-5 text-white text-glow">
-                        En la Unidad Educativa Agustín Cueva Dávila, <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-amber-200 to-white">cada estudiante importa igual:</span> el entorno es seguro, el trato es justo y el aprendizaje ocurre en espacios dignos.
+                    <!-- Título Principal de la PUV (Fase 1) con Movimiento de Ingreso Elegante y Profesional -->
+                    <h1 class="hero-headline text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight leading-[1.12] mb-5 text-white text-glow">
+                        <span class="hero-phrase hero-phrase-1">En la Unidad Educativa Agustín Cueva Dávila, </span><span class="hero-phrase hero-phrase-2 text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-amber-200 to-white">cada estudiante importa igual:</span> <span class="hero-phrase hero-phrase-3">el entorno es seguro, el trato es justo y el aprendizaje ocurre en espacios dignos.</span>
                     </h1>
 
                     <!-- Eslogan Oficial Institucional (Hero) -->
-                    <div class="mb-6 flex items-center justify-center lg:justify-start">
+                    <div class="hero-elem-slogan mb-6 flex items-center justify-center lg:justify-start">
                         <div class="inline-flex items-center gap-2.5 sm:gap-3 px-5 py-2 rounded-full bg-white/5 border border-amber-400/30 backdrop-blur-md shadow-lg shadow-amber-950/20">
                             <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
                             <p class="font-slogan text-base sm:text-lg md:text-xl text-[#FCD34D] text-glow-gold tracking-wide">
@@ -259,12 +375,12 @@
                     </div>
 
                     <!-- Subtítulo de Conversión -->
-                    <p class="text-base sm:text-lg text-slate-200 max-w-2xl lg:max-w-none mx-auto lg:mx-0 mb-8 leading-relaxed font-light">
+                    <p class="hero-elem-desc text-base sm:text-lg text-slate-200 max-w-2xl lg:max-w-none mx-auto lg:mx-0 mb-8 leading-relaxed font-light">
                         Rompemos con las quejas históricas del mercado escolar en Ibarra: blindamos a tu familia con protocolos estrictos contra robos, valoramos el <strong>Bachillerato en Ciencias</strong> con el mismo prestigio que el Técnico, y garantizamos instalaciones higiénicas y renovadas.
                     </p>
 
                     <!-- CTAs Principales con Verde Oscuro #0B3B2C -->
-                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                    <div class="hero-elem-ctas flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                         <a href="#formulario-admision" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white font-extrabold text-base shadow-xl hover:shadow-emerald-950/40 transition-all duration-300 transform hover:-translate-y-0.5 border border-emerald-500/50 flex items-center justify-center gap-2.5">
                             <i data-lucide="sparkles" class="w-5 h-5 text-amber-300"></i>
                             <span>Consulta disponibilidad de cupos</span>
@@ -280,7 +396,7 @@
                 </div>
 
                 <!-- Columna Derecha: Personaje 3D Agustín Flotante -->
-                <div class="lg:col-span-5 xl:col-span-4 flex flex-col items-center justify-center relative mt-4 lg:mt-0 reveal-on-scroll opacity-0 translate-y-8 transition-all duration-700 delay-150">
+                <div class="lg:col-span-5 xl:col-span-4 flex flex-col items-center justify-center relative mt-4 lg:mt-0 hero-elem-character">
                     <!-- Resplandor Aura Institucional -->
                     <div class="absolute w-60 h-60 sm:w-72 sm:h-72 rounded-full bg-emerald-500/20 blur-3xl pointer-events-none -z-0"></div>
                     <div class="absolute w-44 h-44 sm:w-56 sm:h-56 rounded-full bg-amber-400/15 blur-2xl pointer-events-none -z-0"></div>
@@ -2133,9 +2249,9 @@
     </script>
 
     <!-- SCRIPTS DE ARQUITECTURA CON CACHE BUSTING -->
-    <script src="/api/env.js?v=20261012_v3"></script>
-    <script src="config.js?v=20261012_v3"></script>
-    <script src="supabase-client.js?v=20261012_v3"></script>
-    <script src="app.js?v=20261012_v3"></script>
+    <script src="/api/env.js?v=20261012_v4"></script>
+    <script src="config.js?v=20261012_v4"></script>
+    <script src="supabase-client.js?v=20261012_v4"></script>
+    <script src="app.js?v=20261012_v4"></script>
 </body>
 </html>
