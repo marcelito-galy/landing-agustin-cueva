@@ -26,10 +26,10 @@ const APP_CONFIG = {
     // WhatsApp institucional de admisiones para cierre rápido
     WHATSAPP_NUMBER: "593959920177", // Formato internacional Ecuador
 
-    // Video institucional (Ruta de archivo MP4 local o URL de YouTube / Vimeo)
-    // 📁 Opción A (Archivo local): "assets/videos/video-institucional.mp4"
+    // Video institucional oficial (Ruta de archivo MP4 local o URL de YouTube / Vimeo)
+    // 📁 Opción A (Archivo local oficial): "assets/videos/video-ueacd.mp4"
     // 🌐 Opción B (YouTube): "https://www.youtube.com/embed/TU_CODIGO_DE_VIDEO"
-    INSTITUTIONAL_VIDEO_URL: window.ENV?.INSTITUTIONAL_VIDEO_URL || "assets/videos/video-institucional.mp4",
+    INSTITUTIONAL_VIDEO_URL: window.ENV?.INSTITUTIONAL_VIDEO_URL || "assets/videos/video-ueacd.mp4",
 
     // Configuración de rangos para descalificación MOFU (Growth Hacking)
     QUALIFICATION_RULES: {

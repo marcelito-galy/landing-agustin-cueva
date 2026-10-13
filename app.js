@@ -296,13 +296,22 @@ function initVideoLightbox() {
     function closeVideo() {
         videoModal.classList.add("hidden");
         document.body.classList.remove("overflow-hidden");
-        if (videoFrame) videoFrame.innerHTML = "";
+        if (videoFrame) {
+            const vid = videoFrame.querySelector("video");
+            if (vid) {
+                try {
+                    vid.pause();
+                    vid.currentTime = 0;
+                } catch(e) {}
+            }
+            videoFrame.innerHTML = "";
+        }
     }
 
     function loadVideoContent(type) {
         if (!videoFrame) return;
 
-        const videoSrc = window.APP_CONFIG?.INSTITUTIONAL_VIDEO_URL || "assets/videos/video-institucional.mp4";
+        const videoSrc = window.APP_CONFIG?.INSTITUTIONAL_VIDEO_URL || "assets/videos/video-ueacd.mp4";
 
         // Caso 1: Enlace de YouTube o Vimeo
         if (videoSrc.includes("youtube.com") || videoSrc.includes("youtu.be")) {
@@ -316,29 +325,32 @@ function initVideoLightbox() {
             }
 
             videoFrame.innerHTML = `
-                <div class="relative w-full aspect-video max-w-2xl mx-auto bg-black rounded-3xl overflow-hidden shadow-2xl border-2 border-emerald-500/30">
+                <div class="relative w-full aspect-video max-w-3xl mx-auto bg-black rounded-3xl overflow-hidden shadow-2xl border-2 border-emerald-500/30">
                     <iframe src="${embedUrl}" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             `;
             return;
         }
 
-        // Caso 2: Archivo de Video MP4 local (con fallback interactivo si el archivo aún no existe)
+        // Caso 2: Archivo de Video MP4 local (con soporte directo a video-ueacd.mp4)
         videoFrame.innerHTML = `
-            <div class="relative w-full aspect-[9/16] sm:aspect-video max-h-[80vh] max-w-2xl mx-auto bg-slate-950 rounded-3xl overflow-hidden shadow-2xl flex flex-col justify-between p-4 sm:p-6 text-white border-2 border-emerald-500/40">
+            <div class="relative w-full aspect-[16/9] sm:aspect-video max-h-[82vh] max-w-3xl mx-auto bg-black rounded-3xl overflow-hidden shadow-2xl flex flex-col justify-between text-white border-2 border-emerald-500/40">
                 
-                <!-- Video Element HTML5 -->
-                <video id="acdInstitutionalVideo" controls autoplay playsinline class="absolute inset-0 w-full h-full object-cover z-0">
-                    <source src="${videoSrc}" type="video/mp4">
+                <!-- Video Element HTML5 con múltiples fallbacks -->
+                <video id="acdInstitutionalVideo" controls autoplay playsinline class="w-full h-full object-contain bg-black z-0">
+                    <source src="${videoSrc}?v=20261012" type="video/mp4">
+                    <source src="assets/videos/video-ueacd.mp4?v=20261012" type="video/mp4">
+                    <source src="videos/video-ueacd.mp4?v=20261012" type="video/mp4">
+                    <source src="assets/videos/video-institucional.mp4" type="video/mp4">
                     <source src="videos/video-institucional.mp4" type="video/mp4">
                     Tu navegador no soporta reproducción de video HTML5.
                 </video>
 
-                <!-- Overlay de Contingencia si el archivo local aún no se ha copiado -->
+                <!-- Overlay de Contingencia si el archivo local aún no se encuentra -->
                 <div id="videoFallbackOverlay" class="hidden absolute inset-0 bg-[#0A192F]/95 z-10 flex flex-col justify-between p-6 text-center">
                     <div class="flex items-center justify-between">
-                        <span class="text-[10px] bg-emerald-800 text-emerald-200 px-2.5 py-1 rounded-full font-bold uppercase tracking-wider">Video Institucional (30s)</span>
-                        <span class="text-xs text-slate-400">Agustín Cueva Dávila</span>
+                        <span class="text-[10px] bg-emerald-800 text-emerald-200 px-2.5 py-1 rounded-full font-bold uppercase tracking-wider">Spot Institucional Oficial</span>
+                        <span class="text-xs text-slate-400">U.E "Agustín Cueva Dávila"</span>
                     </div>
 
                     <div class="my-auto space-y-3 px-2">
@@ -346,13 +358,13 @@ function initVideoLightbox() {
                             🎬
                         </div>
                         <h4 class="text-base sm:text-lg font-extrabold text-white">
-                            "En Agustín Cueva Dávila, cada estudiante importa igual"
+                            "Educación con historia, excelencia con futuro"
                         </h4>
                         <p class="text-xs text-slate-300 max-w-sm mx-auto leading-relaxed">
-                            Para reproducir tu propio video en este espacio, solo debes guardar tu archivo <strong>.mp4</strong> en:
+                            Spot Institucional oficial de la institución.
                         </p>
                         <div class="p-2.5 bg-black/60 rounded-xl text-[11px] font-mono text-emerald-400 border border-emerald-500/30 max-w-sm mx-auto">
-                            assets/videos/video-institucional.mp4
+                            assets/videos/video-ueacd.mp4
                         </div>
                     </div>
 
@@ -365,12 +377,15 @@ function initVideoLightbox() {
             </div>
         `;
 
-        // Si el video falla al cargar (por ejemplo, porque el usuario aún no coloca el archivo en assets/videos/), mostrar el overlay instructivo
+        // Monitoreo de carga y reproducción automática
         const vidElem = document.getElementById("acdInstitutionalVideo");
         const fallbackOverlay = document.getElementById("videoFallbackOverlay");
         if (vidElem && fallbackOverlay) {
             vidElem.addEventListener("error", () => {
                 fallbackOverlay.classList.remove("hidden");
+            });
+            vidElem.play().catch(() => {
+                // Manejo de restricciones de reproducción automática del navegador
             });
         }
     }

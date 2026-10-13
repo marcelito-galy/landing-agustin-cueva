@@ -245,11 +245,11 @@
                             <span>Consulta disponibilidad de cupos</span>
                         </a>
 
-                        <button type="button" class="open-video-btn w-full sm:w-auto px-7 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-base border border-white/25 backdrop-blur-md transition-all flex items-center justify-center gap-2.5 group" data-video-type="reel_30s">
+                        <button type="button" class="open-video-btn w-full sm:w-auto px-7 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-base border border-white/25 backdrop-blur-md transition-all flex items-center justify-center gap-2.5 group" data-video-type="spot_institucional">
                             <div class="w-7 h-7 rounded-full bg-white text-[#0B3B2C] flex items-center justify-center group-hover:scale-110 transition-transform">
                                 <i data-lucide="play" class="w-3.5 h-3.5 fill-current ml-0.5"></i>
                             </div>
-                            <span>Ver Spot Institucional (30s)</span>
+                            <span>Ver Spot Institucional</span>
                         </button>
                     </div>
                 </div>
@@ -880,9 +880,9 @@
 
                 <!-- Botón para ver video reel -->
                 <div>
-                    <button type="button" class="open-video-btn px-5 py-3 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white font-bold text-xs sm:text-sm flex items-center gap-2 transition-colors shadow-md group border border-emerald-500/30" data-video-type="tour_reels">
+                    <button type="button" class="open-video-btn px-5 py-3 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white font-bold text-xs sm:text-sm flex items-center gap-2 transition-colors shadow-md group border border-emerald-500/30" data-video-type="spot_institucional">
                         <i data-lucide="film" class="w-4 h-4 text-amber-400 group-hover:scale-110 transition-transform"></i>
-                        <span>Reproducir Reel Institucional (30s)</span>
+                        <span>Reproducir Video Institucional</span>
                     </button>
                 </div>
             </div>
@@ -1981,11 +1981,11 @@
     </div>
 
     <!-- ========================================================================= -->
-    <!-- 13. VIDEO LIGHTBOX MODAL (REELS Y SPOT INSTITUCIONAL 30s)                 -->
+    <!-- 13. VIDEO LIGHTBOX MODAL (REELS Y SPOT INSTITUCIONAL)                     -->
     <!-- ========================================================================= -->
     <div id="videoModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md animate-fadeIn">
-        <div class="relative w-full max-w-sm mx-auto">
-            <button id="closeVideoBtn" type="button" aria-label="Cerrar reproductor" class="absolute -top-12 right-0 w-10 h-10 rounded-full bg-white/20 hover:bg-white text-white hover:text-slate-900 flex items-center justify-center backdrop-blur-md transition-colors">
+        <div class="relative w-full max-w-3xl mx-auto">
+            <button id="closeVideoBtn" type="button" aria-label="Cerrar reproductor" class="absolute -top-12 right-0 w-10 h-10 rounded-full bg-white/20 hover:bg-white text-white hover:text-slate-900 flex items-center justify-center backdrop-blur-md transition-colors z-20">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
             
@@ -2044,9 +2044,9 @@
     </script>
 
     <!-- SCRIPTS DE ARQUITECTURA CON CACHE BUSTING -->
-    <script src="/api/env.js?v=20261011_v3"></script>
-    <script src="config.js?v=20261011_v3"></script>
-    <script src="supabase-client.js?v=20261011_v3"></script>
-    <script src="app.js?v=20261011_v3"></script>
+    <script src="/api/env.js?v=20261012_v1"></script>
+    <script src="config.js?v=20261012_v1"></script>
+    <script src="supabase-client.js?v=20261012_v1"></script>
+    <script src="app.js?v=20261012_v1"></script>
 </body>
 </html>

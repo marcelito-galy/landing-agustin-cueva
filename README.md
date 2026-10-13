@@ -64,12 +64,14 @@ landing-agustin-cueva/
 ├── vercel.json           # Configuración de producción para Vercel
 ├── assets/
 │   ├── logo-acd.svg      # Emblema oficial vectorial
-│   └── images/           # Carpeta para tus fotos reales
-│       ├── fachada-colegio.jpg
-│       ├── aulas-laboratorios.jpg
-│       ├── estadio-deportes.jpg
-│       ├── actividades-tecnicas.jpg
-│       └── bar-comedor.jpg
+│   ├── images/           # Carpeta para tus fotos reales
+│   │   ├── fachada-colegio.jpg
+│   │   ├── aulas-laboratorios.jpg
+│   │   ├── estadio-deportes.jpg
+│   │   ├── actividades-tecnicas.jpg
+│   │   └── bar-comedor.jpg
+│   └── videos/           # Video spot institucional oficial
+│       └── video-ueacd.mp4
 └── supabase/
     └── schema.sql        # Script SQL completo de la tabla 'leads' y políticas RLS
 ```
