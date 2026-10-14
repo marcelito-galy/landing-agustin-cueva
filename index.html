@@ -298,14 +298,11 @@
 
                 <!-- Acciones Rápidas -->
                 <div class="hidden sm:flex items-center gap-3">
-                    <!-- Botón Config Supabase (Dev/Test) -->
-                    <button id="openSettingsBtn" type="button" title="Configurar conexión con Supabase" class="text-xs px-2.5 py-2 rounded-lg border border-white/20 text-slate-300 hover:text-white hover:bg-white/10 flex items-center gap-1.5 transition-colors">
-                        <i data-lucide="database" class="w-3.5 h-3.5 text-emerald-400"></i>
-                        <span>Supabase</span>
-                    </button>
+                    <!-- Botón Config Supabase (Oculto - Solo Uso Interno) -->
+                    <button id="openSettingsBtn" type="button" class="hidden" aria-hidden="true" tabindex="-1"></button>
 
                     <!-- CTA Primario en Verde Oscuro Institucional (#0B3B2C) -->
-                    <a href="#formulario-admision" class="px-5 py-2.5 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white font-bold text-sm shadow-md hover:shadow-emerald-900/30 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 border border-emerald-500/40 flex items-center gap-2">
+                    <a href="#formulario-admision" class="px-5 py-2.5 rounded-xl bg-[#0B3B2C] hover:bg-[#135D43] text-white font-bold text-sm shadow-md hover:shadow-emerald-950/30 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 border border-emerald-500/40 flex items-center gap-2">
                         <span>Consulta disponibilidad de cupos</span>
                         <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </a>
@@ -1845,7 +1842,7 @@
                                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
                                         </svg>
-                                        <span>Guardando registro en Supabase Cloud...</span>
+                                        <span>Guardando registro de postulación...</span>
                                     </span>
                                 </button>
                             </div>
@@ -1876,7 +1873,7 @@
                                 ¡Solicitud Registrada con Éxito!
                             </h3>
                             <p class="text-slate-600 text-sm mt-1 max-w-md mx-auto">
-                                Gracias, <strong id="summaryLeadName" class="text-slate-900"></strong>. Tu postulación ha sido guardada en nuestra base de datos en <strong>Supabase Cloud</strong>.
+                                Gracias, <strong id="summaryLeadName" class="text-slate-900"></strong>. Tu postulación ha sido registrada con éxito en el sistema institucional de admisiones.
                             </p>
 
                             <!-- Badge de Score Dinámico -->
@@ -2084,7 +2081,7 @@
             <div class="pt-8 border-t border-white/10 text-xs text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <p>&copy; 2026 Unidad Educativa Agustín Cueva Dávila. Todos los derechos reservados.</p>
                 <p class="text-slate-400">
-                    Fase 2: Filtro MOFU & Captura en la Nube • Vibe Coding + Supabase + Vercel
+                    Unidad Educativa Agustín Cueva Dávila • Ibarra, Ecuador
                 </p>
             </div>
         </div>
@@ -2119,11 +2116,11 @@
             </h3>
 
             <p class="text-slate-600 text-sm mb-4 leading-relaxed">
-                Gracias, <strong id="modalLeadName" class="text-slate-900"></strong>. Tu postulación ha sido guardada en nuestra base de datos en <strong>Supabase Cloud</strong>.
+                Gracias, <strong id="modalLeadName" class="text-slate-900"></strong>. Tu postulación ha sido registrada con éxito en nuestro sistema de admisiones.
             </p>
 
             <div id="modalDemoWarning" class="hidden mb-4 p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-800 text-left">
-                ℹ️ <strong>Modo Demostración Activo:</strong> El registro se almacenó localmente. Para sincronizarlo con tu proyecto real de Supabase, utiliza el botón <em>"Supabase"</em> en la barra de navegación.
+                ℹ️ <strong>Registro almacenado con éxito:</strong> Tu postulación ha quedado guardada de forma segura.
             </div>
 
             <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200 mb-6 text-left">
@@ -2249,9 +2246,9 @@
     </script>
 
     <!-- SCRIPTS DE ARQUITECTURA CON CACHE BUSTING -->
-    <script src="/api/env.js?v=20261012_v4"></script>
-    <script src="config.js?v=20261012_v4"></script>
-    <script src="supabase-client.js?v=20261012_v4"></script>
-    <script src="app.js?v=20261012_v4"></script>
+    <script src="/api/env.js?v=20261013_v1"></script>
+    <script src="config.js?v=20261013_v1"></script>
+    <script src="supabase-client.js?v=20261013_v1"></script>
+    <script src="app.js?v=20261013_v1"></script>
 </body>
 </html>

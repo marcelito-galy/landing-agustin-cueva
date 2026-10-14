@@ -730,14 +730,14 @@ function initQualificationWizard() {
                     timestamp: new Date().toISOString()
                 });
 
-                let displayMessage = error.message || "Error de comunicación con Supabase.";
+                let displayMessage = error.message || "Error de comunicación.";
                 if (displayMessage.includes("Invalid path") || displayMessage.includes("PGRST125")) {
-                    displayMessage = "URL de Supabase incorrecta. Verifica las variables de entorno en Vercel.";
+                    displayMessage = "No se pudo conectar con el servidor.";
                 } else if (displayMessage.includes("Could not find the table") || displayMessage.includes("PGRST205")) {
-                    displayMessage = "La tabla 'public.leads' no existe en el proyecto de Supabase configurado.";
+                    displayMessage = "Servicio no disponible temporalmente.";
                 }
 
-                showWizardAlert(`Error al registrar en Supabase: ${displayMessage}`, "error");
+                showWizardAlert("No se pudo completar el registro en este momento. Por favor, intenta de nuevo o comunícate directamente por WhatsApp.", "error");
             } finally {
                 toggleSubmitLoading(false);
             }
@@ -906,13 +906,25 @@ function initSettingsModal() {
     const inputUrl = document.getElementById("cfg_supabase_url");
     const inputKey = document.getElementById("cfg_supabase_key");
 
-    if (settingsBtn && settingsModal) {
-        settingsBtn.addEventListener("click", () => {
-            if (inputUrl) inputUrl.value = window.APP_CONFIG.SUPABASE_URL || "";
-            if (inputKey) inputKey.value = window.APP_CONFIG.SUPABASE_ANON_KEY || "";
-            settingsModal.classList.remove("hidden");
-            if (window.lucide) window.lucide.createIcons();
-        });
+    function openModal() {
+        if (!settingsModal) return;
+        if (inputUrl) inputUrl.value = window.APP_CONFIG.SUPABASE_URL || "";
+        if (inputKey) inputKey.value = window.APP_CONFIG.SUPABASE_ANON_KEY || "";
+        settingsModal.classList.remove("hidden");
+        if (window.lucide) window.lucide.createIcons();
+    }
+
+    // Acceso interno para administradores
+    window.openSettingsModal = openModal;
+    document.addEventListener("keydown", (e) => {
+        if (e.ctrlKey && e.shiftKey && (e.key === "S" || e.key === "s")) {
+            e.preventDefault();
+            openModal();
+        }
+    });
+
+    if (settingsBtn) {
+        settingsBtn.addEventListener("click", openModal);
     }
 
     if (closeSettingsBtn && settingsModal) {
