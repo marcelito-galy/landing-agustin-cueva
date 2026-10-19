@@ -3,12 +3,6 @@
   "name": "landing-agustin-cueva-davila",
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [
-    {
-      "source": "/admin",
-      "destination": "/admin.html"
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
