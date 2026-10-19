@@ -681,11 +681,7 @@ function initQualificationWizard() {
             const prioridadPilar = wizardState.answers.q2 || "Nivel académico y formación integral";
             const urgenciaPlazo = wizardState.answers.q3 || "Lo antes posible / Este mes";
 
-            // 2. Cálculo del Score de Urgencia acumulado (Q1 + Q2 + Q3)
-            const totalScore = (wizardState.points.q1 || 10) + (wizardState.points.q2 || 10) + (wizardState.points.q3 || 80);
-            const scoreString = `${totalScore}/100`;
-
-            // Guardar datos en el estado interno
+            // 2. Guardar datos en el estado interno
             wizardState.lead.full_name = fullNameVal;
             wizardState.lead.email = emailVal;
             wizardState.lead.whatsapp = whatsappVal;
@@ -693,18 +689,30 @@ function initQualificationWizard() {
             wizardState.lead.residence_sector = residenceSectorVal;
             wizardState.lead.primary_pain = primaryPainVal;
 
-            // 3. Estructuración del Payload para la tabla 'leads' en Supabase
-            // - 'company': almacena la Ocupación
-            // - 'estimated_budget': almacena el Sector de Residencia / Zonificación (reemplazo de presupuesto)
-            // - 'primary_pain': almacena el dolor principal / obstáculo
-            const payloadData = {
+            // 3. Estructuración del Payload y cálculo con Motor de Lead Scoring Automático BOFU (0-100 pts)
+            const baseLeadData = {
                 full_name: fullNameVal,
                 email: emailVal,
                 whatsapp: whatsappVal,
                 company: occupationVal,                        // Ocupación
-                estimated_budget: residenceSectorVal,          // Sector de Residencia / Zonificación
-                primary_pain: primaryPainVal,                  // Frustración en colegios anteriores
-                notes: `Test Admisión (4 Pasos) | Nivel: ${nivelEducativo} | Prioridad: ${prioridadPilar} | Plazo: ${urgenciaPlazo} | Score: ${scoreString} | Ocupación: ${occupationVal} | Sector: ${residenceSectorVal} | Frustración: ${primaryPainVal}`
+                estimated_budget: residenceSectorVal,          // Sector de Residencia / Presupuesto
+                primary_pain: primaryPainVal,                  // Frustración / Dolor Principal
+                notes: `Test Admisión (4 Pasos) | Nivel: ${nivelEducativo} | Prioridad: ${prioridadPilar} | Plazo: ${urgenciaPlazo} | Ocupación: ${occupationVal} | Sector: ${residenceSectorVal} | Frustración: ${primaryPainVal}`
+            };
+
+            const bofuScoring = window.supabaseService?.calculateLeadScore
+                ? window.supabaseService.calculateLeadScore(baseLeadData)
+                : { score: 85, categoria_lead: "🔥 Prioridad Alta", estado: "Nuevo" };
+
+            const totalScore = bofuScoring.score;
+            const scoreString = `${totalScore}/100`;
+
+            const payloadData = {
+                ...baseLeadData,
+                score: totalScore,
+                categoria_lead: bofuScoring.categoria_lead,
+                estado: "Nuevo",
+                notes: `${baseLeadData.notes} | Score: ${scoreString} (${bofuScoring.categoria_lead})`
             };
 
             toggleSubmitLoading(true);
@@ -719,7 +727,7 @@ function initQualificationWizard() {
                 console.log("✅ [Supabase Lead Insert] Postulación registrada con éxito:", result);
 
                 // 5. Transición a la pantalla de resultado y armado de WhatsApp
-                showResultScreen(scoreString, totalScore);
+                showResultScreen(scoreString, totalScore, bofuScoring.categoria_lead);
 
             } catch (error) {
                 console.error("❌ [Wizard Submit Error] Error al enviar lead a Supabase:", error);
@@ -744,7 +752,7 @@ function initQualificationWizard() {
         });
     }
 
-    function showResultScreen(scoreString, totalScore) {
+    function showResultScreen(scoreString, totalScore, categoriaLead = "") {
         // Transición hacia la pantalla de éxito (Paso 5)
         goToStep(5);
 
@@ -759,18 +767,18 @@ function initQualificationWizard() {
         if (summaryPriorityText) summaryPriorityText.textContent = wizardState.answers.q2 || "Nivel académico";
         if (summaryUrgencyText) summaryUrgencyText.textContent = wizardState.answers.q3 || "Lo antes posible";
 
-        // Estilos dinámicos del badge de urgencia
+        // Estilos dinámicos del badge de urgencia según clasificación BOFU (75-100 Alta, 45-74 Media, <45 Baja)
         if (scoreBadgeContainer) {
             scoreBadgeContainer.className = "my-5 inline-flex items-center gap-2 px-4 py-2 rounded-2xl text-xs sm:text-sm font-extrabold border shadow-sm";
-            if (totalScore >= 90) {
+            if (totalScore >= 75) {
                 scoreBadgeContainer.classList.add("bg-emerald-50", "text-emerald-900", "border-emerald-300");
-                scoreBadgeContainer.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span><span>Nivel de Urgencia Calculado: </span><span class="text-base font-black text-emerald-950">${scoreString} (Prioridad Alta)</span>`;
-            } else if (totalScore >= 50) {
-                scoreBadgeContainer.classList.add("bg-blue-50", "text-blue-900", "border-blue-300");
-                scoreBadgeContainer.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span><span>Nivel de Urgencia Calculado: </span><span class="text-base font-black text-blue-950">${scoreString} (Próximo Periodo)</span>`;
+                scoreBadgeContainer.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span><span>Score de Prioridad: </span><span class="text-base font-black text-emerald-950">${scoreString} (${categoriaLead || "🔥 Prioridad Alta"})</span>`;
+            } else if (totalScore >= 45) {
+                scoreBadgeContainer.classList.add("bg-amber-50", "text-amber-900", "border-amber-300");
+                scoreBadgeContainer.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span><span>Score de Prioridad: </span><span class="text-base font-black text-amber-950">${scoreString} (${categoriaLead || "⚡ Prioridad Media"})</span>`;
             } else {
                 scoreBadgeContainer.classList.add("bg-slate-100", "text-slate-800", "border-slate-300");
-                scoreBadgeContainer.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span><span>Nivel de Urgencia Calculado: </span><span class="text-base font-black text-slate-900">${scoreString} (Informativo)</span>`;
+                scoreBadgeContainer.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span><span>Score de Prioridad: </span><span class="text-base font-black text-slate-900">${scoreString} (${categoriaLead || "❄️ Prioridad Baja"})</span>`;
             }
         }
 
